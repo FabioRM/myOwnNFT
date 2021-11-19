@@ -1298,6 +1298,7 @@ contract LasVulvas is ERC721Pausable, Ownable {
     uint256 private constant _maxMint = 25;
     uint256 private constant _maxPresaleMint = 2;
     uint256 public constant _price = 90000000000000000; // 90000000000000000 is 0.09 ETH
+                                                        // 1000000000000000000 is 1 ETH
 
     mapping(address => bool) private _whitelist;
     mapping(address => uint256) private _presaleMints;

@@ -1,100 +1,43 @@
-// contracts/Anonymice.sol
+// contracts/MyOwnNft.sol
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "./ICheeth.sol";
-import "./AnonymiceLibrary.sol";
+import "./MyOwnNftLibrary.sol";
 
-contract Anonymice is ERC721Enumerable {
-    /*
-  ___                                    _          
- / _ \                                  (_)         
-/ /_\ \_ __   ___  _ __  _   _ _ __ ___  _  ___ ___ 
-|  _  | '_ \ / _ \| '_ \| | | | '_ ` _ \| |/ __/ _ \
-| | | | | | | (_) | | | | |_| | | | | | | | (_|  __/
-\_| |_/_| |_|\___/|_| |_|\__, |_| |_| |_|_|\___\___|
-                          __/ |                     
-                         |___/                      
-*/
-    using AnonymiceLibrary for uint8;
+contract MyOwnNft is ERC721Enumerable {
+    using MyOwnNftLibrary for uint8;
 
-    struct Trait {
-        string traitName;
-        string traitType;
+    struct CustomNftContent {
+        string line1;
+        string line2;
+        string line3;
+        string line4;
+        string line5;
+        uint256 amount_paid;
+    }
+
+    struct CharacterData {
+        bytes1 character;
         string pixels;
         uint256 pixelCount;
     }
 
 
     //Mappings
-    mapping(uint256 => Trait[]) public traitTypes;
-    mapping(string => bool) hashToMinted;
-    mapping(uint256 => string) internal tokenIdToHash;
+    mapping(uint256 => CustomNftContent[]) public customNftsContent;
+    mapping(uint256 => CharacterData[]) public charactersData;
 
     //uint256s
-    uint256 MAX_SUPPLY = 10000;
-    uint256 MINTS_PER_TIER = 2000;
-    uint256 SEED_NONCE = 0;
-
-    //string arrays
-    string[] LETTERS = [
-        "a",
-        "b",
-        "c",
-        "d",
-        "e",
-        "f",
-        "g",
-        "h",
-        "i",
-        "j",
-        "k",
-        "l",
-        "m",
-        "n",
-        "o",
-        "p",
-        "q",
-        "r",
-        "s",
-        "t",
-        "u",
-        "v",
-        "w",
-        "x",
-        "y",
-        "z"
-    ];
-
-    //uint arrays
-    uint16[][8] TIERS;
+    uint256 MAX_SUPPLY = 100000; // to decide carefully!!!!!!
+    uint256 MAX_PER_ADDRESS = 5; // to implement!!!!!!
+    uint256 MIN_PRICE = 1000000000000000000; // to check!!!!!!!
 
     //address
-    address cheethAddress;
     address _owner;
 
-    constructor() ERC721("Anonymice", "MICE") {
+    constructor() ERC721("MyOwnNft", "MON") {
         _owner = msg.sender;
-
-        //Declare all the rarity tiers
-
-        //Hat
-        TIERS[0] = [50, 150, 200, 300, 400, 500, 600, 900, 1200, 5700];
-        //whiskers
-        TIERS[1] = [200, 800, 1000, 3000, 5000];
-        //Neck
-        TIERS[2] = [300, 800, 900, 1000, 7000];
-        //Earrings
-        TIERS[3] = [50, 200, 300, 300, 9150];
-        //Eyes
-        TIERS[4] = [50, 100, 400, 450, 500, 700, 1800, 2000, 2000, 2000];
-        //Mouth
-        TIERS[5] = [1428, 1428, 1428, 1429, 1429, 1429, 1429];
-        //Nose
-        TIERS[6] = [2000, 2000, 2000, 2000, 2000];
-        //Character
-        TIERS[7] = [20, 70, 721, 1000, 1155, 1200, 1300, 1434, 1541, 1559];
     }
 
     /*
@@ -106,104 +49,22 @@ contract Anonymice is ERC721Enumerable {
    */
 
     /**
-     * @dev Converts a digit from 0 - 10000 into its corresponding rarity based on the given rarity tier.
-     * @param _randinput The input from 0 - 10000 to use for rarity gen.
-     * @param _rarityTier The tier to use.
-     */
-    function rarityGen(uint256 _randinput, uint8 _rarityTier)
-        internal
-        view
-        returns (string memory)
-    {
-        uint16 currentLowerBound = 0;
-        for (uint8 i = 0; i < TIERS[_rarityTier].length; i++) {
-            uint16 thisPercentage = TIERS[_rarityTier][i];
-            if (
-                _randinput >= currentLowerBound &&
-                _randinput < currentLowerBound + thisPercentage
-            ) return i.toString();
-            currentLowerBound = currentLowerBound + thisPercentage;
-        }
-
-        revert();
-    }
-
-    /**
-     * @dev Generates a 9 digit hash from a tokenId, address, and random number.
-     * @param _t The token id to be used within the hash.
-     * @param _a The address to be used within the hash.
-     * @param _c The custom nonce to be used within the hash.
-     */
-    function hash(
-        uint256 _t,
-        address _a,
-        uint256 _c
-    ) internal returns (string memory) {
-        require(_c < 10);
-
-        // This will generate a 9 character string.
-        //The last 8 digits are random, the first is 0, due to the mouse not being burned.
-        string memory currentHash = "0";
-
-        for (uint8 i = 0; i < 8; i++) {
-            SEED_NONCE++;
-            uint16 _randinput = uint16(
-                uint256(
-                    keccak256(
-                        abi.encodePacked(
-                            block.timestamp,
-                            block.difficulty,
-                            _t,
-                            _a,
-                            _c,
-                            SEED_NONCE
-                        )
-                    )
-                ) % 10000
-            );
-
-            currentHash = string(
-                abi.encodePacked(currentHash, rarityGen(_randinput, i))
-            );
-        }
-
-        if (hashToMinted[currentHash]) return hash(_t, _a, _c + 1);
-
-        return currentHash;
-    }
-
-    /**
-     * @dev Returns the current cheeth cost of minting.
-     */
-    function currentCheethCost() public view returns (uint256) {
-        uint256 _totalSupply = totalSupply();
-
-        if (_totalSupply <= 2000) return 0;
-        if (_totalSupply > 2000 && _totalSupply <= 4000)
-            return 1000000000000000000;
-        if (_totalSupply > 4000 && _totalSupply <= 6000)
-            return 2000000000000000000;
-        if (_totalSupply > 6000 && _totalSupply <= 8000)
-            return 3000000000000000000;
-        if (_totalSupply > 8000 && _totalSupply <= 10000)
-            return 4000000000000000000;
-
-        revert();
-    }
-
-    /**
      * @dev Mint internal, this is to avoid code duplication.
      */
-    function mintInternal() internal {
+    function mintInternal(string memory line1, string memory line2, string memory line3, string memory line4, string memory line5, uint256 amount_paid) internal {
         uint256 _totalSupply = totalSupply();
         require(_totalSupply < MAX_SUPPLY);
-        require(!AnonymiceLibrary.isContract(msg.sender));
+        require(!MyOwnNftLibrary.isContract(msg.sender));
 
         uint256 thisTokenId = _totalSupply;
 
-        tokenIdToHash[thisTokenId] = hash(thisTokenId, msg.sender, 0);
-
-        hashToMinted[tokenIdToHash[thisTokenId]] = true;
+        customNftsContent[thisTokenId].line1 = line1;
+        customNftsContent[thisTokenId].line2 = line2;
+        customNftsContent[thisTokenId].line3 = line3;
+        customNftsContent[thisTokenId].line4 = line4;
+        customNftsContent[thisTokenId].line5 = line5;
+        customNftsContent[thisTokenId].line5 = line5;
+        customNftsContent[thisTokenId].amount_paid = amount_paid;
 
         _mint(msg.sender, thisTokenId);
     }
@@ -211,32 +72,15 @@ contract Anonymice is ERC721Enumerable {
     /**
      * @dev Mints new tokens.
      */
-    function mintMouse(string memory line1, string memory line2) public {
-        require(bytes(line1).length < 20);
-        require(bytes(line2).length < 20);
-        if (totalSupply() < MINTS_PER_TIER) return mintInternal();
+    function mintNft(string memory line1, string memory line2, string memory line3, string memory line4, string memory line5) public {
+        require(bytes(line1).length < 24);
+        require(bytes(line2).length < 24);
+        require(bytes(line3).length < 24);
+        require(bytes(line4).length < 24);
+        require(bytes(line5).length < 24);
+        require(msg.value >= MIN_PRICE);
 
-        //Burn this much cheeth
-        ICheeth(cheethAddress).burnFrom(msg.sender, currentCheethCost());
-
-        return mintInternal();
-    }
-
-    /**
-     * @dev Burns and mints new.
-     * @param _tokenId The token to burn.
-     */
-    function burnForMint(uint256 _tokenId) public {
-        require(ownerOf(_tokenId) == msg.sender);
-
-        //Burn token
-        _transfer(
-            msg.sender,
-            0x000000000000000000000000000000000000dEaD,
-            _tokenId
-        );
-
-        mintInternal();
+        return mintInternal(line1, line2, line3, line4, line5, msg.value);
     }
 
     /*
@@ -279,8 +123,8 @@ contract Anonymice is ERC721Enumerable {
         bool[24][24] memory placedPixels;
 
         for (uint8 i = 0; i < 9; i++) {
-            uint8 thisTraitIndex = AnonymiceLibrary.parseInt(
-                AnonymiceLibrary.substring(_hash, i, i + 1)
+            uint8 thisTraitIndex = MyOwnNftLibrary.parseInt(
+                MyOwnNftLibrary.substring(_hash, i, i + 1)
             );
 
             for (
@@ -288,17 +132,17 @@ contract Anonymice is ERC721Enumerable {
                 j < traitTypes[i][thisTraitIndex].pixelCount;
                 j++
             ) {
-                string memory thisPixel = AnonymiceLibrary.substring(
+                string memory thisPixel = MyOwnNftLibrary.substring(
                     traitTypes[i][thisTraitIndex].pixels,
                     j * 4,
                     j * 4 + 4
                 );
 
                 uint8 x = letterToNumber(
-                    AnonymiceLibrary.substring(thisPixel, 0, 1)
+                    MyOwnNftLibrary.substring(thisPixel, 0, 1)
                 );
                 uint8 y = letterToNumber(
-                    AnonymiceLibrary.substring(thisPixel, 1, 2)
+                    MyOwnNftLibrary.substring(thisPixel, 1, 2)
                 );
 
                 if (placedPixels[x][y]) continue;
@@ -307,7 +151,7 @@ contract Anonymice is ERC721Enumerable {
                     abi.encodePacked(
                         svgString,
                         "<rect class='c",
-                        AnonymiceLibrary.substring(thisPixel, 2, 4),
+                        MyOwnNftLibrary.substring(thisPixel, 2, 4),
                         "' x='",
                         x.toString(),
                         "' y='",
@@ -342,8 +186,8 @@ contract Anonymice is ERC721Enumerable {
         string memory metadataString;
 
         for (uint8 i = 0; i < 9; i++) {
-            uint8 thisTraitIndex = AnonymiceLibrary.parseInt(
-                AnonymiceLibrary.substring(_hash, i, i + 1)
+            uint8 thisTraitIndex = MyOwnNftLibrary.parseInt(
+                MyOwnNftLibrary.substring(_hash, i, i + 1)
             );
 
             metadataString = string(
@@ -382,14 +226,14 @@ contract Anonymice is ERC721Enumerable {
             string(
                 abi.encodePacked(
                     "data:application/json;base64,",
-                    AnonymiceLibrary.encode(
+                    MyOwnNftLibrary.encode(
                         bytes(
                             string(
                                 abi.encodePacked(
                                     '{"name": "Anonymice #',
-                                    AnonymiceLibrary.toString(_tokenId),
+                                    MyOwnNftLibrary.toString(_tokenId),
                                     '", "description": "sdfgsdfgsdfg", "image": "data:image/svg+xml;base64,',
-                                    AnonymiceLibrary.encode(
+                                    MyOwnNftLibrary.encode(
                                         bytes(hashToSVG(tokenHash))
                                     ),
                                     '","attributes":',
@@ -418,7 +262,7 @@ contract Anonymice is ERC721Enumerable {
             tokenHash = string(
                 abi.encodePacked(
                     "1",
-                    AnonymiceLibrary.substring(tokenHash, 1, 9)
+                    MyOwnNftLibrary.substring(tokenHash, 1, 9)
                 )
             );
         }
