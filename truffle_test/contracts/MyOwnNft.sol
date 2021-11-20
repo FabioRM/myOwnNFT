@@ -282,13 +282,47 @@ contract MyOwnNft is ERC721Enumerable {
         bytes1 _char,
         uint256 _x,
         uint256 _y
-    ) internal returns (string memory) {}
+    ) internal pure returns (string memory) {
+        string memory printedCharString;
+
+        printedCharString = "";
+
+        printedCharString = string(
+            abi.encodePacked(
+                printedCharString,
+                "<rect class='c01' x='",
+                Strings.toString(_x),
+                "' y='",
+                Strings.toString(_y),
+                "'/>"
+            )
+        );
+
+        return printedCharString;
+    }
 
     function printString(
         string memory _string,
-        uint256 cursor_x,
-        uint256 cursor_y
-    ) internal returns (string memory) {}
+        uint256 _x,
+        uint256 _y
+    ) internal pure returns (string memory) {
+        string memory printedString;
+
+        printedString = "";
+
+        bytes memory byteString = bytes(_string);
+
+        for (uint256 index = 0; index < byteString.length; index++) {
+            printedString = string(
+                abi.encodePacked(
+                    printedString,
+                    putchar(byteString[index], _x + (index * 8), _y)
+                )
+            );
+        }
+
+        return printedString;
+    }
 
     /**
      * @dev Transfers ownership
