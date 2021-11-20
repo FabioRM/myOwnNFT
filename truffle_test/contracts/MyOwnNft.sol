@@ -15,14 +15,13 @@ contract MyOwnNft is ERC721Enumerable {
     }
 
     struct CharacterData {
-        bytes1 character;
         uint256 pixelCount;
-        string pixels;
+        uint8[] pixelsData;
     }
 
     //Mappings
     mapping(uint256 => CustomNftContent) public customNftsContent;
-    mapping(uint256 => CharacterData[]) public charactersData;
+    mapping(uint256 => CharacterData) public charactersData;
 
     //uint256s
     uint256 MAX_SUPPLY = 100000; // to decide carefully!!!!!!
@@ -79,9 +78,9 @@ contract MyOwnNft is ERC721Enumerable {
 |    / |    _]|     ||  D  |    |  |_  |  |  ||  |  |/  / |_|  |_| |  ||  O  ||  |  |\__  |
 |    \ |   [_ |  _  ||     |    |   _] |  :  ||  |  /   \_  |  |   |  ||     ||  |  |/  \ |
 |  .  \|     ||  |  ||     |    |  |   |     ||  |  \     | |  |   |  ||     ||  |  |\    |
-|__|\_||_____||__|__||_____|    |__|    \__,_||__|__|\____| |__|  |____|\___/ |__|__| \___|
-                                                                                           
-*/
+|__|\_||_____||__|__||_____|    |__|    \__,_||__|__|\____| |__|  |____|\___/ |__|__| \___|  
+
+    */
 
     /**
      * @dev Token ID to SVG function
@@ -228,7 +227,6 @@ contract MyOwnNft is ERC721Enumerable {
     }
 
     /*
-
   ___   __    __  ____     ___  ____       _____  __ __  ____     __ ______  ____  ___   ____   _____
  /   \ |  |__|  ||    \   /  _]|    \     |     ||  |  ||    \   /  ]      ||    |/   \ |    \ / ___/
 |     ||  |  |  ||  _  | /  [_ |  D  )    |   __||  |  ||  _  | /  /|      | |  ||     ||  _  (   \_ 
@@ -236,19 +234,8 @@ contract MyOwnNft is ERC721Enumerable {
 |     ||  `  '  ||  |  ||   [_ |    \     |   _] |  :  ||  |  /   \_  |  |   |  ||     ||  |  |/  \ |
 |     | \      / |  |  ||     ||  .  \    |  |   |     ||  |  \     | |  |   |  ||     ||  |  |\    |
  \___/   \_/\_/  |__|__||_____||__|\_|    |__|    \__,_||__|__|\____| |__|  |____|\___/ |__|__| \___|
-                                                                                                     
-
 
     */
-
-    /**
-     * @dev Clears the characters data.
-     */
-    function clearCharactersData() public onlyOwner {
-        for (uint256 i = 0; i <= 95; i++) {
-            delete charactersData[i];
-        }
-    }
 
     /**
      * @dev Add characters data
@@ -259,14 +246,9 @@ contract MyOwnNft is ERC721Enumerable {
         public
         onlyOwner
     {
-        for (uint256 i = 0; i <= 95; i++) {
-            charactersData[i].push(
-                CharacterData(
-                    _charactersData[i].character,
-                    _charactersData[i].pixelCount,
-                    _charactersData[i].pixels
-                )
-            );
+        for (uint256 i = 0; i <= _charactersData.length; i++) {
+            charactersData[i].pixelCount = _charactersData[i].pixelCount;
+            charactersData[i].pixelsData = _charactersData[i].pixelsData;
         }
 
         return;
@@ -279,24 +261,48 @@ contract MyOwnNft is ERC721Enumerable {
      * @param _y The y pos of the cursor
      */
     function putchar(
-        bytes1 _char,
+        uint256 _char,
         uint256 _x,
         uint256 _y
-    ) internal pure returns (string memory) {
+    ) internal view returns (string memory) {
         string memory printedCharString;
 
         printedCharString = "";
 
-        printedCharString = string(
-            abi.encodePacked(
-                printedCharString,
-                "<rect class='c01' x='",
-                Strings.toString(_x),
-                "' y='",
-                Strings.toString(_y),
-                "'/>"
-            )
-        );
+        if ((_char < 32) || (_char > 126)) {
+            return printedCharString;
+        }
+
+        for (
+            uint256 index = 0;
+            index < charactersData[_char].pixelsData.length;
+            index++
+        ) {
+            printedCharString = string(
+                abi.encodePacked(
+                    printedCharString,
+                    "<rect class='c01' x='",
+                    Strings.toString(
+                        _x +
+                            (
+                                uint256(
+                                    charactersData[_char].pixelsData[index] % 8
+                                )
+                            )
+                    ),
+                    "' y='",
+                    Strings.toString(
+                        _y +
+                            (
+                                uint256(
+                                    charactersData[_char].pixelsData[index] / 8
+                                )
+                            )
+                    ),
+                    "'/>"
+                )
+            );
+        }
 
         return printedCharString;
     }
@@ -305,7 +311,7 @@ contract MyOwnNft is ERC721Enumerable {
         string memory _string,
         uint256 _x,
         uint256 _y
-    ) internal pure returns (string memory) {
+    ) internal view returns (string memory) {
         string memory printedString;
 
         printedString = "";
@@ -316,7 +322,11 @@ contract MyOwnNft is ERC721Enumerable {
             printedString = string(
                 abi.encodePacked(
                     printedString,
-                    putchar(byteString[index], _x + (index * 8), _y)
+                    putchar(
+                        uint256(uint8(byteString[index])),
+                        _x + (index * 8),
+                        _y
+                    )
                 )
             );
         }
