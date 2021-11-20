@@ -1,5 +1,5 @@
-const Anonymice = artifacts.require("Anonymice");
+const Anonymice = artifacts.require("MyOwnNft");
 
 module.exports = function(deployer) {
-    deployer.deploy(Anonymice);
+    deployer.deploy(MyOwnNft);
 };
