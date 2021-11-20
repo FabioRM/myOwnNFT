@@ -3,7 +3,9 @@ const getWeb3 = () => {
         if (window.ethereum) {
             const web3 = new Web3(window.ethereum);
             try {
-                window.ethereum.request({ method: "eth_requestAccounts" });
+                window.ethereum.request({
+                    method: "eth_requestAccounts"
+                });
                 resolve(web3);
             } catch (error) {
                 reject(error);
@@ -16,7 +18,7 @@ const getWeb3 = () => {
 
 
 const getContract = async(web3) => {
-    const lasvulvas = await $.getJSON("./contracts/LasVulvas.json");
+    const lasvulvas = await $.getJSON("./contracts/MyOwnNft.json");
     const netId = await web3.eth.net.getId();
     const deployedNetwork = lasvulvas.networks[netId];
     const greeting = new web3.eth.Contract(

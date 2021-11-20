@@ -1,13 +1,12 @@
-let LAS_VULVAS_SMART_CONTRACT_ADDRESS = "0xfccF4C6EeB4541D9590c524448006E4294Af067f"
+let SMART_CONTRACT_ADDRESS = "0x7F57d5FC4dB33c93dA03a7F4fb83351a8bBF0f6a"
 
 const networkDiv = document.getElementById('network')
 const chainIdDiv = document.getElementById('chainId')
 const accountsDiv = document.getElementById('accounts')
 const connectButton = document.getElementById('connectButton')
 const mintButton = document.getElementById('mintButton')
-const mintQuantity = document.getElementById('mintQuantity')
-const presaleMintButton = document.getElementById('presaleMintButton')
-const presaleMintQuantity = document.getElementById('presaleMintQuantity')
+const amountPaid = document.getElementById('amountPaid')
+const nftText = document.getElementById('nftText')
 const baseUriText = document.getElementById('baseUriText')
 const baseUriSetButton = document.getElementById('baseUriSetButton')
 const toggleSaleButton = document.getElementById('toggleSaleButton')
@@ -64,16 +63,11 @@ async function getNetworkAndChainId() {
 }
 
 async function mintNfts() {
-    let test = await contract.methods.mintItems(mintQuantity.value).send({ to: LAS_VULVAS_SMART_CONTRACT_ADDRESS, from: accounts[0], value: (90000000000000000) * mintQuantity.value })
-        .on('receipt', function() {
-            console.log("receipt")
-        });
-    var str = JSON.stringify(test, null, 2);
-    $("#result").html(str)
-}
-
-async function presaleMintNfts() {
-    let test = await contract.methods.presaleMintItems(presaleMintQuantity.value).send({ to: LAS_VULVAS_SMART_CONTRACT_ADDRESS, from: accounts[0], value: (90000000000000000) * presaleMintQuantity.value })
+    let test = await contract.methods.mintItems(mintQuantity.value).send({
+            to: SMART_CONTRACT_ADDRESS,
+            from: accounts[0],
+            value: (90000000000000000) * mintQuantity.value
+        })
         .on('receipt', function() {
             console.log("receipt")
         });
@@ -82,7 +76,9 @@ async function presaleMintNfts() {
 }
 
 async function setBaseUri() {
-    let test = await contract.methods.setBaseURI(baseUriText.value).send({ from: accounts[0] })
+    let test = await contract.methods.setBaseURI(baseUriText.value).send({
+            from: accounts[0]
+        })
         .on('receipt', function() {
             console.log("receipt")
         })
@@ -91,7 +87,9 @@ async function setBaseUri() {
 }
 
 async function toggleSale() {
-    let test = await contract.methods.toggleSale().send({ from: accounts[0] })
+    let test = await contract.methods.toggleSale().send({
+            from: accounts[0]
+        })
         .on('receipt', function() {
             console.log("receipt")
         });
@@ -100,7 +98,9 @@ async function toggleSale() {
 }
 
 async function togglePreSale() {
-    let test = await contract.methods.togglePreSale().send({ from: accounts[0] })
+    let test = await contract.methods.togglePreSale().send({
+            from: accounts[0]
+        })
         .on('receipt', function() {
             console.log("receipt")
         })
@@ -168,7 +168,9 @@ async function getNfts() {
 async function addToWhitelist() {
     var whitelistAddresses = addrTextArea.value.split("\n");
     console.log("add to whitelist", whitelistAddresses)
-    let test = await contract.methods.addToWhitelist(whitelistAddresses).send({ from: accounts[0] })
+    let test = await contract.methods.addToWhitelist(whitelistAddresses).send({
+            from: accounts[0]
+        })
         .on('receipt', function() {
             console.log("receipt")
         });
@@ -182,9 +184,6 @@ function initialize() {
     }
     mintButton.onclick = async() => {
         mintNfts()
-    }
-    presaleMintButton.onclick = async() => {
-        presaleMintNfts()
     }
     baseUriSetButton.onclick = async() => {
         setBaseUri()
