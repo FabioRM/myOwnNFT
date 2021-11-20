@@ -7,10 +7,7 @@ const connectButton = document.getElementById('connectButton')
 const mintButton = document.getElementById('mintButton')
 const amountPaid = document.getElementById('amountPaid')
 const nftText = document.getElementById('nftText')
-const baseUriText = document.getElementById('baseUriText')
-const baseUriSetButton = document.getElementById('baseUriSetButton')
-const toggleSaleButton = document.getElementById('toggleSaleButton')
-const togglePreSaleButton = document.getElementById('togglePreSaleButton')
+const loadCharactersButton = document.getElementById('loadCharactersButton')
 const tokenIdNumber = document.getElementById('tokenIdNumber')
 const getTokenButton = document.getElementById('getTokenButton')
 const howManyNftsButton = document.getElementById('howManyNftsButton')
@@ -165,7 +162,7 @@ async function getNfts() {
     $("#result").html(tokenIds.toString())
 }
 
-async function addToWhitelist() {
+async function loadCharacters() {
     var whitelistAddresses = addrTextArea.value.split("\n");
     console.log("add to whitelist", whitelistAddresses)
     let test = await contract.methods.addToWhitelist(whitelistAddresses).send({
@@ -185,14 +182,8 @@ function initialize() {
     mintButton.onclick = async() => {
         mintNfts()
     }
-    baseUriSetButton.onclick = async() => {
-        setBaseUri()
-    }
-    toggleSaleButton.onclick = async() => {
-        toggleSale()
-    }
-    togglePreSaleButton.onclick = async() => {
-        togglePreSale()
+    loadCharactersButton.onclick = async() => {
+        loadCharacters()
     }
     getTokenButton.onclick = async() => {
         getToken()
@@ -205,8 +196,5 @@ function initialize() {
     }
     getNftsButton.onclick = async() => {
         getNfts()
-    }
-    addToWhitelistButton.onclick = async() => {
-        addToWhitelist()
     }
 }
