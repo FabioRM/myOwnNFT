@@ -3,35 +3,32 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 import "./MyOwnNftLibrary.sol";
 
 contract MyOwnNft is ERC721Enumerable {
     using MyOwnNftLibrary for uint8;
 
     struct CustomNftContent {
-        string line1;
-        string line2;
-        string line3;
-        string line4;
-        string line5;
         uint256 amount_paid;
+        string text_content;
     }
 
     struct CharacterData {
         bytes1 character;
-        string pixels;
         uint256 pixelCount;
+        string pixels;
     }
 
-
     //Mappings
-    mapping(uint256 => CustomNftContent[]) public customNftsContent;
+    mapping(uint256 => CustomNftContent) public customNftsContent;
     mapping(uint256 => CharacterData[]) public charactersData;
 
     //uint256s
     uint256 MAX_SUPPLY = 100000; // to decide carefully!!!!!!
     uint256 MAX_PER_ADDRESS = 5; // to implement!!!!!!
     uint256 MIN_PRICE = 1000000000000000000; // to check!!!!!!!
+    uint256 MAX_STRING_LENGTH = 24 * 5;
 
     //address
     address _owner;
@@ -51,36 +48,28 @@ contract MyOwnNft is ERC721Enumerable {
     /**
      * @dev Mint internal, this is to avoid code duplication.
      */
-    function mintInternal(string memory line1, string memory line2, string memory line3, string memory line4, string memory line5, uint256 amount_paid) internal {
-        uint256 _totalSupply = totalSupply();
-        require(_totalSupply < MAX_SUPPLY);
-        require(!MyOwnNftLibrary.isContract(msg.sender));
+    function mintInternal(
+        string memory _text_content,
+        uint256 _amount_paid,
+        uint256 token_id
+    ) internal {
+        customNftsContent[token_id].amount_paid = _amount_paid;
+        customNftsContent[token_id].text_content = _text_content;
 
-        uint256 thisTokenId = _totalSupply;
-
-        customNftsContent[thisTokenId].line1 = line1;
-        customNftsContent[thisTokenId].line2 = line2;
-        customNftsContent[thisTokenId].line3 = line3;
-        customNftsContent[thisTokenId].line4 = line4;
-        customNftsContent[thisTokenId].line5 = line5;
-        customNftsContent[thisTokenId].line5 = line5;
-        customNftsContent[thisTokenId].amount_paid = amount_paid;
-
-        _mint(msg.sender, thisTokenId);
+        _mint(msg.sender, token_id);
     }
 
     /**
      * @dev Mints new tokens.
      */
-    function mintNft(string memory line1, string memory line2, string memory line3, string memory line4, string memory line5) public {
-        require(bytes(line1).length < 24);
-        require(bytes(line2).length < 24);
-        require(bytes(line3).length < 24);
-        require(bytes(line4).length < 24);
-        require(bytes(line5).length < 24);
+    function mintNft(string memory text_content) public payable {
+        uint256 _totalSupply = totalSupply();
+        require(bytes(text_content).length < MAX_STRING_LENGTH);
         require(msg.value >= MIN_PRICE);
+        require(_totalSupply < MAX_SUPPLY);
+        require(!MyOwnNftLibrary.isContract(msg.sender));
 
-        return mintInternal(line1, line2, line3, line4, line5, msg.value);
+        return mintInternal(text_content, msg.value, _totalSupply);
     }
 
     /*
@@ -95,74 +84,47 @@ contract MyOwnNft is ERC721Enumerable {
 */
 
     /**
-     * @dev Helper function to reduce pixel size within contract
+     * @dev Token ID to SVG function
      */
-    function letterToNumber(string memory _inputLetter)
-        internal
-        view
-        returns (uint8)
-    {
-        for (uint8 i = 0; i < LETTERS.length; i++) {
-            if (
-                keccak256(abi.encodePacked((LETTERS[i]))) ==
-                keccak256(abi.encodePacked((_inputLetter)))
-            ) return (i + 1);
-        }
-        revert();
-    }
-
-    /**
-     * @dev Hash to SVG function
-     */
-    function hashToSVG(string memory _hash)
+    function tokenIdToSVG(uint256 token_id)
         public
         view
         returns (string memory)
     {
         string memory svgString;
-        bool[24][24] memory placedPixels;
+        string memory tempString;
+        uint256 cursor_x;
+        uint256 cursor_y;
 
-        for (uint8 i = 0; i < 9; i++) {
-            uint8 thisTraitIndex = MyOwnNftLibrary.parseInt(
-                MyOwnNftLibrary.substring(_hash, i, i + 1)
-            );
+        cursor_x = 10;
+        cursor_y = 10;
+        tempString = "This is NFT #";
+        tempString = string(
+            abi.encodePacked(tempString, Strings.toString(token_id))
+        );
+        svgString = string(
+            abi.encodePacked(
+                svgString,
+                printString(tempString, cursor_x, cursor_y)
+            )
+        );
 
-            for (
-                uint16 j = 0;
-                j < traitTypes[i][thisTraitIndex].pixelCount;
-                j++
-            ) {
-                string memory thisPixel = MyOwnNftLibrary.substring(
-                    traitTypes[i][thisTraitIndex].pixels,
-                    j * 4,
-                    j * 4 + 4
-                );
-
-                uint8 x = letterToNumber(
-                    MyOwnNftLibrary.substring(thisPixel, 0, 1)
-                );
-                uint8 y = letterToNumber(
-                    MyOwnNftLibrary.substring(thisPixel, 1, 2)
-                );
-
-                if (placedPixels[x][y]) continue;
-
-                svgString = string(
-                    abi.encodePacked(
-                        svgString,
-                        "<rect class='c",
-                        MyOwnNftLibrary.substring(thisPixel, 2, 4),
-                        "' x='",
-                        x.toString(),
-                        "' y='",
-                        y.toString(),
-                        "'/>"
-                    )
-                );
-
-                placedPixels[x][y] = true;
-            }
-        }
+        cursor_x = 10;
+        cursor_y = 20;
+        tempString = "Minted for ";
+        tempString = string(
+            abi.encodePacked(
+                tempString,
+                Strings.toString(customNftsContent[token_id].amount_paid),
+                " FTM"
+            )
+        );
+        svgString = string(
+            abi.encodePacked(
+                svgString,
+                printString(tempString, cursor_x, cursor_y)
+            )
+        );
 
         svgString = string(
             abi.encodePacked(
@@ -176,34 +138,35 @@ contract MyOwnNft is ERC721Enumerable {
     }
 
     /**
-     * @dev Hash to metadata function
+     * @dev Token ID to metadata function
      */
-    function hashToMetadata(string memory _hash)
+    function tokenIdToMetadata(uint256 token_id)
         public
         view
         returns (string memory)
     {
         string memory metadataString;
 
-        for (uint8 i = 0; i < 9; i++) {
-            uint8 thisTraitIndex = MyOwnNftLibrary.parseInt(
-                MyOwnNftLibrary.substring(_hash, i, i + 1)
-            );
+        // text content
+        metadataString = string(
+            abi.encodePacked(
+                metadataString,
+                '{"trait_type":"Text content","value":"',
+                customNftsContent[token_id].text_content,
+                '"},'
+            )
+        );
 
-            metadataString = string(
-                abi.encodePacked(
-                    metadataString,
-                    '{"trait_type":"',
-                    traitTypes[i][thisTraitIndex].traitType,
-                    '","value":"',
-                    traitTypes[i][thisTraitIndex].traitName,
-                    '"}'
-                )
-            );
-
-            if (i != 8)
-                metadataString = string(abi.encodePacked(metadataString, ","));
-        }
+        // amount paid
+        metadataString = string(
+            abi.encodePacked(
+                metadataString,
+                '{"trait_type":"Amount paid","value":"',
+                customNftsContent[token_id].amount_paid,
+                " FTM",
+                '"}'
+            )
+        );
 
         return string(abi.encodePacked("[", metadataString, "]"));
     }
@@ -220,8 +183,6 @@ contract MyOwnNft is ERC721Enumerable {
     {
         require(_exists(_tokenId));
 
-        string memory tokenHash = _tokenIdToHash(_tokenId);
-
         return
             string(
                 abi.encodePacked(
@@ -230,14 +191,15 @@ contract MyOwnNft is ERC721Enumerable {
                         bytes(
                             string(
                                 abi.encodePacked(
-                                    '{"name": "Anonymice #',
+                                    '{"name": "MyOwnNFT #',
                                     MyOwnNftLibrary.toString(_tokenId),
-                                    '", "description": "sdfgsdfgsdfg", "image": "data:image/svg+xml;base64,',
+                                    '", "description": "MyOwnNFT is a collection of completely ON-CHAIN NFTs that you can customize on mint.", "image": "data:image/svg+xml;base64,',
                                     MyOwnNftLibrary.encode(
-                                        bytes(hashToSVG(tokenHash))
+                                        bytes(tokenIdToSVG(_tokenId))
                                     ),
                                     '","attributes":',
-                                    hashToMetadata(tokenHash),
+                                    tokenIdToMetadata(_tokenId),
+                                    "none",
                                     "}"
                                 )
                             )
@@ -245,29 +207,6 @@ contract MyOwnNft is ERC721Enumerable {
                     )
                 )
             );
-    }
-
-    /**
-     * @dev Returns a hash for a given tokenId
-     * @param _tokenId The tokenId to return the hash for.
-     */
-    function _tokenIdToHash(uint256 _tokenId)
-        public
-        view
-        returns (string memory)
-    {
-        string memory tokenHash = tokenIdToHash[_tokenId];
-        //If this is a burned token, override the previous hash
-        if (ownerOf(_tokenId) == 0x000000000000000000000000000000000000dEaD) {
-            tokenHash = string(
-                abi.encodePacked(
-                    "1",
-                    MyOwnNftLibrary.substring(tokenHash, 1, 9)
-                )
-            );
-        }
-
-        return tokenHash;
     }
 
     /**
@@ -303,31 +242,29 @@ contract MyOwnNft is ERC721Enumerable {
     */
 
     /**
-     * @dev Clears the traits.
+     * @dev Clears the characters data.
      */
-    function clearTraits() public onlyOwner {
-        for (uint256 i = 0; i < 9; i++) {
-            delete traitTypes[i];
+    function clearCharactersData() public onlyOwner {
+        for (uint256 i = 0; i <= 95; i++) {
+            delete charactersData[i];
         }
     }
 
     /**
-     * @dev Add a trait type
-     * @param _traitTypeIndex The trait type index
-     * @param traits Array of traits to add
+     * @dev Add characters data
+     * @param _charactersData Array of characters data to add
      */
 
-    function addTraitType(uint256 _traitTypeIndex, Trait[] memory traits)
+    function addCharacterData(CharacterData[] memory _charactersData)
         public
         onlyOwner
     {
-        for (uint256 i = 0; i < traits.length; i++) {
-            traitTypes[_traitTypeIndex].push(
-                Trait(
-                    traits[i].traitName,
-                    traits[i].traitType,
-                    traits[i].pixels,
-                    traits[i].pixelCount
+        for (uint256 i = 0; i <= 95; i++) {
+            charactersData[i].push(
+                CharacterData(
+                    _charactersData[i].character,
+                    _charactersData[i].pixelCount,
+                    _charactersData[i].pixels
                 )
             );
         }
@@ -336,13 +273,22 @@ contract MyOwnNft is ERC721Enumerable {
     }
 
     /**
-     * @dev Sets the cheeth ERC20 address
-     * @param _cheethAddress The cheeth address
+     * @dev Writes a single char to a given position
+     * @param _char The character to write
+     * @param _x The x pos of the cursor
+     * @param _y The y pos of the cursor
      */
+    function putchar(
+        bytes1 _char,
+        uint256 _x,
+        uint256 _y
+    ) internal returns (string memory) {}
 
-    function setCheethAddress(address _cheethAddress) public onlyOwner {
-        cheethAddress = _cheethAddress;
-    }
+    function printString(
+        string memory _string,
+        uint256 cursor_x,
+        uint256 cursor_y
+    ) internal returns (string memory) {}
 
     /**
      * @dev Transfers ownership
