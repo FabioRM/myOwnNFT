@@ -104,7 +104,7 @@ contract MyOwnNft is ERC721Enumerable {
         svgString = string(
             abi.encodePacked(
                 svgString,
-                printString(tempString, cursor_x, cursor_y)
+                drawString(tempString, cursor_x, cursor_y)
             )
         );
 
@@ -121,7 +121,7 @@ contract MyOwnNft is ERC721Enumerable {
         svgString = string(
             abi.encodePacked(
                 svgString,
-                printString(tempString, cursor_x, cursor_y)
+                drawString(tempString, cursor_x, cursor_y)
             )
         );
 
@@ -242,11 +242,13 @@ contract MyOwnNft is ERC721Enumerable {
      * @param _charactersData Array of characters data to add
      */
 
-    function addCharacterData(CharacterData[] memory _charactersData)
-        public
-        onlyOwner
-    {
-        for (uint256 i = 0; i <= _charactersData.length; i++) {
+    function addCharacterData(
+        CharacterData[] memory _charactersData,
+        uint256 starting_position
+    ) public onlyOwner {
+        require(starting_position < _charactersData.length);
+
+        for (uint256 i = starting_position; i <= _charactersData.length; i++) {
             charactersData[i].pixelCount = _charactersData[i].pixelCount;
             charactersData[i].pixelsData = _charactersData[i].pixelsData;
         }
@@ -260,7 +262,7 @@ contract MyOwnNft is ERC721Enumerable {
      * @param _x The x pos of the cursor
      * @param _y The y pos of the cursor
      */
-    function putchar(
+    function drawChar(
         uint256 _char,
         uint256 _x,
         uint256 _y
@@ -307,7 +309,13 @@ contract MyOwnNft is ERC721Enumerable {
         return printedCharString;
     }
 
-    function printString(
+    /**
+     * @dev Writes a string starting from the given position
+     * @param _string The string to draw
+     * @param _x The x pos of the cursor
+     * @param _y The y pos of the cursor
+     */
+    function drawString(
         string memory _string,
         uint256 _x,
         uint256 _y
@@ -322,7 +330,7 @@ contract MyOwnNft is ERC721Enumerable {
             printedString = string(
                 abi.encodePacked(
                     printedString,
-                    putchar(
+                    drawChar(
                         uint256(uint8(byteString[index])),
                         _x + (index * 8),
                         _y

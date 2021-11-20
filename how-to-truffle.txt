@@ -1,0 +1,13 @@
+HOW TO - truffle
+
+- truffle development
+- migrate
+- let t = await LasVulvas.deployed();
+- t
+- t.setBaseURI("https://gateway.pinata.cloud/ipfs/QmTexDXc182G6XoqkPHeWsFZQHr5AZF7kHDsffVri97hnn/");
+- t._prefixURI();
+- t.togglePreSale();
+- t.toggleSale();
+- t.mintItems(2, {value: 180000000000000000});
+- t.mintItems(1, {value: 90000000000000000});
+- t.balanceOf(accounts[0]);
