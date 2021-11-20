@@ -20,3 +20,6 @@ with open("sinclair_s.txt", "r+") as inFile:
         charsData.append(char_data_ints)
 
     print(charsData)
+
+with open("sinclair_s.js", "w+") as outFile:
+    outFile.write(charsData)
