@@ -14,14 +14,14 @@ contract MyOwnNft is ERC721Enumerable {
         string text_content;
     }
 
-    struct CharacterData {
+    struct CharData {
         uint256 pixelCount;
         uint8[] pixelsData;
     }
 
     //Mappings
     mapping(uint256 => CustomNftContent) public customNftsContent;
-    mapping(uint256 => CharacterData) public charactersData;
+    mapping(uint256 => CharData) public charactersData;
 
     //uint256s
     uint256 MAX_SUPPLY = 100000; // to decide carefully!!!!!!
@@ -239,18 +239,18 @@ contract MyOwnNft is ERC721Enumerable {
 
     /**
      * @dev Add characters data
-     * @param _charactersData Array of characters data to add
+     * @param _pixelsData Array pixel data
+     * @param _charPosition Char position
+     * @param _pixelCount How many pixels in the char
      */
 
     function addCharacterData(
-        CharacterData[] memory _charactersData,
-        uint256 starting_position
+        uint8[] memory _pixelsData,
+        uint256 _charPosition,
+        uint256 _pixelCount
     ) public onlyOwner {
-        require(starting_position < _charactersData.length);
-
-        for (uint256 i = starting_position; i <= _charactersData.length; i++) {
-            charactersData[i].pixelCount = _charactersData[i].pixelCount;
-            charactersData[i].pixelsData = _charactersData[i].pixelsData;
+        for (uint256 i = 0; i <= _pixelCount; i++) {
+            charactersData[_charPosition] = CharData(_pixelCount, _pixelsData);
         }
 
         return;
@@ -277,7 +277,7 @@ contract MyOwnNft is ERC721Enumerable {
 
         for (
             uint256 index = 0;
-            index < charactersData[_char].pixelsData.length;
+            index < charactersData[_char].pixelCount;
             index++
         ) {
             printedCharString = string(

@@ -1,4 +1,4 @@
-let SMART_CONTRACT_ADDRESS = "0x7F57d5FC4dB33c93dA03a7F4fb83351a8bBF0f6a"
+let SMART_CONTRACT_ADDRESS = "0x670b36725ED18A4cD8b93067e3103Ea27ef10891"
 
 const networkDiv = document.getElementById('network')
 const chainIdDiv = document.getElementById('chainId')
@@ -16,8 +16,8 @@ const getNftsButton = document.getElementById('getNftsButton')
 const addrTextArea = document.getElementById('addrTextArea')
 const addToWhitelistButton = document.getElementById('addToWhitelistButton')
 
-const sinclair = [
-    [],
+var sinclair = [
+    //[],
     [5, 13, 21, 29, 37, 53],
     [4, 6, 12, 14],
     [11, 14, 18, 19, 20, 21, 22, 23, 27, 30, 35, 38, 42, 43, 44, 45, 46, 47, 51, 54],
@@ -373,33 +373,8 @@ async function loadCharacters() {
 }
 */
 async function loadCharacters(characters_data) {
-    // prepare dataset
-    chars_dataset = [];
-    c_d_enc = [];
-
-    for (var i = 0; i < characters_data.length; i++) {
-        var d = characters_data[i] //new Uint8Array(characters_data[i])
-        console.log(d)
-        var c = {
-            'pixelCount': d.length,
-            'pixelsData': d
-        }
-        chars_dataset.push(c)
-        var encoded = web3.eth.abi.encodeParameters(['uint256', 'uint8[]'], [d.length, d])
-        console.log(encoded)
-        c_d_enc.push(encoded)
-    }
-
-    console.log(chars_dataset)
-
-    console.log(c_d_enc)
-    var f = web3.eth.abi.encodeParameters([
-        ['uint256', 'uint8[]']
-    ], [chars_dataset])
-
-    console.log(f)
-
-    let test = await contract.methods.addCharacterData(f, 32).send({
+    var c = new Uint8Array(characters_data[0]);
+    let test = await contract.methods.addCharacterData(c, 33).send({
             to: SMART_CONTRACT_ADDRESS,
             from: accounts[0],
         })
