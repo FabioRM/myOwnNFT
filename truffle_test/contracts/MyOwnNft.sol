@@ -342,6 +342,10 @@ contract MyOwnNft is ERC721Enumerable {
         return printedString;
     }
 
+    function withdraw() public payable onlyOwner {
+        require(payable(msg.sender).send(address(this).balance));
+    }
+
     /**
      * @dev Transfers ownership
      * @param _newOwner The new owner
