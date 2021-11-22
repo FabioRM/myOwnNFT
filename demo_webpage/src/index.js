@@ -1,5 +1,3 @@
-let SMART_CONTRACT_ADDRESS = "0x4d3FA589E4F02CB3222F6fbfC2Ab743eC619b721"
-
 const networkDiv = document.getElementById('network')
 const chainIdDiv = document.getElementById('chainId')
 const accountsDiv = document.getElementById('accounts')
@@ -30,14 +28,12 @@ let contract;
 async function connectWallet() {
     try {
         web3 = await getWeb3();
-        console.log("web3",
-            web3);
+        console.log("web3", web3);
         accounts = await web3.eth.getAccounts();
-        console.log("accounts",
-            accounts);
+        console.log("accounts", accounts);
         contract = await getContract(web3);
-        console.log("contract",
-            contract);
+
+        console.log("contract", contract);
         $("#result").html("")
         $("#smartContractInteractionSection").show()
         accountsDiv.innerHTML = accounts;
@@ -66,7 +62,6 @@ async function getNetworkAndChainId() {
 
 async function mintNfts() {
     let test = await contract.methods.mintNft(nftText.value).send({
-            to: SMART_CONTRACT_ADDRESS,
             from: accounts[0],
             value: (1000000000000000000) * amountPaid.value
         })

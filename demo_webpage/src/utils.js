@@ -1,3 +1,5 @@
+let SMART_CONTRACT_ADDRESS = "0x4d3FA589E4F02CB3222F6fbfC2Ab743eC619b721"
+
 const getWeb3 = () => {
     return new Promise((resolve, reject) => {
         if (window.ethereum) {
@@ -22,11 +24,18 @@ const getContract = async(web3) => {
     console.log("TelegrafNFT", TelegrafNFT);
     const netId = await web3.eth.net.getId();
     console.log("netId", netId);
-    const deployedNetwork = TelegrafNFT.networks[netId];
-    console.log("deployedNetwork", deployedNetwork);
-    const greeting = new web3.eth.Contract(
+    var contract = new web3.eth.Contract(
         TelegrafNFT.abi,
-        deployedNetwork && deployedNetwork.address
+        SMART_CONTRACT_ADDRESS
     );
-    return greeting;
+    return contract;
+    /*
+        const deployedNetwork = TelegrafNFT.networks[netId];
+        console.log("deployedNetwork", deployedNetwork);
+        const greeting = new web3.eth.Contract(
+            TelegrafNFT.abi,
+            deployedNetwork && deployedNetwork.address
+        );
+        return greeting;
+        */
 };
