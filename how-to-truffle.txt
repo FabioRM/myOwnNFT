@@ -7,3 +7,10 @@ HOW TO - truffle
 - t.mintNft("ciao", {value: 1000000000000000000});
 - t.tokenURI(1)
 - t.balanceOf(accounts[0]);
+
+
+address 0x259bf10e5f06744F2727eCf0B14640bb3d2E1A75
+1000 ETH
+private key 0xd170a7e83f6c406ae040841d69b28137cdc32472bdafcc90b1b47c1a0ebfc587
+
+ganache-cli --account="0xd170a7e83f6c406ae040841d69b28137cdc32472bdafcc90b1b47c1a0ebfc587,1000000000000000000000"

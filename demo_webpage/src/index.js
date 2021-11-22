@@ -1,4 +1,4 @@
-let SMART_CONTRACT_ADDRESS = "0x50bd3ae21c07caaebab0dc952d1e36518890fa93"
+let SMART_CONTRACT_ADDRESS = "0x2eB6110601C96473A3dFFd99dd6718089677d8de"
 
 const networkDiv = document.getElementById('network')
 const chainIdDiv = document.getElementById('chainId')

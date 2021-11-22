@@ -23,11 +23,18 @@ def conv_char(filename):
             for i, c in enumerate(char_data_bytes[:-1]):
                 char_data_line_parsed = int(c.strip(), 16)
                 for j in range(8):
-                    if char_data_line_parsed & (1 << (8 - j)):
-                        char_data_ints.append(i * 8 + j)
-                        char_data_string = (
-                            char_data_string + str(j) + str(i)
-                        )  # num_to_letter(j) + num_to_letter(i)
+                    if "font5x7.txt" in filename:
+                        if char_data_line_parsed & (1 << j):
+                            char_data_ints.append(j * 8 + i)
+                            char_data_string = (
+                                char_data_string + str(i) + str(j)
+                            )  # num_to_letter(j) + num_to_letter(i)
+                    else:
+                        if char_data_line_parsed & (1 << (8 - j)):
+                            char_data_ints.append(i * 8 + j)
+                            char_data_string = (
+                                char_data_string + str(j) + str(i)
+                            )  # num_to_letter(j) + num_to_letter(i)
 
             print(char_data_ints)
             charsData.append(char_data_ints)
@@ -62,3 +69,4 @@ def conv_char(filename):
 
 conv_char("sinclair_s.txt")
 conv_char("tinyfont.txt")
+conv_char("font5x7.txt")
