@@ -204,13 +204,13 @@ contract MyOwnNft is ERC721Enumerable {
         uint256 formatted_amount = customNftsContent[token_id].amount_paid /
             1000000000000000000;
         if (formatted_amount > 1000000) {
-            tempString = string(abi.encodePacked(tempString, "Over 1M FTM"));
+            tempString = string(abi.encodePacked(tempString, "Over 1M $FTM"));
         } else {
             tempString = string(
                 abi.encodePacked(
                     tempString,
                     MyOwnNftLibrary.toString(formatted_amount),
-                    " FTM"
+                    " $FTM"
                 )
             );
         }
@@ -236,7 +236,7 @@ contract MyOwnNft is ERC721Enumerable {
 
         svgString = string(
             abi.encodePacked(
-                '<svg id="nft" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 256 256"> ',
+                '<svg id="nft" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 128 128"> ',
                 svgString,
                 "<style>rect{width:1px;height:1px;fill:#000000} #nft{shape-rendering: crispedges;} </style></svg>"
             )
@@ -302,9 +302,9 @@ contract MyOwnNft is ERC721Enumerable {
                         bytes(
                             string(
                                 abi.encodePacked(
-                                    '{"name": "DrawNFT #',
+                                    '{"name": "Telegraf NFT #',
                                     MyOwnNftLibrary.toString(_tokenId),
-                                    '", "description": "DrawNFT is a collection of ON-CHAIN NFTs that users customize on mint.", "image": "data:image/svg+xml;base64,',
+                                    '", "description": "Telegraf NFT is a collection of ON-CHAIN NFTs that users customize on mint.", "image": "data:image/svg+xml;base64,',
                                     MyOwnNftLibrary.encode(
                                         bytes(tokenIdToSVG(_tokenId))
                                     ),
