@@ -9,8 +9,7 @@ const tokenIdNumber = document.getElementById('tokenIdNumber')
 const getTokenButton = document.getElementById('getTokenButton')
 const howManyNftsButton = document.getElementById('howManyNftsButton')
 const getNftsButton = document.getElementById('getNftsButton')
-const addrTextArea = document.getElementById('addrTextArea')
-const addToWhitelistButton = document.getElementById('addToWhitelistButton')
+const withdrawButton = document.getElementById('withdrawButton')
 
 const isMetaMaskInstalled = () => {
     const {
@@ -136,6 +135,17 @@ async function getToken() {
     $("#result").html(JSON.stringify(data))
 }
 
+async function withdraw() {
+    let test = await contract.methods.withdraw().send({
+            from: accounts[0]
+        })
+        .on('receipt', function() {
+            console.log("receipt")
+        })
+    var str = JSON.stringify(test, null, 2);
+    $("#result").html(str)
+}
+
 async function getNfts() {
     var tokenIds = [];
     let totalSupply = await contract.methods.totalSupply().call();
@@ -169,19 +179,28 @@ function initialize() {
     connectButton.onclick = async() => {
         connectWallet()
     }
+
     mintButton.onclick = async() => {
         mintNfts()
     }
+
     getTokenButton.onclick = async() => {
         getToken()
     }
+
     howManyNftsButton.onclick = async() => {
         getHowManyNfts()
     }
+
     getNftsButton.onclick = async() => {
         getNfts()
     }
+
     getNftsButton.onclick = async() => {
         getNfts()
+    }
+
+    withdrawButton.onclick = async() => {
+        withdraw()
     }
 }
