@@ -119,12 +119,6 @@ contract MyOwnNft is ERC721Enumerable {
         "41613252"
     ];
 
-    //string[] LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h"];
-
-    //string chars_pixels = 'fafbfcfdfefgeagaebgbdbgbccdcecfcgchcddgddegecfdfefffgfhfdgggeacbdbebfbgbcceccdddedfdgdeegecfdfefffgfegcbdbhbccdcgcfdeedfgfhfcggghgebdcfceddefehecfgfdgegfghgfbecfbecedeeeffgebfcfdfeffegdcfcedcedeeefegeefdgfgecedcedeeefegeefegfffgehcedeeefegeefffegfggcfdeedfcgcbdbebfbbcfcgcbdedgdbedegebfcfgfcgdgegfgcbdbbcdcdddedfbgcgdgegfgcbdbebfbbcgcgdcedeeefebfbgcgdgegfgggcbdbebfbbcgcedfdgebfgfcgdgegfgebdceccdedbeeebfcfdfefffgfegbbcbdbebfbgbbcbdcdddedfdgebfgfcgdgegfgcbdbebfbbcbdcdddedfdbegebfgfcgdgegfgbbcbdbebfbgbgcfdeedfdgcbdbebfbbcgccdddedfdbegebfgfcgdgegfgcbdbebfbbcgcbdgdcedeeefegegfcgdgegfgedegecefegdhfceddeeffgcdddedfdgdcfdfefffgfdcedfeefdgdbebfbgbcchcgdfefgdbebfbgbccfchccdedgdhdceeefegehecfdgegfgggcbdbebfbbcgcbdgdbecedeeefegebfgfbgggbbcbdbebfbbcgcbdcdddedfdbegebfgfbgcgdgegfgcbdbebfbbcgcbdbebfgfcgdgegfgbbcbdbebbcfcbdgdbegebfffbgcgdgegbbcbdbebfbgbbcbdcdddedfdbebfbgcgdgegfgggbbcbdbebfbgbbcbdcdddedfdbebfbgcbdbebfbbcgcbdbeeefegebfgfcgdgegfgbbgbbcgcbdcdddedfdgdbegebfgfbgggcbdbebfbgbecedeeefcgdgegfggggbgcgdbegebfgfcgdgegfgbbfbbcecbdcdddbeeebfffbgggbbbcbdbebfbgcgdgegfgggbbgbbcccfcgcbdddedgdbegebfgfbgggbbgbbcccgcbdddgdbeeegebfffgfbgggcbdbebfbbcgcbdgdbegebfgfcgdgegfgbbcbdbebfbbcgcbdgdbecedeeefebfbgcbdbebfbbcgcbdgdbedegebfefgfcgdgegfgbbcbdbebfbbcgcbdgdbecedeeefebfffbgggcbdbebfbbccdddedfdgebfgfcgdgegfgbbcbdbebfbgbhbecedeeefegbbgbbcgcbdgdbegebfgfcgdgegfgbbgbbcgcbdgdbegecfffdgegbbgbbcgcbdgdbegebfdfefgfcgfgbbgbccfcddeddeeecfffbgggbbhbccgcddfdeeefegbbcbdbebfbgbfceddecfbgcgdgegfgggdbebfbdcdddedfdgegfgccddeeffggdbebfbfcfdfeffdgegfgebdcecfccdedgdeeefegbhchdhehfhghhhdaeafagacbhbbcecfcbdddbedebfefffcghgdhehfhghdcecfcgddeeefegecfgfdgegfgggcbcccdddedfdcegecfgfcgdgegfgecfcgcdddedfegfggggbgcddedfdgdcegecfgfdgegfgggdcecfccdgdcedeeefecfdgegfgggfbgbecedfdeeefegdcecfcgchccdhdcehedfefffgfhfhgdhehfhghcbcccdddedfdcegecfgfcgggfbedfdfeffegfggggbgdgegfdgggehfhcbcceccdddcedecfefcgfgebecedeeeffgggccdcfccdedgdceeegecfefgfcgegggccdcecfccdgdcegecfgfcgggdcecfccdgdcegecfgfdgegfgccdcecfccdgdcegecfdfefffcgchdcecfcgccdgdcegedfefffgfggghhhecfcgcdddedfdgdcecfccddeeefegfcgdgegfgebdcecfcedeeeffgggccgccdgdcegecfgfdgegfgccgccdgddefedfffegccgccdedgdceeegecfefgfdgfgccgcddfdeedfffcgggccgccdgdcegedfefffgfggdhehfhccdcecfcgcfdeedfcgdgegfgggebfbgbeccdddeeefegfgggebecedeeefegcbdbebecfdgdeeefcgdgegebgbdcfc';
-
-    //uint256[] chars_indexes = [0, 6, 10, 30, 51, 65, 78, 80, 86, 92, 103, 112, 115, 120, 124, 129, 149, 161, 179, 194, 208, 227, 245, 256, 274, 292, 294, 298, 303, 313, 318, 327, 348, 366, 387, 401, 417, 437, 452, 469, 485, 499, 510, 523, 534, 550, 566, 582, 598, 616, 634, 650, 662, 676, 688, 702, 714, 723, 739, 749, 754, 764, 774, 781, 803, 817, 831, 840, 854, 868, 876, 895, 907, 915, 923, 934, 941, 956, 968, 980, 994, 1009, 1016, 1028, 1037, 1048, 1057, 1070, 1079, 1093, 1106, 1117, 1123, 1134];
-
     //address
     address _owner;
 
@@ -179,24 +173,6 @@ contract MyOwnNft is ERC721Enumerable {
     */
 
     /**
-     * @dev Helper function to reduce pixel size within contract
-     *
-    function letterToNumber(string memory _inputLetter)
-        internal
-        view
-        returns (uint256)
-    {
-        for (uint256 i = 0; i < LETTERS.length; i++) {
-            if (
-                keccak256(abi.encodePacked((LETTERS[i]))) ==
-                keccak256(abi.encodePacked((_inputLetter)))
-            ) return (i + 1);
-        }
-        revert();
-    }
-    */
-
-    /**
      * @dev Token ID to SVG function
      */
     function tokenIdToSVG(uint256 token_id)
@@ -209,9 +185,9 @@ contract MyOwnNft is ERC721Enumerable {
         uint256 cursor_x;
         uint256 cursor_y;
 
-        cursor_x = 10;
-        cursor_y = 10;
-        tempString = "# ";
+        cursor_x = 16;
+        cursor_y = 16;
+        tempString = "This is NFT # ";
         tempString = string(
             abi.encodePacked(tempString, MyOwnNftLibrary.toString(token_id))
         );
@@ -222,9 +198,9 @@ contract MyOwnNft is ERC721Enumerable {
             )
         );
 
-        cursor_x = 10;
-        cursor_y = 20;
-        tempString = "P ";
+        cursor_x = 16;
+        cursor_y = 32;
+        tempString = "Amount paid ";
         tempString = string(
             abi.encodePacked(
                 tempString,
@@ -239,6 +215,19 @@ contract MyOwnNft is ERC721Enumerable {
             abi.encodePacked(
                 svgString,
                 drawString(tempString, cursor_x, cursor_y)
+            )
+        );
+
+        cursor_x = 16;
+        cursor_y = 48;
+        svgString = string(
+            abi.encodePacked(
+                svgString,
+                drawString(
+                    customNftsContent[token_id].text_content,
+                    cursor_x,
+                    cursor_y
+                )
             )
         );
 
@@ -357,39 +346,6 @@ contract MyOwnNft is ERC721Enumerable {
     */
 
     /**
-     * @dev Add characters data
-     * @param _pixelsData Array pixel data
-     * @param _charsIndex Starting index for char pixel data
-     * @param _startPosition Starting position
-     *
-
-    function addCharacterData(
-        uint8[] memory _pixelsData,
-        uint256[] memory _charsIndex,
-        uint256 _startPosition
-    ) public onlyOwner {
-        for (uint256 index = 0; index < _charsIndex.length / 2; index++) {
-            uint256 char_start_pos = _charsIndex[index * 2];
-            uint256 char_end_pos = _charsIndex[index * 2 + 1];
-            uint8[] memory char_pixel_data = new uint8[](
-                char_end_pos - char_start_pos
-            );
-
-            for (uint256 i = char_start_pos; i < char_end_pos; i++) {
-                char_pixel_data[i] = uint8(_pixelsData[i]);
-            }
-
-            charactersData[_startPosition + index] = CharData(
-                char_end_pos - char_start_pos,
-                char_pixel_data
-            );
-        }
-
-        return;
-    }
-    */
-
-    /**
      * @dev Writes a single char to a given position
      * @param _char The character to write
      * @param _x The x pos of the cursor
@@ -457,6 +413,7 @@ contract MyOwnNft is ERC721Enumerable {
         printedString = "";
 
         bytes memory byteString = bytes(_string);
+        uint256 line_offset = 0;
 
         for (uint256 index = 0; index < byteString.length; index++) {
             printedString = string(
@@ -464,11 +421,14 @@ contract MyOwnNft is ERC721Enumerable {
                     printedString,
                     drawChar(
                         uint256(uint8(byteString[index])),
-                        _x + (index * 8),
-                        _y
+                        _x + ((index % 24) * 8),
+                        _y + line_offset
                     )
                 )
             );
+            if ((index % 24 == 0) && (index != 0)) {
+                line_offset = line_offset + 16;
+            }
         }
 
         return printedString;

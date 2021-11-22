@@ -1,4 +1,4 @@
-let SMART_CONTRACT_ADDRESS = "0x460716f7082aCeE5E1cd598fC0f25d49b936719e"
+let SMART_CONTRACT_ADDRESS = "0xaB9A32f544b8ee44EB411A09007850bC7B7a9721"
 
 const networkDiv = document.getElementById('network')
 const chainIdDiv = document.getElementById('chainId')
@@ -135,7 +135,7 @@ async function getHowManyNfts() {
 }
 
 async function getToken() {
-    let test = await contract.methods.tokenURI(tokenIdNumber.value).call();
+    let test = await contract.methods.tokenURI(parseInt(tokenIdNumber.value)).call();
     console.log(test);
     var str = JSON.stringify(test, null, 2);
     $("#result").html(str)
