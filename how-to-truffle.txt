@@ -2,8 +2,10 @@ HOW TO - truffle
 
 - truffle development
 - migrate
-- let t = await LasVulvas.deployed();
+- let t = await MyOwnNft.deployed();
 - t
+- t.mintNft("ciao", {value: 90000000000000000});
+- t.tokenURI(1)
 - t.setBaseURI("https://gateway.pinata.cloud/ipfs/QmTexDXc182G6XoqkPHeWsFZQHr5AZF7kHDsffVri97hnn/");
 - t._prefixURI();
 - t.togglePreSale();

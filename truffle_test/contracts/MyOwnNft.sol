@@ -23,9 +23,131 @@ contract MyOwnNft is ERC721Enumerable {
     uint256 MIN_PRICE = 1000000000000000000; // to check!!!!!!!
     uint256 MAX_STRING_LENGTH = 24 * 5;
 
-    string[] charsPixels = ['fafbfcfdfefg', 'eagaebgb', 'dbgbccdcecfcgchcddgddegecfdfefffgfhfdggg', 'eacbdbebfbgbcceccdddedfdgdeegecfdfefffgfeg', 'cbdbhbccdcgcfdeedfgfhfcggghg', 'ebdcfceddefehecfgfdgegfghg', 'fbec', 'fbecedeeeffg', 'ebfcfdfeffeg', 'dcfcedcedeeefegeefdgfg', 'ecedcedeeefegeefeg', 'fffgeh', 'cedeeefege', 'efffegfg', 'gcfdeedfcg', 'cbdbebfbbcfcgcbdedgdbedegebfcfgfcgdgegfg', 'cbdbbcdcdddedfbgcgdgegfg', 'cbdbebfbbcgcgdcedeeefebfbgcgdgegfggg', 'cbdbebfbbcgcedfdgebfgfcgdgegfg', 'ebdceccdedbeeebfcfdfefffgfeg', 'bbcbdbebfbgbbcbdcdddedfdgebfgfcgdgegfg', 'cbdbebfbbcbdcdddedfdbegebfgfcgdgegfg', 'bbcbdbebfbgbgcfdeedfdg', 'cbdbebfbbcgccdddedfdbegebfgfcgdgegfg', 'cbdbebfbbcgcbdgdcedeeefegegfcgdgegfg', 'edeg', 'ecefegdh', 'fceddeeffg', 'cdddedfdgdcfdfefffgf', 'dcedfeefdg', 'dbebfbgbcchcgdfefg', 'dbebfbgbccfchccdedgdhdceeefegehecfdgegfggg', 'cbdbebfbbcgcbdgdbecedeeefegebfgfbggg', 'bbcbdbebfbbcgcbdcdddedfdbegebfgfbgcgdgegfg', 'cbdbebfbbcgcbdbebfgfcgdgegfg', 'bbcbdbebbcfcbdgdbegebfffbgcgdgeg', 'bbcbdbebfbgbbcbdcdddedfdbebfbgcgdgegfggg', 'bbcbdbebfbgbbcbdcdddedfdbebfbg', 'cbdbebfbbcgcbdbeeefegebfgfcgdgegfg', 'bbgbbcgcbdcdddedfdgdbegebfgfbggg', 'cbdbebfbgbecedeeefcgdgegfggg', 'gbgcgdbegebfgfcgdgegfg', 'bbfbbcecbdcdddbeeebfffbggg', 'bbbcbdbebfbgcgdgegfggg', 'bbgbbcccfcgcbdddedgdbegebfgfbggg', 'bbgbbcccgcbdddgdbeeegebfffgfbggg', 'cbdbebfbbcgcbdgdbegebfgfcgdgegfg', 'bbcbdbebfbbcgcbdgdbecedeeefebfbg', 'cbdbebfbbcgcbdgdbedegebfefgfcgdgegfg', 'bbcbdbebfbbcgcbdgdbecedeeefebfffbggg', 'cbdbebfbbccdddedfdgebfgfcgdgegfg', 'bbcbdbebfbgbhbecedeeefeg', 'bbgbbcgcbdgdbegebfgfcgdgegfg', 'bbgbbcgcbdgdbegecfffdgeg', 'bbgbbcgcbdgdbegebfdfefgfcgfg', 'bbgbccfcddeddeeecfffbggg', 'bbhbccgcddfdeeefeg', 'bbcbdbebfbgbfceddecfbgcgdgegfggg', 'dbebfbdcdddedfdgegfg', 'ccddeeffgg', 'dbebfbfcfdfeffdgegfg', 'ebdcecfccdedgdeeefeg', 'bhchdhehfhghhh', 'daeafagacbhbbcecfcbdddbedebfefffcghgdhehfhgh', 'dcecfcgddeeefegecfgfdgegfggg', 'cbcccdddedfdcegecfgfcgdgegfg', 'ecfcgcdddedfegfggg', 'gbgcddedfdgdcegecfgfdgegfggg', 'dcecfccdgdcedeeefecfdgegfggg', 'fbgbecedfdeeefeg', 'dcecfcgchccdhdcehedfefffgfhfhgdhehfhgh', 'cbcccdddedfdcegecfgfcggg', 'fbedfdfeffegfggg', 'gbgdgegfdgggehfh', 'cbcceccdddcedecfefcgfg', 'ebecedeeeffggg', 'ccdcfccdedgdceeegecfefgfcgeggg', 'ccdcecfccdgdcegecfgfcggg', 'dcecfccdgdcegecfgfdgegfg', 'ccdcecfccdgdcegecfdfefffcgch', 'dcecfcgccdgdcegedfefffgfggghhh', 'ecfcgcdddedfdg', 'dcecfccddeeefegfcgdgegfg', 'ebdcecfcedeeeffggg', 'ccgccdgdcegecfgfdgegfg', 'ccgccdgddefedfffeg', 'ccgccdedgdceeegecfefgfdgfg', 'ccgcddfdeedfffcggg', 'ccgccdgdcegedfefffgfggdhehfh', 'ccdcecfcgcfdeedfcgdgegfggg', 'ebfbgbeccdddeeefegfggg', 'ebecedeeefeg', 'cbdbebecfdgdeeefcgdgeg', 'ebgbdcfc'];
-    
-    string[] LETTERS = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+    string[] charsPixels = [
+        "fafbfcfdfefg",
+        "eagaebgb",
+        "dbgbccdcecfcgchcddgddegecfdfefffgfhfdggg",
+        "eacbdbebfbgbcceccdddedfdgdeegecfdfefffgfeg",
+        "cbdbhbccdcgcfdeedfgfhfcggghg",
+        "ebdcfceddefehecfgfdgegfghg",
+        "fbec",
+        "fbecedeeeffg",
+        "ebfcfdfeffeg",
+        "dcfcedcedeeefegeefdgfg",
+        "ecedcedeeefegeefeg",
+        "fffgeh",
+        "cedeeefege",
+        "efffegfg",
+        "gcfdeedfcg",
+        "cbdbebfbbcfcgcbdedgdbedegebfcfgfcgdgegfg",
+        "cbdbbcdcdddedfbgcgdgegfg",
+        "cbdbebfbbcgcgdcedeeefebfbgcgdgegfggg",
+        "cbdbebfbbcgcedfdgebfgfcgdgegfg",
+        "ebdceccdedbeeebfcfdfefffgfeg",
+        "bbcbdbebfbgbbcbdcdddedfdgebfgfcgdgegfg",
+        "cbdbebfbbcbdcdddedfdbegebfgfcgdgegfg",
+        "bbcbdbebfbgbgcfdeedfdg",
+        "cbdbebfbbcgccdddedfdbegebfgfcgdgegfg",
+        "cbdbebfbbcgcbdgdcedeeefegegfcgdgegfg",
+        "edeg",
+        "ecefegdh",
+        "fceddeeffg",
+        "cdddedfdgdcfdfefffgf",
+        "dcedfeefdg",
+        "dbebfbgbcchcgdfefg",
+        "dbebfbgbccfchccdedgdhdceeefegehecfdgegfggg",
+        "cbdbebfbbcgcbdgdbecedeeefegebfgfbggg",
+        "bbcbdbebfbbcgcbdcdddedfdbegebfgfbgcgdgegfg",
+        "cbdbebfbbcgcbdbebfgfcgdgegfg",
+        "bbcbdbebbcfcbdgdbegebfffbgcgdgeg",
+        "bbcbdbebfbgbbcbdcdddedfdbebfbgcgdgegfggg",
+        "bbcbdbebfbgbbcbdcdddedfdbebfbg",
+        "cbdbebfbbcgcbdbeeefegebfgfcgdgegfg",
+        "bbgbbcgcbdcdddedfdgdbegebfgfbggg",
+        "cbdbebfbgbecedeeefcgdgegfggg",
+        "gbgcgdbegebfgfcgdgegfg",
+        "bbfbbcecbdcdddbeeebfffbggg",
+        "bbbcbdbebfbgcgdgegfggg",
+        "bbgbbcccfcgcbdddedgdbegebfgfbggg",
+        "bbgbbcccgcbdddgdbeeegebfffgfbggg",
+        "cbdbebfbbcgcbdgdbegebfgfcgdgegfg",
+        "bbcbdbebfbbcgcbdgdbecedeeefebfbg",
+        "cbdbebfbbcgcbdgdbedegebfefgfcgdgegfg",
+        "bbcbdbebfbbcgcbdgdbecedeeefebfffbggg",
+        "cbdbebfbbccdddedfdgebfgfcgdgegfg",
+        "bbcbdbebfbgbhbecedeeefeg",
+        "bbgbbcgcbdgdbegebfgfcgdgegfg",
+        "bbgbbcgcbdgdbegecfffdgeg",
+        "bbgbbcgcbdgdbegebfdfefgfcgfg",
+        "bbgbccfcddeddeeecfffbggg",
+        "bbhbccgcddfdeeefeg",
+        "bbcbdbebfbgbfceddecfbgcgdgegfggg",
+        "dbebfbdcdddedfdgegfg",
+        "ccddeeffgg",
+        "dbebfbfcfdfeffdgegfg",
+        "ebdcecfccdedgdeeefeg",
+        "bhchdhehfhghhh",
+        "daeafagacbhbbcecfcbdddbedebfefffcghgdhehfhgh",
+        "dcecfcgddeeefegecfgfdgegfggg",
+        "cbcccdddedfdcegecfgfcgdgegfg",
+        "ecfcgcdddedfegfggg",
+        "gbgcddedfdgdcegecfgfdgegfggg",
+        "dcecfccdgdcedeeefecfdgegfggg",
+        "fbgbecedfdeeefeg",
+        "dcecfcgchccdhdcehedfefffgfhfhgdhehfhgh",
+        "cbcccdddedfdcegecfgfcggg",
+        "fbedfdfeffegfggg",
+        "gbgdgegfdgggehfh",
+        "cbcceccdddcedecfefcgfg",
+        "ebecedeeeffggg",
+        "ccdcfccdedgdceeegecfefgfcgeggg",
+        "ccdcecfccdgdcegecfgfcggg",
+        "dcecfccdgdcegecfgfdgegfg",
+        "ccdcecfccdgdcegecfdfefffcgch",
+        "dcecfcgccdgdcegedfefffgfggghhh",
+        "ecfcgcdddedfdg",
+        "dcecfccddeeefegfcgdgegfg",
+        "ebdcecfcedeeeffggg",
+        "ccgccdgdcegecfgfdgegfg",
+        "ccgccdgddefedfffeg",
+        "ccgccdedgdceeegecfefgfdgfg",
+        "ccgcddfdeedfffcggg",
+        "ccgccdgdcegedfefffgfggdhehfh",
+        "ccdcecfcgcfdeedfcgdgegfggg",
+        "ebfbgbeccdddeeefegfggg",
+        "ebecedeeefeg",
+        "cbdbebecfdgdeeefcgdgeg",
+        "ebgbdcfc"
+    ];
+
+    string[] LETTERS = [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z"
+    ];
 
     //string chars_pixels = 'fafbfcfdfefgeagaebgbdbgbccdcecfcgchcddgddegecfdfefffgfhfdgggeacbdbebfbgbcceccdddedfdgdeegecfdfefffgfegcbdbhbccdcgcfdeedfgfhfcggghgebdcfceddefehecfgfdgegfghgfbecfbecedeeeffgebfcfdfeffegdcfcedcedeeefegeefdgfgecedcedeeefegeefegfffgehcedeeefegeefffegfggcfdeedfcgcbdbebfbbcfcgcbdedgdbedegebfcfgfcgdgegfgcbdbbcdcdddedfbgcgdgegfgcbdbebfbbcgcgdcedeeefebfbgcgdgegfgggcbdbebfbbcgcedfdgebfgfcgdgegfgebdceccdedbeeebfcfdfefffgfegbbcbdbebfbgbbcbdcdddedfdgebfgfcgdgegfgcbdbebfbbcbdcdddedfdbegebfgfcgdgegfgbbcbdbebfbgbgcfdeedfdgcbdbebfbbcgccdddedfdbegebfgfcgdgegfgcbdbebfbbcgcbdgdcedeeefegegfcgdgegfgedegecefegdhfceddeeffgcdddedfdgdcfdfefffgfdcedfeefdgdbebfbgbcchcgdfefgdbebfbgbccfchccdedgdhdceeefegehecfdgegfgggcbdbebfbbcgcbdgdbecedeeefegebfgfbgggbbcbdbebfbbcgcbdcdddedfdbegebfgfbgcgdgegfgcbdbebfbbcgcbdbebfgfcgdgegfgbbcbdbebbcfcbdgdbegebfffbgcgdgegbbcbdbebfbgbbcbdcdddedfdbebfbgcgdgegfgggbbcbdbebfbgbbcbdcdddedfdbebfbgcbdbebfbbcgcbdbeeefegebfgfcgdgegfgbbgbbcgcbdcdddedfdgdbegebfgfbgggcbdbebfbgbecedeeefcgdgegfggggbgcgdbegebfgfcgdgegfgbbfbbcecbdcdddbeeebfffbgggbbbcbdbebfbgcgdgegfgggbbgbbcccfcgcbdddedgdbegebfgfbgggbbgbbcccgcbdddgdbeeegebfffgfbgggcbdbebfbbcgcbdgdbegebfgfcgdgegfgbbcbdbebfbbcgcbdgdbecedeeefebfbgcbdbebfbbcgcbdgdbedegebfefgfcgdgegfgbbcbdbebfbbcgcbdgdbecedeeefebfffbgggcbdbebfbbccdddedfdgebfgfcgdgegfgbbcbdbebfbgbhbecedeeefegbbgbbcgcbdgdbegebfgfcgdgegfgbbgbbcgcbdgdbegecfffdgegbbgbbcgcbdgdbegebfdfefgfcgfgbbgbccfcddeddeeecfffbgggbbhbccgcddfdeeefegbbcbdbebfbgbfceddecfbgcgdgegfgggdbebfbdcdddedfdgegfgccddeeffggdbebfbfcfdfeffdgegfgebdcecfccdedgdeeefegbhchdhehfhghhhdaeafagacbhbbcecfcbdddbedebfefffcghgdhehfhghdcecfcgddeeefegecfgfdgegfgggcbcccdddedfdcegecfgfcgdgegfgecfcgcdddedfegfggggbgcddedfdgdcegecfgfdgegfgggdcecfccdgdcedeeefecfdgegfgggfbgbecedfdeeefegdcecfcgchccdhdcehedfefffgfhfhgdhehfhghcbcccdddedfdcegecfgfcgggfbedfdfeffegfggggbgdgegfdgggehfhcbcceccdddcedecfefcgfgebecedeeeffgggccdcfccdedgdceeegecfefgfcgegggccdcecfccdgdcegecfgfcgggdcecfccdgdcegecfgfdgegfgccdcecfccdgdcegecfdfefffcgchdcecfcgccdgdcegedfefffgfggghhhecfcgcdddedfdgdcecfccddeeefegfcgdgegfgebdcecfcedeeeffgggccgccdgdcegecfgfdgegfgccgccdgddefedfffegccgccdedgdceeegecfefgfdgfgccgcddfdeedfffcgggccgccdgdcegedfefffgfggdhehfhccdcecfcgcfdeedfcgdgegfgggebfbgbeccdddeeefegfgggebecedeeefegcbdbebecfdgdeeefcgdgegebgbdcfc';
 
@@ -180,7 +302,10 @@ contract MyOwnNft is ERC721Enumerable {
             abi.encodePacked(
                 metadataString,
                 '{"trait_type":"Amount paid","value":"',
-                customNftsContent[token_id].amount_paid,
+                MyOwnNftLibrary.toString(
+                    customNftsContent[token_id].amount_paid /
+                        1000000000000000000
+                ),
                 " FTM",
                 '"}'
             )
@@ -212,12 +337,11 @@ contract MyOwnNft is ERC721Enumerable {
                                     '{"name": "MyOwnNFT #',
                                     MyOwnNftLibrary.toString(_tokenId),
                                     '", "description": "MyOwnNFT is a collection of completely ON-CHAIN NFTs that you can customize on mint.", "image": "data:image/svg+xml;base64,',
-                                    MyOwnNftLibrary.encode(
-                                        bytes(tokenIdToSVG(_tokenId))
-                                    ),
+                                    //MyOwnNftLibrary.encode(
+                                    //    bytes(tokenIdToSVG(_tokenId))
+                                    //),
                                     '","attributes":',
                                     tokenIdToMetadata(_tokenId),
-                                    "none",
                                     "}"
                                 )
                             )
@@ -311,7 +435,7 @@ contract MyOwnNft is ERC721Enumerable {
 
         for (
             uint256 index = 0;
-            index < bytes(charsPixels[_char-33]).length /2;
+            index < bytes(charsPixels[_char - 33]).length / 2;
             index++
         ) {
             printedCharString = string(
@@ -322,7 +446,13 @@ contract MyOwnNft is ERC721Enumerable {
                         _x +
                             (
                                 uint256(
-                                    letterToNumber(MyOwnNftLibrary.substring(charsPixels[_char-33], index*2+1, index*2 + 2))
+                                    letterToNumber(
+                                        MyOwnNftLibrary.substring(
+                                            charsPixels[_char - 33],
+                                            index * 2 + 1,
+                                            index * 2 + 2
+                                        )
+                                    )
                                 )
                             )
                     ),
@@ -331,7 +461,13 @@ contract MyOwnNft is ERC721Enumerable {
                         _y +
                             (
                                 uint256(
-                                    letterToNumber(MyOwnNftLibrary.substring(charsPixels[_char-33], index*2, index*2 + 1))
+                                    letterToNumber(
+                                        MyOwnNftLibrary.substring(
+                                            charsPixels[_char - 33],
+                                            index * 2,
+                                            index * 2 + 1
+                                        )
+                                    )
                                 )
                             )
                     ),

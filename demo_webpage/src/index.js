@@ -1,4 +1,4 @@
-let SMART_CONTRACT_ADDRESS = "0xA3b53954de50812fF04e943fD76bdCD336603e8D"
+let SMART_CONTRACT_ADDRESS = "0x460716f7082aCeE5E1cd598fC0f25d49b936719e"
 
 const networkDiv = document.getElementById('network')
 const chainIdDiv = document.getElementById('chainId')
@@ -67,10 +67,10 @@ async function getNetworkAndChainId() {
 }
 
 async function mintNfts() {
-    let test = await contract.methods.mintItems(mintQuantity.value).send({
+    let test = await contract.methods.mintNft(nftText.value).send({
             to: SMART_CONTRACT_ADDRESS,
             from: accounts[0],
-            value: (90000000000000000) * mintQuantity.value
+            value: (1000000000000000000) * amountPaid.value
         })
         .on('receipt', function() {
             console.log("receipt")
@@ -136,6 +136,7 @@ async function getHowManyNfts() {
 
 async function getToken() {
     let test = await contract.methods.tokenURI(tokenIdNumber.value).call();
+    console.log(test);
     var str = JSON.stringify(test, null, 2);
     $("#result").html(str)
 }
