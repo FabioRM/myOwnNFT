@@ -31,7 +31,7 @@
                 Status
             </h3>
 
-            <div class="row">
+            <div class="row text-center">
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
                     <p class="info-text alert alert-primary">
                         Network: <span id="network"></span>
@@ -51,7 +51,7 @@
                 </div>
             </div>
 
-            <div class="row" id="connectButtonRow">
+            <div class="row text-center" id="connectButtonRow">
                 <div class="col">
                     <button class="btn btn-primary btn-lg btn-block mb-3" id="connectButton">
                         Connect wallet
@@ -64,18 +64,18 @@
             <h3 class="card-title">
                 Smart contract interaction
             </h3>
-            <div class="row">
+            <div class="row text-center">
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
                     <div class="card full-width">
                         <div class="card-body">
                             <h4 class="card-title">
-                                Mint Nfts
+                                Mint NFTs
                             </h4>
-                            <input class="form-control m-2" type="number" placeholder="How much to pay" id="amountPaid" style="width:55%;float:left;" />
+                            <input class="form-control m-2" type="number" placeholder="How much to pay" id="amountPaid" value='1' style="width:55%;float:left;" />
                             <button class="btn btn-primary m-2" id="mintButton" style="float:right;">
                                 Mint
                               </button>
-                            <input class="form-control m-2" type="text" placeholder="Write your own text" id="nftText" style="width:55%;float:left;" />
+                            <input class="form-control m-2" type="text" placeholder="Write your own text" id="nftText" value='> Hello, world.' style="width:55%;float:left;" />
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                             <h4 class="card-title">
                                 Minted items utils
                             </h4>
-                            <input class="form-control m-2" type="number" placeholder="Token ID" id="tokenIdNumber" style="width:50%;float:left;" />
+                            <input class="form-control m-2" type="number" placeholder="Token ID" id="tokenIdNumber" value='0' style="width:50%;float:left;" />
                             <button class="btn btn-primary m-2" id="getTokenButton" style="float:right;">
                                 Get token
                               </button>

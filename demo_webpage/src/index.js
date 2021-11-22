@@ -128,10 +128,12 @@ async function getHowManyNfts() {
 }
 
 async function getToken() {
-    let test = await contract.methods.tokenURI(parseInt(tokenIdNumber.value)).call();
-    console.log(test);
-    var str = JSON.stringify(test, null, 2);
-    $("#result").html(str)
+    let returnString = await contract.methods.tokenURI(parseInt(tokenIdNumber.value)).call();
+    //var str = JSON.stringify(test, null, 2);
+    const response = await fetch(returnString);
+    const data = await response.json();
+    console.log(data);
+    $("#result").html(JSON.stringify(data))
 }
 
 async function getNfts() {
@@ -140,9 +142,9 @@ async function getNfts() {
     document.getElementById("cards-row").innerHTML = ""
     $("#nftSection").show()
     for (var i = 0; i < totalSupply; i++) {
-        let owner = await contract.methods.ownerOf(i + 1).call();
+        let owner = await contract.methods.ownerOf(i).call();
         if (accounts[0] === owner) {
-            let tokenUri = await contract.methods.tokenURI(i + 1).call();
+            let tokenUri = await contract.methods.tokenURI(i).call();
             tokenIds.push(tokenUri);
             $.ajax({
                 url: tokenUri,
@@ -159,8 +161,8 @@ async function getNfts() {
             });
         }
     }
-    console.log(tokenIds);
-    $("#result").html(tokenIds.toString())
+    //console.log(tokenIds);
+    //$("#result").html(tokenIds.toString())
 }
 
 function initialize() {
