@@ -23,130 +23,103 @@ contract MyOwnNft is ERC721Enumerable {
     uint256 MAX_STRING_LENGTH = 24 * 5;
 
     string[] charsPixels = [
-        "fafbfcfdfefg",
-        "eagaebgb",
-        "dbgbccdcecfcgchcddgddegecfdfefffgfhfdggg",
-        "eacbdbebfbgbcceccdddedfdgdeegecfdfefffgfeg",
-        "cbdbhbccdcgcfdeedfgfhfcggghg",
-        "ebdcfceddefehecfgfdgegfghg",
-        "fbec",
-        "fbecedeeeffg",
-        "ebfcfdfeffeg",
-        "dcfcedcedeeefegeefdgfg",
-        "ecedcedeeefegeefeg",
-        "fffgeh",
-        "cedeeefege",
-        "efffegfg",
-        "gcfdeedfcg",
-        "cbdbebfbbcfcgcbdedgdbedegebfcfgfcgdgegfg",
-        "cbdbbcdcdddedfbgcgdgegfg",
-        "cbdbebfbbcgcgdcedeeefebfbgcgdgegfggg",
-        "cbdbebfbbcgcedfdgebfgfcgdgegfg",
-        "ebdceccdedbeeebfcfdfefffgfeg",
-        "bbcbdbebfbgbbcbdcdddedfdgebfgfcgdgegfg",
-        "cbdbebfbbcbdcdddedfdbegebfgfcgdgegfg",
-        "bbcbdbebfbgbgcfdeedfdg",
-        "cbdbebfbbcgccdddedfdbegebfgfcgdgegfg",
-        "cbdbebfbbcgcbdgdcedeeefegegfcgdgegfg",
-        "edeg",
-        "ecefegdh",
-        "fceddeeffg",
-        "cdddedfdgdcfdfefffgf",
-        "dcedfeefdg",
-        "dbebfbgbcchcgdfefg",
-        "dbebfbgbccfchccdedgdhdceeefegehecfdgegfggg",
-        "cbdbebfbbcgcbdgdbecedeeefegebfgfbggg",
-        "bbcbdbebfbbcgcbdcdddedfdbegebfgfbgcgdgegfg",
-        "cbdbebfbbcgcbdbebfgfcgdgegfg",
-        "bbcbdbebbcfcbdgdbegebfffbgcgdgeg",
-        "bbcbdbebfbgbbcbdcdddedfdbebfbgcgdgegfggg",
-        "bbcbdbebfbgbbcbdcdddedfdbebfbg",
-        "cbdbebfbbcgcbdbeeefegebfgfcgdgegfg",
-        "bbgbbcgcbdcdddedfdgdbegebfgfbggg",
-        "cbdbebfbgbecedeeefcgdgegfggg",
-        "gbgcgdbegebfgfcgdgegfg",
-        "bbfbbcecbdcdddbeeebfffbggg",
-        "bbbcbdbebfbgcgdgegfggg",
-        "bbgbbcccfcgcbdddedgdbegebfgfbggg",
-        "bbgbbcccgcbdddgdbeeegebfffgfbggg",
-        "cbdbebfbbcgcbdgdbegebfgfcgdgegfg",
-        "bbcbdbebfbbcgcbdgdbecedeeefebfbg",
-        "cbdbebfbbcgcbdgdbedegebfefgfcgdgegfg",
-        "bbcbdbebfbbcgcbdgdbecedeeefebfffbggg",
-        "cbdbebfbbccdddedfdgebfgfcgdgegfg",
-        "bbcbdbebfbgbhbecedeeefeg",
-        "bbgbbcgcbdgdbegebfgfcgdgegfg",
-        "bbgbbcgcbdgdbegecfffdgeg",
-        "bbgbbcgcbdgdbegebfdfefgfcgfg",
-        "bbgbccfcddeddeeecfffbggg",
-        "bbhbccgcddfdeeefeg",
-        "bbcbdbebfbgbfceddecfbgcgdgegfggg",
-        "dbebfbdcdddedfdgegfg",
-        "ccddeeffgg",
-        "dbebfbfcfdfeffdgegfg",
-        "ebdcecfccdedgdeeefeg",
-        "bhchdhehfhghhh",
-        "daeafagacbhbbcecfcbdddbedebfefffcghgdhehfhgh",
-        "dcecfcgddeeefegecfgfdgegfggg",
-        "cbcccdddedfdcegecfgfcgdgegfg",
-        "ecfcgcdddedfegfggg",
-        "gbgcddedfdgdcegecfgfdgegfggg",
-        "dcecfccdgdcedeeefecfdgegfggg",
-        "fbgbecedfdeeefeg",
-        "dcecfcgchccdhdcehedfefffgfhfhgdhehfhgh",
-        "cbcccdddedfdcegecfgfcggg",
-        "fbedfdfeffegfggg",
-        "gbgdgegfdgggehfh",
-        "cbcceccdddcedecfefcgfg",
-        "ebecedeeeffggg",
-        "ccdcfccdedgdceeegecfefgfcgeggg",
-        "ccdcecfccdgdcegecfgfcggg",
-        "dcecfccdgdcegecfgfdgegfg",
-        "ccdcecfccdgdcegecfdfefffcgch",
-        "dcecfcgccdgdcegedfefffgfggghhh",
-        "ecfcgcdddedfdg",
-        "dcecfccddeeefegfcgdgegfg",
-        "ebdcecfcedeeeffggg",
-        "ccgccdgdcegecfgfdgegfg",
-        "ccgccdgddefedfffeg",
-        "ccgccdedgdceeegecfefgfdgfg",
-        "ccgcddfdeedfffcggg",
-        "ccgccdgdcegedfefffgfggdhehfh",
-        "ccdcecfcgcfdeedfcgdgegfggg",
-        "ebfbgbeccdddeeefegfggg",
-        "ebecedeeefeg",
-        "cbdbebecfdgdeeefcgdgeg",
-        "ebgbdcfc"
+        "505152535456",
+        "40604161",
+        "3161223242526272336334642535455565753666",
+        "402131415161224223334353634464253545556546",
+        "2131712232625344356575266676",
+        "41325243345474256536465676",
+        "5142",
+        "514243444556",
+        "415253545546",
+        "3252432434445464453656",
+        "424324344454644546",
+        "555647",
+        "2434445464",
+        "45554656",
+        "6253443526",
+        "2131415112526213436314346415256526364656",
+        "213112323334351626364656",
+        "213141511262632434445415162636465666",
+        "213141511262435364156526364656",
+        "4132422343144415253545556546",
+        "11213141516112132333435364156526364656",
+        "213141511213233343531464156526364656",
+        "1121314151616253443536",
+        "213141511262233343531464156526364656",
+        "213141511262136324344454646526364656",
+        "4346",
+        "42454637",
+        "5243344556",
+        "23334353632535455565",
+        "3243544536",
+        "314151612272635456",
+        "314151612252722343637324445464742536465666",
+        "213141511262136314243444546415651666",
+        "112131415112621323334353146415651626364656",
+        "2131415112621314156526364656",
+        "11213141125213631464155516263646",
+        "1121314151611213233343531415162636465666",
+        "112131415161121323334353141516",
+        "2131415112621314445464156526364656",
+        "11611262132333435363146415651666",
+        "2131415161424344452636465666",
+        "6162631464156526364656",
+        "11511242132333144415551666",
+        "1112131415162636465666",
+        "11611222526213334363146415651666",
+        "11611222621333631444641555651666",
+        "21314151126213631464156526364656",
+        "11213141511262136314243444541516",
+        "213141511262136314346415456526364656",
+        "112131415112621363142434445415551666",
+        "21314151122333435364156526364656",
+        "112131415161714243444546",
+        "1161126213631464156526364656",
+        "116112621363146425553646",
+        "1161126213631464153545652656",
+        "116122523343344425551666",
+        "117122623353444546",
+        "11213141516152433425162636465666",
+        "31415132333435364656",
+        "2233445566",
+        "31415152535455364656",
+        "41324252234363444546",
+        "17273747576777",
+        "30405060217112425213331434154555267637475767",
+        "3242526334445464256536465666",
+        "2122233343532464256526364656",
+        "425262333435465666",
+        "6162334353632464256536465666",
+        "3242522363243444542536465666",
+        "5161424353444546",
+        "32425262722373247435455565757637475767",
+        "212223334353246425652666",
+        "5143535455465666",
+        "6163646536664757",
+        "2122422333243425452656",
+        "41424344455666",
+        "223252234363244464254565264666",
+        "223242522363246425652666",
+        "324252236324642565364656",
+        "2232425223632464253545552627",
+        "324252622363246435455565666777",
+        "42526233343536",
+        "324252233444546526364656",
+        "413242524344455666",
+        "2262236324642565364656",
+        "226223633454355546",
+        "22622343632444642545653656",
+        "226233534435552666",
+        "2262236324643545556566374757",
+        "22324252625344352636465666",
+        "4151614223334445465666",
+        "414243444546",
+        "2131414253634445263646",
+        "41613252"
     ];
 
-    string[] LETTERS = [
-        "a",
-        "b",
-        "c",
-        "d",
-        "e",
-        "f",
-        "g",
-        "h",
-        "i",
-        "j",
-        "k",
-        "l",
-        "m",
-        "n",
-        "o",
-        "p",
-        "q",
-        "r",
-        "s",
-        "t",
-        "u",
-        "v",
-        "w",
-        "x",
-        "y",
-        "z"
-    ];
+    //string[] LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
     //string chars_pixels = 'fafbfcfdfefgeagaebgbdbgbccdcecfcgchcddgddegecfdfefffgfhfdgggeacbdbebfbgbcceccdddedfdgdeegecfdfefffgfegcbdbhbccdcgcfdeedfgfhfcggghgebdcfceddefehecfgfdgegfghgfbecfbecedeeeffgebfcfdfeffegdcfcedcedeeefegeefdgfgecedcedeeefegeefegfffgehcedeeefegeefffegfggcfdeedfcgcbdbebfbbcfcgcbdedgdbedegebfcfgfcgdgegfgcbdbbcdcdddedfbgcgdgegfgcbdbebfbbcgcgdcedeeefebfbgcgdgegfgggcbdbebfbbcgcedfdgebfgfcgdgegfgebdceccdedbeeebfcfdfefffgfegbbcbdbebfbgbbcbdcdddedfdgebfgfcgdgegfgcbdbebfbbcbdcdddedfdbegebfgfcgdgegfgbbcbdbebfbgbgcfdeedfdgcbdbebfbbcgccdddedfdbegebfgfcgdgegfgcbdbebfbbcgcbdgdcedeeefegegfcgdgegfgedegecefegdhfceddeeffgcdddedfdgdcfdfefffgfdcedfeefdgdbebfbgbcchcgdfefgdbebfbgbccfchccdedgdhdceeefegehecfdgegfgggcbdbebfbbcgcbdgdbecedeeefegebfgfbgggbbcbdbebfbbcgcbdcdddedfdbegebfgfbgcgdgegfgcbdbebfbbcgcbdbebfgfcgdgegfgbbcbdbebbcfcbdgdbegebfffbgcgdgegbbcbdbebfbgbbcbdcdddedfdbebfbgcgdgegfgggbbcbdbebfbgbbcbdcdddedfdbebfbgcbdbebfbbcgcbdbeeefegebfgfcgdgegfgbbgbbcgcbdcdddedfdgdbegebfgfbgggcbdbebfbgbecedeeefcgdgegfggggbgcgdbegebfgfcgdgegfgbbfbbcecbdcdddbeeebfffbgggbbbcbdbebfbgcgdgegfgggbbgbbcccfcgcbdddedgdbegebfgfbgggbbgbbcccgcbdddgdbeeegebfffgfbgggcbdbebfbbcgcbdgdbegebfgfcgdgegfgbbcbdbebfbbcgcbdgdbecedeeefebfbgcbdbebfbbcgcbdgdbedegebfefgfcgdgegfgbbcbdbebfbbcgcbdgdbecedeeefebfffbgggcbdbebfbbccdddedfdgebfgfcgdgegfgbbcbdbebfbgbhbecedeeefegbbgbbcgcbdgdbegebfgfcgdgegfgbbgbbcgcbdgdbegecfffdgegbbgbbcgcbdgdbegebfdfefgfcgfgbbgbccfcddeddeeecfffbgggbbhbccgcddfdeeefegbbcbdbebfbgbfceddecfbgcgdgegfgggdbebfbdcdddedfdgegfgccddeeffggdbebfbfcfdfeffdgegfgebdcecfccdedgdeeefegbhchdhehfhghhhdaeafagacbhbbcecfcbdddbedebfefffcghgdhehfhghdcecfcgddeeefegecfgfdgegfgggcbcccdddedfdcegecfgfcgdgegfgecfcgcdddedfegfggggbgcddedfdgdcegecfgfdgegfgggdcecfccdgdcedeeefecfdgegfgggfbgbecedfdeeefegdcecfcgchccdhdcehedfefffgfhfhgdhehfhghcbcccdddedfdcegecfgfcgggfbedfdfeffegfggggbgdgegfdgggehfhcbcceccdddcedecfefcgfgebecedeeeffgggccdcfccdedgdceeegecfefgfcgegggccdcecfccdgdcegecfgfcgggdcecfccdgdcegecfgfdgegfgccdcecfccdgdcegecfdfefffcgchdcecfcgccdgdcegedfefffgfggghhhecfcgcdddedfdgdcecfccddeeefegfcgdgegfgebdcecfcedeeeffgggccgccdgdcegecfgfdgegfgccgccdgddefedfffegccgccdedgdceeegecfefgfdgfgccgcddfdeedfffcgggccgccdgdcegedfefffgfggdhehfhccdcecfcgcfdeedfcgdgegfgggebfbgbeccdddeeefegfgggebecedeeefegcbdbebecfdgdeeefcgdgegebgbdcfc';
 
@@ -207,7 +180,7 @@ contract MyOwnNft is ERC721Enumerable {
 
     /**
      * @dev Helper function to reduce pixel size within contract
-     */
+     *
     function letterToNumber(string memory _inputLetter)
         internal
         view
@@ -221,6 +194,7 @@ contract MyOwnNft is ERC721Enumerable {
         }
         revert();
     }
+    */
 
     /**
      * @dev Token ID to SVG function
@@ -237,7 +211,7 @@ contract MyOwnNft is ERC721Enumerable {
 
         cursor_x = 10;
         cursor_y = 10;
-        tempString = "This is NFT #";
+        tempString = "# ";
         tempString = string(
             abi.encodePacked(tempString, MyOwnNftLibrary.toString(token_id))
         );
@@ -250,7 +224,7 @@ contract MyOwnNft is ERC721Enumerable {
 
         cursor_x = 10;
         cursor_y = 20;
-        tempString = "Minted for ";
+        tempString = "P ";
         tempString = string(
             abi.encodePacked(
                 tempString,
@@ -270,9 +244,9 @@ contract MyOwnNft is ERC721Enumerable {
 
         svgString = string(
             abi.encodePacked(
-                '<svg id="mouse-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 256 256"> ',
+                '<svg id="mon-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 256 256"> ',
                 svgString,
-                "<style>rect{width:1px;height:1px;} #mouse-svg{shape-rendering: crispedges;} .c00{fill:#000000}.c01{fill:#FFFFFF}</style></svg>"
+                "<style>rect{width:1px;height:1px;} #mon-svg{shape-rendering: crispedges;} .b{fill:#000000}.w{fill:#FFFFFF}</style></svg>"
             )
         );
 
@@ -293,7 +267,7 @@ contract MyOwnNft is ERC721Enumerable {
         metadataString = string(
             abi.encodePacked(
                 metadataString,
-                '{"trait_type":"Text content","value":"',
+                '{"trait_type":"text content","value":"',
                 customNftsContent[token_id].text_content,
                 '"},'
             )
@@ -303,7 +277,7 @@ contract MyOwnNft is ERC721Enumerable {
         metadataString = string(
             abi.encodePacked(
                 metadataString,
-                '{"trait_type":"Amount paid","value":"',
+                '{"trait_type":"amount paid","value":"',
                 MyOwnNftLibrary.toString(
                     customNftsContent[token_id].amount_paid /
                         1000000000000000000
@@ -435,8 +409,6 @@ contract MyOwnNft is ERC721Enumerable {
             return printedCharString;
         }
 
-        return MyOwnNftLibrary.toString(_char);
-
         for (
             uint256 index = 0;
             index < bytes(charsPixels[_char - 33]).length / 2;
@@ -445,26 +417,20 @@ contract MyOwnNft is ERC721Enumerable {
             printedCharString = string(
                 abi.encodePacked(
                     printedCharString,
-                    "<rect class='c01' x='",
+                    "<rect class='b' x='",
                     MyOwnNftLibrary.toString(
                         _x +
-                            letterToNumber(
-                                MyOwnNftLibrary.substring(
-                                    charsPixels[_char - 33],
-                                    index * 2 + 1,
-                                    index * 2 + 2
-                                )
+                            MyOwnNftLibrary.subchar(
+                                charsPixels[_char - 33],
+                                index * 2
                             )
                     ),
                     "' y='",
                     MyOwnNftLibrary.toString(
                         _y +
-                            letterToNumber(
-                                MyOwnNftLibrary.substring(
-                                    charsPixels[_char - 33],
-                                    index * 2,
-                                    index * 2 + 1
-                                )
+                            MyOwnNftLibrary.subchar(
+                                charsPixels[_char - 33],
+                                index * 2 + 1
                             )
                     ),
                     "'/>"

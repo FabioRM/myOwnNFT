@@ -1,10 +1,12 @@
 import os, sys, time
 
-def num_to_letter (num):
-    d = {0:'a', 1:'b', 2:'c', 3: 'd', 4:'e', 5:'f', 6:'g', 7: 'h'}
-    
+
+def num_to_letter(num):
+    d = {0: "a", 1: "b", 2: "c", 3: "d", 4: "e", 5: "f", 6: "g", 7: "h"}
+
     return d[num]
-    
+
+
 def conv_char(filename):
     charsData = []
     charsDataStrings = []
@@ -23,7 +25,9 @@ def conv_char(filename):
                 for j in range(8):
                     if char_data_line_parsed & (1 << (8 - j)):
                         char_data_ints.append(i * 8 + j)
-                        char_data_string = char_data_string + num_to_letter(j) + num_to_letter(i)
+                        char_data_string = (
+                            char_data_string + str(j) + str(i)
+                        )  # num_to_letter(j) + num_to_letter(i)
 
             print(char_data_ints)
             charsData.append(char_data_ints)
@@ -32,7 +36,7 @@ def conv_char(filename):
 
     print(charsData)
     print(charsDataStrings)
-        
+
     # remove space
     charsData = charsData[1:]
     charsDataStrings = charsDataStrings[1:]

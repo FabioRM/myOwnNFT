@@ -132,6 +132,15 @@ library MyOwnNftLibrary {
         return string(result);
     }
 
+    function subchar(string memory str, uint256 index)
+        internal
+        pure
+        returns (uint8)
+    {
+        bytes memory strBytes = bytes(str);
+        return uint8(strBytes[index]) - 48;
+    }
+
     function isContract(address account) internal view returns (bool) {
         // This method relies on extcodesize, which returns 0 for contracts in
         // construction, since the code is only stored at the end of the
