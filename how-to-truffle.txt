@@ -1,15 +1,9 @@
 HOW TO - truffle
 
 - truffle development
-- migrate
+- migrate --reset
 - let t = await MyOwnNft.deployed();
 - t
-- t.mintNft("ciao", {value: 90000000000000000});
+- t.mintNft("ciao", {value: 1000000000000000000});
 - t.tokenURI(1)
-- t.setBaseURI("https://gateway.pinata.cloud/ipfs/QmTexDXc182G6XoqkPHeWsFZQHr5AZF7kHDsffVri97hnn/");
-- t._prefixURI();
-- t.togglePreSale();
-- t.toggleSale();
-- t.mintItems(2, {value: 180000000000000000});
-- t.mintItems(1, {value: 90000000000000000});
 - t.balanceOf(accounts[0]);

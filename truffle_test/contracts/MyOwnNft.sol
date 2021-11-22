@@ -337,9 +337,9 @@ contract MyOwnNft is ERC721Enumerable {
                                     '{"name": "MyOwnNFT #',
                                     MyOwnNftLibrary.toString(_tokenId),
                                     '", "description": "MyOwnNFT is a collection of completely ON-CHAIN NFTs that you can customize on mint.", "image": "data:image/svg+xml;base64,',
-                                    //MyOwnNftLibrary.encode(
-                                    //    bytes(tokenIdToSVG(_tokenId))
-                                    //),
+                                    MyOwnNftLibrary.encode(
+                                        bytes(tokenIdToSVG(_tokenId))
+                                    ),
                                     '","attributes":',
                                     tokenIdToMetadata(_tokenId),
                                     "}"
