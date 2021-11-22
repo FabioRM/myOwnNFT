@@ -3,7 +3,6 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "@openzeppelin/contracts/utils/Strings.sol";
 import "./MyOwnNftLibrary.sol";
 
 contract MyOwnNft is ERC721Enumerable {
@@ -212,9 +211,9 @@ contract MyOwnNft is ERC721Enumerable {
     function letterToNumber(string memory _inputLetter)
         internal
         view
-        returns (uint8)
+        returns (uint256)
     {
-        for (uint8 i = 0; i < LETTERS.length; i++) {
+        for (uint256 i = 0; i < LETTERS.length; i++) {
             if (
                 keccak256(abi.encodePacked((LETTERS[i]))) ==
                 keccak256(abi.encodePacked((_inputLetter)))
@@ -240,7 +239,7 @@ contract MyOwnNft is ERC721Enumerable {
         cursor_y = 10;
         tempString = "This is NFT #";
         tempString = string(
-            abi.encodePacked(tempString, Strings.toString(token_id))
+            abi.encodePacked(tempString, MyOwnNftLibrary.toString(token_id))
         );
         svgString = string(
             abi.encodePacked(
@@ -255,7 +254,10 @@ contract MyOwnNft is ERC721Enumerable {
         tempString = string(
             abi.encodePacked(
                 tempString,
-                Strings.toString(customNftsContent[token_id].amount_paid),
+                MyOwnNftLibrary.toString(
+                    customNftsContent[token_id].amount_paid /
+                        1000000000000000000
+                ),
                 " FTM"
             )
         );
@@ -268,7 +270,7 @@ contract MyOwnNft is ERC721Enumerable {
 
         svgString = string(
             abi.encodePacked(
-                '<svg id="mouse-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 24 24"> ',
+                '<svg id="mouse-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 256 256"> ',
                 svgString,
                 "<style>rect{width:1px;height:1px;} #mouse-svg{shape-rendering: crispedges;} .c00{fill:#000000}.c01{fill:#FFFFFF}</style></svg>"
             )
@@ -433,6 +435,8 @@ contract MyOwnNft is ERC721Enumerable {
             return printedCharString;
         }
 
+        return MyOwnNftLibrary.toString(_char);
+
         for (
             uint256 index = 0;
             index < bytes(charsPixels[_char - 33]).length / 2;
@@ -442,32 +446,24 @@ contract MyOwnNft is ERC721Enumerable {
                 abi.encodePacked(
                     printedCharString,
                     "<rect class='c01' x='",
-                    Strings.toString(
+                    MyOwnNftLibrary.toString(
                         _x +
-                            (
-                                uint256(
-                                    letterToNumber(
-                                        MyOwnNftLibrary.substring(
-                                            charsPixels[_char - 33],
-                                            index * 2 + 1,
-                                            index * 2 + 2
-                                        )
-                                    )
+                            letterToNumber(
+                                MyOwnNftLibrary.substring(
+                                    charsPixels[_char - 33],
+                                    index * 2 + 1,
+                                    index * 2 + 2
                                 )
                             )
                     ),
                     "' y='",
-                    Strings.toString(
+                    MyOwnNftLibrary.toString(
                         _y +
-                            (
-                                uint256(
-                                    letterToNumber(
-                                        MyOwnNftLibrary.substring(
-                                            charsPixels[_char - 33],
-                                            index * 2,
-                                            index * 2 + 1
-                                        )
-                                    )
+                            letterToNumber(
+                                MyOwnNftLibrary.substring(
+                                    charsPixels[_char - 33],
+                                    index * 2,
+                                    index * 2 + 1
                                 )
                             )
                     ),
