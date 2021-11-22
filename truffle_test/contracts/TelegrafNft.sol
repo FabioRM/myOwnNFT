@@ -1,13 +1,10 @@
-// contracts/MyOwnNft.sol
+// contracts/TelegrafNFT.sol
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "./MyOwnNftLibrary.sol";
 
-contract MyOwnNft is ERC721Enumerable {
-    using MyOwnNftLibrary for uint8;
-
+contract TelegrafNFT is ERC721Enumerable {
     struct CustomNftContent {
         uint256 amount_paid;
         string text_content;
@@ -20,6 +17,9 @@ contract MyOwnNft is ERC721Enumerable {
     uint256 MAX_SUPPLY = 100000;
     uint256 MIN_PRICE = 1000000000000000000;
     uint256 MAX_STRING_LENGTH = 12 * 4 + 1; // takes into account string termination
+
+    string internal constant TABLE =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
     string[] CHARS_PIXELS = [
         "202122232426",
@@ -122,7 +122,7 @@ contract MyOwnNft is ERC721Enumerable {
     //address
     address _owner;
 
-    constructor() ERC721("MyOwnNft", "MON") {
+    constructor() ERC721("TelegrafNFT", "TNFT") {
         _owner = msg.sender;
     }
 
@@ -156,7 +156,7 @@ contract MyOwnNft is ERC721Enumerable {
         require(bytes(text_content).length < MAX_STRING_LENGTH);
         require(msg.value >= MIN_PRICE);
         require(_totalSupply < MAX_SUPPLY);
-        require(!MyOwnNftLibrary.isContract(msg.sender));
+        require(!isContract(msg.sender));
 
         return mintInternal(text_content, msg.value, _totalSupply);
     }
@@ -188,9 +188,7 @@ contract MyOwnNft is ERC721Enumerable {
         cursor_x = 16;
         cursor_y = 20;
         tempString = "NFT #";
-        tempString = string(
-            abi.encodePacked(tempString, MyOwnNftLibrary.toString(token_id))
-        );
+        tempString = string(abi.encodePacked(tempString, toString(token_id)));
         svgString = string(
             abi.encodePacked(
                 svgString,
@@ -209,7 +207,7 @@ contract MyOwnNft is ERC721Enumerable {
             tempString = string(
                 abi.encodePacked(
                     tempString,
-                    MyOwnNftLibrary.toString(formatted_amount),
+                    toString(formatted_amount),
                     " $FTM"
                 )
             );
@@ -270,7 +268,7 @@ contract MyOwnNft is ERC721Enumerable {
             abi.encodePacked(
                 metadataString,
                 '{"trait_type":"paid","value":"',
-                MyOwnNftLibrary.toString(
+                toString(
                     customNftsContent[token_id].amount_paid /
                         1000000000000000000
                 ),
@@ -298,16 +296,14 @@ contract MyOwnNft is ERC721Enumerable {
             string(
                 abi.encodePacked(
                     "data:application/json;base64,",
-                    MyOwnNftLibrary.encode(
+                    encode(
                         bytes(
                             string(
                                 abi.encodePacked(
                                     '{"name": "Telegraf NFT #',
-                                    MyOwnNftLibrary.toString(_tokenId),
+                                    toString(_tokenId),
                                     '", "description": "Telegraf NFT is a collection of ON-CHAIN NFTs that users customize on mint.", "image": "data:image/svg+xml;base64,',
-                                    MyOwnNftLibrary.encode(
-                                        bytes(tokenIdToSVG(_tokenId))
-                                    ),
+                                    encode(bytes(tokenIdToSVG(_tokenId))),
                                     '","attributes":',
                                     tokenIdToMetadata(_tokenId),
                                     "}"
@@ -379,20 +375,10 @@ contract MyOwnNft is ERC721Enumerable {
                 abi.encodePacked(
                     printedCharString,
                     "<rect x='",
-                    MyOwnNftLibrary.toString(
-                        _x +
-                            MyOwnNftLibrary.subchar(
-                                _charsPixels[_char - 33],
-                                index * 2
-                            )
-                    ),
+                    toString(_x + subchar(_charsPixels[_char - 33], index * 2)),
                     "' y='",
-                    MyOwnNftLibrary.toString(
-                        _y +
-                            MyOwnNftLibrary.subchar(
-                                _charsPixels[_char - 33],
-                                index * 2 + 1
-                            )
+                    toString(
+                        _y + subchar(_charsPixels[_char - 33], index * 2 + 1)
                     ),
                     "'/>"
                 )
@@ -459,5 +445,154 @@ contract MyOwnNft is ERC721Enumerable {
     modifier onlyOwner() {
         require(_owner == msg.sender);
         _;
+    }
+
+    /** */
+    function encode(bytes memory data) internal pure returns (string memory) {
+        if (data.length == 0) return "";
+
+        // load the table into memory
+        string memory table = TABLE;
+
+        // multiply by 4/3 rounded up
+        uint256 encodedLen = 4 * ((data.length + 2) / 3);
+
+        // add some extra buffer at the end required for the writing
+        string memory result = new string(encodedLen + 32);
+
+        assembly {
+            // set the actual output length
+            mstore(result, encodedLen)
+
+            // prepare the lookup table
+            let tablePtr := add(table, 1)
+
+            // input ptr
+            let dataPtr := data
+            let endPtr := add(dataPtr, mload(data))
+
+            // result ptr, jump over length
+            let resultPtr := add(result, 32)
+
+            // run over the input, 3 bytes at a time
+            for {
+
+            } lt(dataPtr, endPtr) {
+
+            } {
+                dataPtr := add(dataPtr, 3)
+
+                // read 3 bytes
+                let input := mload(dataPtr)
+
+                // write 4 characters
+                mstore(
+                    resultPtr,
+                    shl(248, mload(add(tablePtr, and(shr(18, input), 0x3F))))
+                )
+                resultPtr := add(resultPtr, 1)
+                mstore(
+                    resultPtr,
+                    shl(248, mload(add(tablePtr, and(shr(12, input), 0x3F))))
+                )
+                resultPtr := add(resultPtr, 1)
+                mstore(
+                    resultPtr,
+                    shl(248, mload(add(tablePtr, and(shr(6, input), 0x3F))))
+                )
+                resultPtr := add(resultPtr, 1)
+                mstore(
+                    resultPtr,
+                    shl(248, mload(add(tablePtr, and(input, 0x3F))))
+                )
+                resultPtr := add(resultPtr, 1)
+            }
+
+            // padding with '='
+            switch mod(mload(data), 3)
+            case 1 {
+                mstore(sub(resultPtr, 2), shl(240, 0x3d3d))
+            }
+            case 2 {
+                mstore(sub(resultPtr, 1), shl(248, 0x3d))
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` decimal representation.
+     */
+    function toString(uint256 value) internal pure returns (string memory) {
+        if (value == 0) {
+            return "0";
+        }
+        uint256 temp = value;
+        uint256 digits;
+        while (temp != 0) {
+            digits++;
+            temp /= 10;
+        }
+        bytes memory buffer = new bytes(digits);
+        while (value != 0) {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+        return string(buffer);
+    }
+
+    function parseInt(string memory _a)
+        internal
+        pure
+        returns (uint8 _parsedInt)
+    {
+        bytes memory bresult = bytes(_a);
+        uint8 mint = 0;
+        for (uint8 i = 0; i < bresult.length; i++) {
+            if (
+                (uint8(uint8(bresult[i])) >= 48) &&
+                (uint8(uint8(bresult[i])) <= 57)
+            ) {
+                mint *= 10;
+                mint += uint8(bresult[i]) - 48;
+            }
+        }
+        return mint;
+    }
+
+    function substring(
+        string memory str,
+        uint256 startIndex,
+        uint256 endIndex
+    ) internal pure returns (string memory) {
+        bytes memory strBytes = bytes(str);
+        bytes memory result = new bytes(endIndex - startIndex);
+        for (uint256 i = startIndex; i < endIndex; i++) {
+            result[i - startIndex] = strBytes[i];
+        }
+        return string(result);
+    }
+
+    function subchar(string memory str, uint256 index)
+        internal
+        pure
+        returns (uint8)
+    {
+        bytes memory strBytes = bytes(str);
+        return uint8(strBytes[index]) - 48;
+    }
+
+    function isContract(address account) internal view returns (bool) {
+        // This method relies on extcodesize, which returns 0 for contracts in
+        // construction, since the code is only stored at the end of the
+        // constructor execution.
+
+        uint256 size;
+        assembly {
+            size := extcodesize(account)
+        }
+        return size > 0;
     }
 }

@@ -18,11 +18,14 @@ const getWeb3 = () => {
 
 
 const getContract = async(web3) => {
-    const myownnft = await $.getJSON("./src/MyOwnNft.json");
+    const TelegrafNFT = await $.getJSON("./src/TelegrafNFT.json");
+    console.log("TelegrafNFT", TelegrafNFT);
     const netId = await web3.eth.net.getId();
-    const deployedNetwork = myownnft.networks[netId];
+    console.log("netId", netId);
+    const deployedNetwork = TelegrafNFT.networks[netId];
+    console.log("deployedNetwork", deployedNetwork);
     const greeting = new web3.eth.Contract(
-        myownnft.abi,
+        TelegrafNFT.abi,
         deployedNetwork && deployedNetwork.address
     );
     return greeting;
