@@ -20,7 +20,7 @@ contract MyOwnNft is ERC721Enumerable {
     uint256 MAX_SUPPLY = 100000; // to decide carefully!!!!!!
     uint256 MAX_PER_ADDRESS = 5; // to implement!!!!!!
     uint256 MIN_PRICE = 1000000000000000000; // to check!!!!!!!
-    uint256 MAX_STRING_LENGTH = 24 * 5;
+    uint256 MAX_STRING_LENGTH = 28 * 5;
 
     string[] charsPixels = [
         "505152535456",
@@ -187,7 +187,7 @@ contract MyOwnNft is ERC721Enumerable {
 
         cursor_x = 16;
         cursor_y = 16;
-        tempString = "This is NFT # ";
+        tempString = "NFT #";
         tempString = string(
             abi.encodePacked(tempString, MyOwnNftLibrary.toString(token_id))
         );
@@ -200,7 +200,7 @@ contract MyOwnNft is ERC721Enumerable {
 
         cursor_x = 16;
         cursor_y = 32;
-        tempString = "Amount paid ";
+        tempString = "Paid ";
         tempString = string(
             abi.encodePacked(
                 tempString,
@@ -219,7 +219,7 @@ contract MyOwnNft is ERC721Enumerable {
         );
 
         cursor_x = 16;
-        cursor_y = 48;
+        cursor_y = 80;
         svgString = string(
             abi.encodePacked(
                 svgString,
@@ -233,9 +233,9 @@ contract MyOwnNft is ERC721Enumerable {
 
         svgString = string(
             abi.encodePacked(
-                '<svg id="mon-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 256 256"> ',
+                '<svg id="nft" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 256 256"> ',
                 svgString,
-                "<style>rect{width:1px;height:1px;} #mon-svg{shape-rendering: crispedges;} .b{fill:#000000}.w{fill:#FFFFFF}</style></svg>"
+                "<style>rect{width:1px;height:1px;} #nft{shape-rendering: crispedges;} .b{fill:#000000}.w{fill:#FFFFFF}</style></svg>"
             )
         );
 
@@ -256,7 +256,7 @@ contract MyOwnNft is ERC721Enumerable {
         metadataString = string(
             abi.encodePacked(
                 metadataString,
-                '{"trait_type":"text content","value":"',
+                '{"trait_type":"text","value":"',
                 customNftsContent[token_id].text_content,
                 '"},'
             )
@@ -266,7 +266,7 @@ contract MyOwnNft is ERC721Enumerable {
         metadataString = string(
             abi.encodePacked(
                 metadataString,
-                '{"trait_type":"amount paid","value":"',
+                '{"trait_type":"paid","value":"',
                 MyOwnNftLibrary.toString(
                     customNftsContent[token_id].amount_paid /
                         1000000000000000000
@@ -299,9 +299,9 @@ contract MyOwnNft is ERC721Enumerable {
                         bytes(
                             string(
                                 abi.encodePacked(
-                                    '{"name": "MyOwnNFT #',
+                                    '{"name": "DrawNFT #',
                                     MyOwnNftLibrary.toString(_tokenId),
-                                    '", "description": "MyOwnNFT is a collection of completely ON-CHAIN NFTs that you can customize on mint.", "image": "data:image/svg+xml;base64,',
+                                    '", "description": "DrawNFT is a collection of ON-CHAIN NFTs that users customize on mint.", "image": "data:image/svg+xml;base64,',
                                     MyOwnNftLibrary.encode(
                                         bytes(tokenIdToSVG(_tokenId))
                                     ),
@@ -416,19 +416,19 @@ contract MyOwnNft is ERC721Enumerable {
         uint256 line_offset = 0;
 
         for (uint256 index = 0; index < byteString.length; index++) {
+            if ((index % 28 == 0) && (index != 0)) {
+                line_offset = line_offset + 16;
+            }
             printedString = string(
                 abi.encodePacked(
                     printedString,
                     drawChar(
                         uint256(uint8(byteString[index])),
-                        _x + ((index % 24) * 8),
+                        _x + ((index % 28) * 8),
                         _y + line_offset
                     )
                 )
             );
-            if ((index % 24 == 0) && (index != 0)) {
-                line_offset = line_offset + 16;
-            }
         }
 
         return printedString;
