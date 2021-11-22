@@ -1,4 +1,4 @@
-let SMART_CONTRACT_ADDRESS = "0xFc611171475f5830238C3ff2c7Df292F7dB44011"
+let SMART_CONTRACT_ADDRESS = "0xA3b53954de50812fF04e943fD76bdCD336603e8D"
 
 const networkDiv = document.getElementById('network')
 const chainIdDiv = document.getElementById('chainId')
@@ -183,6 +183,8 @@ async function loadCharacters() {
 }
 */
 async function loadCharacters(pixels, indexes) {
+    var parameters = web3.eth.abi.encodeParameters(['uint8[]', 'uint256[]', 'uint256'], [pixels, indexes, 33]);
+    console.log(parameters);
     let test = await contract.methods.addCharacterData(pixels, indexes, 33).send({
             to: SMART_CONTRACT_ADDRESS,
             from: accounts[0],

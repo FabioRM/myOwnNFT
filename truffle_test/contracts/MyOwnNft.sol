@@ -14,20 +14,22 @@ contract MyOwnNft is ERC721Enumerable {
         string text_content;
     }
 
-    struct CharData {
-        uint256 pixelCount;
-        uint8[] pixelsData;
-    }
-
     //Mappings
     mapping(uint256 => CustomNftContent) public customNftsContent;
-    mapping(uint256 => CharData) public charactersData;
 
     //uint256s
     uint256 MAX_SUPPLY = 100000; // to decide carefully!!!!!!
     uint256 MAX_PER_ADDRESS = 5; // to implement!!!!!!
     uint256 MIN_PRICE = 1000000000000000000; // to check!!!!!!!
     uint256 MAX_STRING_LENGTH = 24 * 5;
+
+    string[] charsPixels = ['fafbfcfdfefg', 'eagaebgb', 'dbgbccdcecfcgchcddgddegecfdfefffgfhfdggg', 'eacbdbebfbgbcceccdddedfdgdeegecfdfefffgfeg', 'cbdbhbccdcgcfdeedfgfhfcggghg', 'ebdcfceddefehecfgfdgegfghg', 'fbec', 'fbecedeeeffg', 'ebfcfdfeffeg', 'dcfcedcedeeefegeefdgfg', 'ecedcedeeefegeefeg', 'fffgeh', 'cedeeefege', 'efffegfg', 'gcfdeedfcg', 'cbdbebfbbcfcgcbdedgdbedegebfcfgfcgdgegfg', 'cbdbbcdcdddedfbgcgdgegfg', 'cbdbebfbbcgcgdcedeeefebfbgcgdgegfggg', 'cbdbebfbbcgcedfdgebfgfcgdgegfg', 'ebdceccdedbeeebfcfdfefffgfeg', 'bbcbdbebfbgbbcbdcdddedfdgebfgfcgdgegfg', 'cbdbebfbbcbdcdddedfdbegebfgfcgdgegfg', 'bbcbdbebfbgbgcfdeedfdg', 'cbdbebfbbcgccdddedfdbegebfgfcgdgegfg', 'cbdbebfbbcgcbdgdcedeeefegegfcgdgegfg', 'edeg', 'ecefegdh', 'fceddeeffg', 'cdddedfdgdcfdfefffgf', 'dcedfeefdg', 'dbebfbgbcchcgdfefg', 'dbebfbgbccfchccdedgdhdceeefegehecfdgegfggg', 'cbdbebfbbcgcbdgdbecedeeefegebfgfbggg', 'bbcbdbebfbbcgcbdcdddedfdbegebfgfbgcgdgegfg', 'cbdbebfbbcgcbdbebfgfcgdgegfg', 'bbcbdbebbcfcbdgdbegebfffbgcgdgeg', 'bbcbdbebfbgbbcbdcdddedfdbebfbgcgdgegfggg', 'bbcbdbebfbgbbcbdcdddedfdbebfbg', 'cbdbebfbbcgcbdbeeefegebfgfcgdgegfg', 'bbgbbcgcbdcdddedfdgdbegebfgfbggg', 'cbdbebfbgbecedeeefcgdgegfggg', 'gbgcgdbegebfgfcgdgegfg', 'bbfbbcecbdcdddbeeebfffbggg', 'bbbcbdbebfbgcgdgegfggg', 'bbgbbcccfcgcbdddedgdbegebfgfbggg', 'bbgbbcccgcbdddgdbeeegebfffgfbggg', 'cbdbebfbbcgcbdgdbegebfgfcgdgegfg', 'bbcbdbebfbbcgcbdgdbecedeeefebfbg', 'cbdbebfbbcgcbdgdbedegebfefgfcgdgegfg', 'bbcbdbebfbbcgcbdgdbecedeeefebfffbggg', 'cbdbebfbbccdddedfdgebfgfcgdgegfg', 'bbcbdbebfbgbhbecedeeefeg', 'bbgbbcgcbdgdbegebfgfcgdgegfg', 'bbgbbcgcbdgdbegecfffdgeg', 'bbgbbcgcbdgdbegebfdfefgfcgfg', 'bbgbccfcddeddeeecfffbggg', 'bbhbccgcddfdeeefeg', 'bbcbdbebfbgbfceddecfbgcgdgegfggg', 'dbebfbdcdddedfdgegfg', 'ccddeeffgg', 'dbebfbfcfdfeffdgegfg', 'ebdcecfccdedgdeeefeg', 'bhchdhehfhghhh', 'daeafagacbhbbcecfcbdddbedebfefffcghgdhehfhgh', 'dcecfcgddeeefegecfgfdgegfggg', 'cbcccdddedfdcegecfgfcgdgegfg', 'ecfcgcdddedfegfggg', 'gbgcddedfdgdcegecfgfdgegfggg', 'dcecfccdgdcedeeefecfdgegfggg', 'fbgbecedfdeeefeg', 'dcecfcgchccdhdcehedfefffgfhfhgdhehfhgh', 'cbcccdddedfdcegecfgfcggg', 'fbedfdfeffegfggg', 'gbgdgegfdgggehfh', 'cbcceccdddcedecfefcgfg', 'ebecedeeeffggg', 'ccdcfccdedgdceeegecfefgfcgeggg', 'ccdcecfccdgdcegecfgfcggg', 'dcecfccdgdcegecfgfdgegfg', 'ccdcecfccdgdcegecfdfefffcgch', 'dcecfcgccdgdcegedfefffgfggghhh', 'ecfcgcdddedfdg', 'dcecfccddeeefegfcgdgegfg', 'ebdcecfcedeeeffggg', 'ccgccdgdcegecfgfdgegfg', 'ccgccdgddefedfffeg', 'ccgccdedgdceeegecfefgfdgfg', 'ccgcddfdeedfffcggg', 'ccgccdgdcegedfefffgfggdhehfh', 'ccdcecfcgcfdeedfcgdgegfggg', 'ebfbgbeccdddeeefegfggg', 'ebecedeeefeg', 'cbdbebecfdgdeeefcgdgeg', 'ebgbdcfc'];
+    
+    string[] LETTERS = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+
+    //string chars_pixels = 'fafbfcfdfefgeagaebgbdbgbccdcecfcgchcddgddegecfdfefffgfhfdgggeacbdbebfbgbcceccdddedfdgdeegecfdfefffgfegcbdbhbccdcgcfdeedfgfhfcggghgebdcfceddefehecfgfdgegfghgfbecfbecedeeeffgebfcfdfeffegdcfcedcedeeefegeefdgfgecedcedeeefegeefegfffgehcedeeefegeefffegfggcfdeedfcgcbdbebfbbcfcgcbdedgdbedegebfcfgfcgdgegfgcbdbbcdcdddedfbgcgdgegfgcbdbebfbbcgcgdcedeeefebfbgcgdgegfgggcbdbebfbbcgcedfdgebfgfcgdgegfgebdceccdedbeeebfcfdfefffgfegbbcbdbebfbgbbcbdcdddedfdgebfgfcgdgegfgcbdbebfbbcbdcdddedfdbegebfgfcgdgegfgbbcbdbebfbgbgcfdeedfdgcbdbebfbbcgccdddedfdbegebfgfcgdgegfgcbdbebfbbcgcbdgdcedeeefegegfcgdgegfgedegecefegdhfceddeeffgcdddedfdgdcfdfefffgfdcedfeefdgdbebfbgbcchcgdfefgdbebfbgbccfchccdedgdhdceeefegehecfdgegfgggcbdbebfbbcgcbdgdbecedeeefegebfgfbgggbbcbdbebfbbcgcbdcdddedfdbegebfgfbgcgdgegfgcbdbebfbbcgcbdbebfgfcgdgegfgbbcbdbebbcfcbdgdbegebfffbgcgdgegbbcbdbebfbgbbcbdcdddedfdbebfbgcgdgegfgggbbcbdbebfbgbbcbdcdddedfdbebfbgcbdbebfbbcgcbdbeeefegebfgfcgdgegfgbbgbbcgcbdcdddedfdgdbegebfgfbgggcbdbebfbgbecedeeefcgdgegfggggbgcgdbegebfgfcgdgegfgbbfbbcecbdcdddbeeebfffbgggbbbcbdbebfbgcgdgegfgggbbgbbcccfcgcbdddedgdbegebfgfbgggbbgbbcccgcbdddgdbeeegebfffgfbgggcbdbebfbbcgcbdgdbegebfgfcgdgegfgbbcbdbebfbbcgcbdgdbecedeeefebfbgcbdbebfbbcgcbdgdbedegebfefgfcgdgegfgbbcbdbebfbbcgcbdgdbecedeeefebfffbgggcbdbebfbbccdddedfdgebfgfcgdgegfgbbcbdbebfbgbhbecedeeefegbbgbbcgcbdgdbegebfgfcgdgegfgbbgbbcgcbdgdbegecfffdgegbbgbbcgcbdgdbegebfdfefgfcgfgbbgbccfcddeddeeecfffbgggbbhbccgcddfdeeefegbbcbdbebfbgbfceddecfbgcgdgegfgggdbebfbdcdddedfdgegfgccddeeffggdbebfbfcfdfeffdgegfgebdcecfccdedgdeeefegbhchdhehfhghhhdaeafagacbhbbcecfcbdddbedebfefffcghgdhehfhghdcecfcgddeeefegecfgfdgegfgggcbcccdddedfdcegecfgfcgdgegfgecfcgcdddedfegfggggbgcddedfdgdcegecfgfdgegfgggdcecfccdgdcedeeefecfdgegfgggfbgbecedfdeeefegdcecfcgchccdhdcehedfefffgfhfhgdhehfhghcbcccdddedfdcegecfgfcgggfbedfdfeffegfggggbgdgegfdgggehfhcbcceccdddcedecfefcgfgebecedeeeffgggccdcfccdedgdceeegecfefgfcgegggccdcecfccdgdcegecfgfcgggdcecfccdgdcegecfgfdgegfgccdcecfccdgdcegecfdfefffcgchdcecfcgccdgdcegedfefffgfggghhhecfcgcdddedfdgdcecfccddeeefegfcgdgegfgebdcecfcedeeeffgggccgccdgdcegecfgfdgegfgccgccdgddefedfffegccgccdedgdceeegecfefgfdgfgccgcddfdeedfffcgggccgccdgdcegedfefffgfggdhehfhccdcecfcgcfdeedfcgdgegfgggebfbgbeccdddeeefegfgggebecedeeefegcbdbebecfdgdeeefcgdgegebgbdcfc';
+
+    //uint256[] chars_indexes = [0, 6, 10, 30, 51, 65, 78, 80, 86, 92, 103, 112, 115, 120, 124, 129, 149, 161, 179, 194, 208, 227, 245, 256, 274, 292, 294, 298, 303, 313, 318, 327, 348, 366, 387, 401, 417, 437, 452, 469, 485, 499, 510, 523, 534, 550, 566, 582, 598, 616, 634, 650, 662, 676, 688, 702, 714, 723, 739, 749, 754, 764, 774, 781, 803, 817, 831, 840, 854, 868, 876, 895, 907, 915, 923, 934, 941, 956, 968, 980, 994, 1009, 1016, 1028, 1037, 1048, 1057, 1070, 1079, 1093, 1106, 1117, 1123, 1134];
 
     //address
     address _owner;
@@ -81,6 +83,23 @@ contract MyOwnNft is ERC721Enumerable {
 |__|\_||_____||__|__||_____|    |__|    \__,_||__|__|\____| |__|  |____|\___/ |__|__| \___|  
 
     */
+
+    /**
+     * @dev Helper function to reduce pixel size within contract
+     */
+    function letterToNumber(string memory _inputLetter)
+        internal
+        view
+        returns (uint8)
+    {
+        for (uint8 i = 0; i < LETTERS.length; i++) {
+            if (
+                keccak256(abi.encodePacked((LETTERS[i]))) ==
+                keccak256(abi.encodePacked((_inputLetter)))
+            ) return (i + 1);
+        }
+        revert();
+    }
 
     /**
      * @dev Token ID to SVG function
@@ -242,7 +261,7 @@ contract MyOwnNft is ERC721Enumerable {
      * @param _pixelsData Array pixel data
      * @param _charsIndex Starting index for char pixel data
      * @param _startPosition Starting position
-     */
+     *
 
     function addCharacterData(
         uint8[] memory _pixelsData,
@@ -252,10 +271,12 @@ contract MyOwnNft is ERC721Enumerable {
         for (uint256 index = 0; index < _charsIndex.length / 2; index++) {
             uint256 char_start_pos = _charsIndex[index * 2];
             uint256 char_end_pos = _charsIndex[index * 2 + 1];
-            uint8[] memory char_pixel_data;
+            uint8[] memory char_pixel_data = new uint8[](
+                char_end_pos - char_start_pos
+            );
 
             for (uint256 i = char_start_pos; i < char_end_pos; i++) {
-                char_pixel_data[i] = _pixelsData[i];
+                char_pixel_data[i] = uint8(_pixelsData[i]);
             }
 
             charactersData[_startPosition + index] = CharData(
@@ -266,6 +287,7 @@ contract MyOwnNft is ERC721Enumerable {
 
         return;
     }
+    */
 
     /**
      * @dev Writes a single char to a given position
@@ -283,13 +305,13 @@ contract MyOwnNft is ERC721Enumerable {
         printedCharString = "";
 
         // chars not supported and space are empty
-        if ((_char <= 32) || (_char > 126)) {
+        if ((_char < 33) || (_char > 126)) {
             return printedCharString;
         }
 
         for (
             uint256 index = 0;
-            index < charactersData[_char].pixelCount;
+            index < bytes(charsPixels[_char-33]).length /2;
             index++
         ) {
             printedCharString = string(
@@ -300,7 +322,7 @@ contract MyOwnNft is ERC721Enumerable {
                         _x +
                             (
                                 uint256(
-                                    charactersData[_char].pixelsData[index] % 8
+                                    letterToNumber(MyOwnNftLibrary.substring(charsPixels[_char-33], index*2+1, index*2 + 2))
                                 )
                             )
                     ),
@@ -309,7 +331,7 @@ contract MyOwnNft is ERC721Enumerable {
                         _y +
                             (
                                 uint256(
-                                    charactersData[_char].pixelsData[index] / 8
+                                    letterToNumber(MyOwnNftLibrary.substring(charsPixels[_char-33], index*2, index*2 + 1))
                                 )
                             )
                     ),
