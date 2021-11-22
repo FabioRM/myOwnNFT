@@ -18,7 +18,7 @@ const getWeb3 = () => {
 
 
 const getContract = async(web3) => {
-    const lasvulvas = await $.getJSON("./contracts/MyOwnNft.json");
+    const lasvulvas = await $.getJSON("./src/MyOwnNft.json");
     const netId = await web3.eth.net.getId();
     const deployedNetwork = lasvulvas.networks[netId];
     const greeting = new web3.eth.Contract(

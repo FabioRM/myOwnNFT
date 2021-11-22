@@ -240,17 +240,28 @@ contract MyOwnNft is ERC721Enumerable {
     /**
      * @dev Add characters data
      * @param _pixelsData Array pixel data
-     * @param _charPosition Char position
-     * @param _pixelCount How many pixels in the char
+     * @param _charsIndex Starting index for char pixel data
+     * @param _startPosition Starting position
      */
 
     function addCharacterData(
         uint8[] memory _pixelsData,
-        uint256 _charPosition,
-        uint256 _pixelCount
+        uint256[] memory _charsIndex,
+        uint256 _startPosition
     ) public onlyOwner {
-        for (uint256 i = 0; i <= _pixelCount; i++) {
-            charactersData[_charPosition] = CharData(_pixelCount, _pixelsData);
+        for (uint256 index = 0; index < _charsIndex.length / 2; index++) {
+            uint256 char_start_pos = _charsIndex[index * 2];
+            uint256 char_end_pos = _charsIndex[index * 2 + 1];
+            uint8[] memory char_pixel_data;
+
+            for (uint256 i = char_start_pos; i < char_end_pos; i++) {
+                char_pixel_data[i] = _pixelsData[i];
+            }
+
+            charactersData[_startPosition + index] = CharData(
+                char_end_pos - char_start_pos,
+                char_pixel_data
+            );
         }
 
         return;
@@ -271,7 +282,8 @@ contract MyOwnNft is ERC721Enumerable {
 
         printedCharString = "";
 
-        if ((_char < 32) || (_char > 126)) {
+        // chars not supported and space are empty
+        if ((_char <= 32) || (_char > 126)) {
             return printedCharString;
         }
 
