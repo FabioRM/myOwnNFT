@@ -1,4 +1,4 @@
-let SMART_CONTRACT_ADDRESS = "0x2eB6110601C96473A3dFFd99dd6718089677d8de"
+let SMART_CONTRACT_ADDRESS = "0x13A04C3DcC1856c4bdc102cEF799e03d56D7655A"
 
 const networkDiv = document.getElementById('network')
 const chainIdDiv = document.getElementById('chainId')
@@ -38,8 +38,14 @@ let contract;
 async function connectWallet() {
     try {
         web3 = await getWeb3();
+        console.log("web3",
+            web3);
         accounts = await web3.eth.getAccounts();
+        console.log("accounts",
+            accounts);
         contract = await getContract(web3);
+        console.log("contract",
+            contract);
         $("#result").html("")
         $("#smartContractInteractionSection").show()
         accountsDiv.innerHTML = accounts;
@@ -120,7 +126,7 @@ async function getHowManyNfts() {
     contract.methods.totalSupply().call().then(x => {
         for (var i = 0; i < x; i++) {
             //const nft = await contract.methods.YourSmartContract(i).call();
-            contract.methods.ownerOf(i + 1).call().then(owner => {
+            contract.methods.ownerOf(i).call().then(owner => {
                 // if match with this address is found
                 if (accounts[0] === owner) {
                     console.log(i)
@@ -169,34 +175,6 @@ async function getNfts() {
     console.log(tokenIds);
     $("#result").html(tokenIds.toString())
 }
-/*
-async function loadCharacters() {
-    var whitelistAddresses = addrTextArea.value.split("\n");
-    console.log("add to whitelist", whitelistAddresses)
-    let test = await contract.methods.addToWhitelist(whitelistAddresses).send({
-            from: accounts[0]
-        })
-        .on('receipt', function() {
-            console.log("receipt")
-        });
-    var str = JSON.stringify(test, null, 2);
-    $("#result").html(str)
-}
-*/
-async function loadCharacters(pixels, indexes) {
-    var parameters = web3.eth.abi.encodeParameters(['uint8[]', 'uint256[]', 'uint256'], [pixels, indexes, 33]);
-    console.log(parameters);
-    let test = await contract.methods.addCharacterData(pixels, indexes, 33).send({
-            to: SMART_CONTRACT_ADDRESS,
-            from: accounts[0],
-        })
-        .on('receipt', function() {
-            console.log("receipt")
-        });
-    var str = JSON.stringify(test, null, 2);
-    $("#result").html(str)
-
-}
 
 function initialize() {
     connectButton.onclick = async() => {
@@ -207,11 +185,9 @@ function initialize() {
     }
     loadCharactersTinyFontButton.onclick = async() => {
         console.log("Loading chars TinyFont");
-        loadCharacters(tinyfont_pixels, tinyfont_indexes)
     }
     loadCharactersSinclairButton.onclick = async() => {
         console.log("Loading chars Sinclair");
-        loadCharacters(sinclair_s_pixels, sinclair_s_indexes)
     }
     getTokenButton.onclick = async() => {
         getToken()

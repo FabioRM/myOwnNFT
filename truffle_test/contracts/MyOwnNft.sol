@@ -17,12 +17,11 @@ contract MyOwnNft is ERC721Enumerable {
     mapping(uint256 => CustomNftContent) public customNftsContent;
 
     //uint256s
-    uint256 MAX_SUPPLY = 100000; // to decide carefully!!!!!!
-    uint256 MAX_PER_ADDRESS = 5; // to implement!!!!!!
-    uint256 MIN_PRICE = 1000000000000000000; // to check!!!!!!!
-    uint256 MAX_STRING_LENGTH = 28 * 5;
+    uint256 MAX_SUPPLY = 100000;
+    uint256 MIN_PRICE = 1000000000000000000;
+    uint256 MAX_STRING_LENGTH = 12 * 4 + 1; // takes into account string termination
 
-    string[] charsPixels = [
+    string[] CHARS_PIXELS = [
         "202122232426",
         "101112303132",
         "0204101112131415162224303132333435364244",
@@ -187,7 +186,7 @@ contract MyOwnNft is ERC721Enumerable {
         uint256 cursor_y;
 
         cursor_x = 16;
-        cursor_y = 16;
+        cursor_y = 20;
         tempString = "NFT #";
         tempString = string(
             abi.encodePacked(tempString, MyOwnNftLibrary.toString(token_id))
@@ -200,18 +199,21 @@ contract MyOwnNft is ERC721Enumerable {
         );
 
         cursor_x = 16;
-        cursor_y = 32;
-        tempString = "Paid ";
-        tempString = string(
-            abi.encodePacked(
-                tempString,
-                MyOwnNftLibrary.toString(
-                    customNftsContent[token_id].amount_paid /
-                        1000000000000000000
-                ),
-                " FTM"
-            )
-        );
+        cursor_y = 100;
+        tempString = "";
+        uint256 formatted_amount = customNftsContent[token_id].amount_paid /
+            1000000000000000000;
+        if (formatted_amount > 1000000) {
+            tempString = string(abi.encodePacked(tempString, "Over 1M FTM"));
+        } else {
+            tempString = string(
+                abi.encodePacked(
+                    tempString,
+                    MyOwnNftLibrary.toString(formatted_amount),
+                    " FTM"
+                )
+            );
+        }
         svgString = string(
             abi.encodePacked(
                 svgString,
@@ -220,7 +222,7 @@ contract MyOwnNft is ERC721Enumerable {
         );
 
         cursor_x = 16;
-        cursor_y = 80;
+        cursor_y = 36;
         svgString = string(
             abi.encodePacked(
                 svgString,
@@ -351,12 +353,14 @@ contract MyOwnNft is ERC721Enumerable {
      * @param _char The character to write
      * @param _x The x pos of the cursor
      * @param _y The y pos of the cursor
+     * @param _charsPixels Chars pixels data
      */
     function drawChar(
         uint256 _char,
         uint256 _x,
-        uint256 _y
-    ) internal view returns (string memory) {
+        uint256 _y,
+        string[] memory _charsPixels
+    ) internal pure returns (string memory) {
         string memory printedCharString;
 
         printedCharString = "";
@@ -368,17 +372,17 @@ contract MyOwnNft is ERC721Enumerable {
 
         for (
             uint256 index = 0;
-            index < bytes(charsPixels[_char - 33]).length / 2;
+            index < bytes(_charsPixels[_char - 33]).length / 2;
             index++
         ) {
             printedCharString = string(
                 abi.encodePacked(
                     printedCharString,
-                    "<rect class='b' x='",
+                    "<rect x='",
                     MyOwnNftLibrary.toString(
                         _x +
                             MyOwnNftLibrary.subchar(
-                                charsPixels[_char - 33],
+                                _charsPixels[_char - 33],
                                 index * 2
                             )
                     ),
@@ -386,7 +390,7 @@ contract MyOwnNft is ERC721Enumerable {
                     MyOwnNftLibrary.toString(
                         _y +
                             MyOwnNftLibrary.subchar(
-                                charsPixels[_char - 33],
+                                _charsPixels[_char - 33],
                                 index * 2 + 1
                             )
                     ),
@@ -410,6 +414,7 @@ contract MyOwnNft is ERC721Enumerable {
         uint256 _y
     ) internal view returns (string memory) {
         string memory printedString;
+        string[] memory charsPixels = CHARS_PIXELS;
 
         printedString = "";
 
@@ -417,7 +422,7 @@ contract MyOwnNft is ERC721Enumerable {
         uint256 line_offset = 0;
 
         for (uint256 index = 0; index < byteString.length; index++) {
-            if ((index % 28 == 0) && (index != 0)) {
+            if ((index % 12 == 0) && (index != 0)) {
                 line_offset = line_offset + 16;
             }
             printedString = string(
@@ -425,8 +430,9 @@ contract MyOwnNft is ERC721Enumerable {
                     printedString,
                     drawChar(
                         uint256(uint8(byteString[index])),
-                        _x + ((index % 28) * 8),
-                        _y + line_offset
+                        _x + ((index % 12) * 8),
+                        _y + line_offset,
+                        charsPixels
                     )
                 )
             );
