@@ -112,8 +112,8 @@ function drawChar(_char, _x, _y, _charsPixels) {
         return printedCharString;
     }
 
-    for (var index = 0; index < _charsPixels[charCode - 33].length / 2; index++) {
-        printedCharString = printedCharString + "<rect x='" + parseInt(_x + subchar(_charsPixels[charCode - 33], index * 2)) + "' y='" + parseInt(_y + subchar(_charsPixels[charCode - 33], index * 2 + 1) + "'/>")
+    for (var index = 0; index < charPixels.length / 2; index++) {
+        printedCharString = printedCharString + "<rect x='" + parseInt(_x + subchar(charPixels, index * 2)) + "' y='" + parseInt(_y + subchar(charPixels, index * 2 + 1)) + "'/>";
     }
 
     return printedCharString;
@@ -177,4 +177,8 @@ function data_to_svg(token_id, in_text, in_amount) {
 
 function subchar(str, index) {
     return str[index].charCodeAt(0) - 48;
+}
+
+function data_to_img_src(id, txt, paid) {
+    return 'data:image/svg+xml;base64,' + window.btoa(data_to_svg(id, txt, paid));
 }
