@@ -18,6 +18,8 @@ function showConnect() {
     actionButton.innerHTML = "Connect wallet"
     actionButton.classList.remove("btn-mint");
     actionButton.classList.add("btn-connect");
+    connectButton.classList.remove("btn-mint");
+    connectButton.classList.add("btn-connect");
     connectButton.style.display = "block";
 }
 
@@ -27,6 +29,8 @@ function showMint(x) {
     actionButton.innerHTML = "Mint"
     actionButton.classList.add("btn-mint");
     actionButton.classList.remove("btn-connect");
+    connectButton.classList.add("btn-mint");
+    connectButton.classList.remove("btn-connect");
     connectButton.style.display = "none";
 }
 
