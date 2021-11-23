@@ -9,7 +9,7 @@ const showMintButton = document.getElementById('showMintButton');
 const galleryRow = document.getElementById('galleryRow');
 const mintRow = document.getElementById('mintRow');
 
-var current_nft_text = "> Hello,      world!"
+var current_nft_text = "Mint an NFT that is     really yours"
 var current_nft_price = 1;
 var current_nft_id = "???"
 var is_connected = false;
