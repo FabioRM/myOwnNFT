@@ -4,12 +4,6 @@ const amountPaid = document.getElementById('amountPaid')
 const nftText = document.getElementById('nftText')
 const increaseAmount = document.getElementById('increaseAmount')
 const decreaseAmount = document.getElementById('decreaseAmount')
-    /* const tokenIdNumber = document.getElementById('tokenIdNumber')
-    const getTokenButton = document.getElementById('getTokenButton')
-    const howManyNftsButton = document.getElementById('howManyNftsButton')
-    const getNftsButton = document.getElementById('getNftsButton')
-    const withdrawButton = document.getElementById('withdrawButton')
-    const customNftImage = document.getElementById('customNftImage') */
 
 var current_nft_text = "> Hello,      world!"
 var current_nft_price = 1;
