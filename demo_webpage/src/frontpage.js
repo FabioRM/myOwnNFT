@@ -9,7 +9,7 @@ const showMintButton = document.getElementById('showMintButton');
 const galleryRow = document.getElementById('galleryRow');
 const mintRow = document.getElementById('mintRow');
 const galleryRowContainer = document.getElementById('galleryRowContainer');
-
+const galleryHeader = document.getElementById('galleryHeader');
 
 var current_nft_text = "Mint an NFT that is     really yours"
 var current_nft_price = 1;
@@ -70,23 +70,31 @@ function initialize() {
         galleryRow.style.display = "block";
         galleryRowContainer.innerHTML = ""
         var addrBalance = await getAddrBalance(accounts[0]);
-        console.log(addrBalance)
-        for (var i = 0; i < addrBalance; i++) {
-            var tokenId = await getTokenIdFromAddrPos(accounts[0], i);
-            var tokenUri = await getTokenUri(tokenId);
-            $.ajax({
-                url: tokenUri,
-                type: 'GET',
-                dataType: 'json',
-                async: false,
-                success: function(jsonData, status) {
-                    //console.log(jsonData)
-                    var node = document.createElement("div");
-                    node.className = "col-xl-3 col-lg-3 col-md-12 col-sm-12 m-3"
-                    node.innerHTML = '<div class="card full-width fancy-shadows"><img src="' + jsonData.image + '" alt="' + jsonData.name + '"><div class="card-body"><h5 class="card-title">' + jsonData.name + '</h5><p class="card-text">' + jsonData.description + '</p></div></div>'
-                    galleryRowContainer.appendChild(node)
-                }
-            });
+        if (addrBalance == 0) {
+            galleryHeader.innerHTML = "<h1>You haven't mint any Telegraf NFT</h1>"
+        } else {
+            if (addrBalance == 1) {
+                galleryHeader.innerHTML = "<h1>This is your <b>personal gallery</b>. You own <b>1 Telegraf NFT</b></h1>"
+            } else {
+                galleryHeader.innerHTML = "<h1>This is your <b>personal gallery</b>. You own <b>" + addrBalance + " Telegraf NFTs</b></h1>"
+            }
+            for (var i = 0; i < addrBalance; i++) {
+                var tokenId = await getTokenIdFromAddrPos(accounts[0], i);
+                var tokenUri = await getTokenUri(tokenId);
+                $.ajax({
+                    url: tokenUri,
+                    type: 'GET',
+                    dataType: 'json',
+                    async: false,
+                    success: function(jsonData, status) {
+                        //console.log(jsonData)
+                        var node = document.createElement("div");
+                        node.className = "col-xl-3 col-lg-3 col-md-12 col-sm-12 m-3"
+                        node.innerHTML = '<div class="card full-width fancy-shadows"><img src="' + jsonData.image + '" alt="' + jsonData.name + '"><div class="card-body"><h5 class="card-title">' + jsonData.name + '</h5><p class="card-text">' + jsonData.description + '</p></div></div>'
+                        galleryRowContainer.appendChild(node)
+                    }
+                });
+            }
         }
     }
 
