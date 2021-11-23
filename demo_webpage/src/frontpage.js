@@ -13,9 +13,10 @@ const aboutRow = document.getElementById('aboutRow');
 const galleryRowContainer = document.getElementById('galleryRowContainer');
 const galleryHeader = document.getElementById('galleryHeader');
 
-var current_nft_text = "Create an   NFT that is really yours"
+var default_nft_text = "Create an   NFT that is really yours"
+var current_nft_text = default_nft_text;
 var current_nft_price = 1;
-var current_nft_id = "???"
+var current_supply = "N/A"
 var is_connected = false;
 
 function showConnect() {
@@ -34,6 +35,13 @@ function showMint(x) {
     actionButton.classList.add("btn-mint");
     actionButton.classList.remove("btn-connect");
     showGalleryButton.style.display = "block";
+}
+
+function updateImage() {
+    if (current_nft_text.length == 0) {
+        current_nft_text = default_nft_text;
+    }
+    customNftImage.src = data_to_img_src(current_supply, current_nft_text, current_nft_price);
 }
 
 function initialize() {
@@ -56,14 +64,14 @@ function initialize() {
     increaseAmount.onclick = async() => {
         amountPaid.value = parseInt(amountPaid.value) + 1;
         current_nft_price = current_nft_price + 1;
-        customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
+        customNftImage.src = data_to_img_src(current_supply, current_nft_text, current_nft_price);
     }
 
     decreaseAmount.onclick = async() => {
         if (amountPaid.value > 1) {
             amountPaid.value = parseInt(amountPaid.value) - 1;
             current_nft_price = current_nft_price - 1;
-            customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
+            customNftImage.src = data_to_img_src(current_supply, current_nft_text, current_nft_price);
         }
     }
 
@@ -131,24 +139,33 @@ function initialize() {
 
     nftText.addEventListener("keyup", function(evt) {
         current_nft_text = nftText.value
-        customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
+        updateImage();
     }, false);
 
     amountPaid.addEventListener("keyup", function(evt) {
         current_nft_price = parseInt(amountPaid.value);
-        customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
+        updateImage();
     }, false);
 
     nftText.addEventListener("change", function(evt) {
-        current_nft_text = nftText.va
-        customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
+        current_nft_text = nftText.value
+        updateImage();
     }, false);
 
     amountPaid.addEventListener("change", function(evt) {
         current_nft_price = parseInt(amountPaid.value);
-        customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
+        updateImage();
     }, false);
 
-    customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
+    updateImage();
     actionButton.innerHTML = "Connect wallet";
+
+    var myfunc = setInterval(function() {
+        if (is_connected) {
+            getTotalSupply().then((x) => {
+                current_supply = x;
+                updateImage();
+            })
+        }
+    }, 5000)
 }

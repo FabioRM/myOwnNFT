@@ -144,6 +144,16 @@ async function getTokenUri(id) {
     return tokenUri;
 }
 
+async function getBalanceOfSmartContract() {
+    let balance = await web3.eth.getBalance(SMART_CONTRACT_ADDRESS);
+    return balance;
+}
+
+async function getTotalSupply() {
+    let totalSupply = await contract.methods.totalSupply().call();
+    return totalSupply;
+}
+
 async function getNfts() {
     var tokenIds = [];
     let totalSupply = await contract.methods.totalSupply().call();
