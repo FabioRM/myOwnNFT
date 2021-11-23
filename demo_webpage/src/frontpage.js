@@ -1,13 +1,13 @@
 //const connectButton = document.getElementById('connectButton')
-const actionButton = document.getElementById('actionButton')
-const amountPaid = document.getElementById('amountPaid')
-const nftText = document.getElementById('nftText')
-const increaseAmount = document.getElementById('increaseAmount')
-const decreaseAmount = document.getElementById('decreaseAmount')
-const showGalleryButton = document.getElementById('showGalleryButton')
-const showMintButton = document.getElementById('showMintButton')
-const galleryRow = document.getElementById('galleryRow')
-const mintRow = document.getElementById('mintRow')
+const actionButton = document.getElementById('actionButton');
+const amountPaid = document.getElementById('amountPaid');
+const nftText = document.getElementById('nftText');
+const increaseAmount = document.getElementById('increaseAmount');
+const decreaseAmount = document.getElementById('decreaseAmount');
+const showGalleryButton = document.getElementById('showGalleryButton');
+const showMintButton = document.getElementById('showMintButton');
+const galleryRow = document.getElementById('galleryRow');
+const mintRow = document.getElementById('mintRow');
 
 var current_nft_text = "> Hello,      world!"
 var current_nft_price = 1;
@@ -63,12 +63,12 @@ function initialize() {
         }
     }
 
-    galleryRow.onclick = async() => {
+    showGalleryButton.onclick = async() => {
         mintRow.style.display = "none";
         galleryRow.style.display = "block";
     }
 
-    mintRow.onclick = async() => {
+    showMintButton.onclick = async() => {
         mintRow.style.display = "block";
         galleryRow.style.display = "none";
     }
@@ -94,7 +94,7 @@ function initialize() {
     } */
 
     nftText.addEventListener("keyup", function(evt) {
-        current_nft_text = nftText.va
+        current_nft_text = nftText.value
         customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
     }, false);
 
