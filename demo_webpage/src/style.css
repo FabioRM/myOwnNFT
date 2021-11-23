@@ -24,3 +24,11 @@ body {
 .price-change {
     cursor: pointer;
 }
+
+.card-title {
+    font-size: 200%;
+}
+
+.card-text {
+    font-size: 130%;
+}
