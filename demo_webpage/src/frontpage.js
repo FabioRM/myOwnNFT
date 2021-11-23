@@ -68,6 +68,7 @@ function initialize() {
     showGalleryButton.onclick = async() => {
         mintRow.style.display = "none";
         galleryRow.style.display = "block";
+        galleryRowContainer.innerHTML = ""
         var addrBalance = await getAddrBalance(accounts[0]);
         console.log(addrBalance)
         for (var i = 0; i < addrBalance; i++) {
