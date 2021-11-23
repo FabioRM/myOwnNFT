@@ -175,6 +175,9 @@ function initialize() {
             if (accounts[0] == smart_contract_owner) {
                 withdrawButton.style.display = "block";
             }
+            getBalanceOfSmartContract().then((x) => {
+                withdrawButton.innerHTML = "Withdraw " + x / 1000000000000000000 + " $FTM";
+            })
         }
     }, 5000)
 }
