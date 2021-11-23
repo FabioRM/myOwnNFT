@@ -1,10 +1,13 @@
 //const connectButton = document.getElementById('connectButton')
 const actionButton = document.getElementById('actionButton')
-const connectButton = document.getElementById('connectButton')
 const amountPaid = document.getElementById('amountPaid')
 const nftText = document.getElementById('nftText')
 const increaseAmount = document.getElementById('increaseAmount')
 const decreaseAmount = document.getElementById('decreaseAmount')
+const showGalleryButton = document.getElementById('showGalleryButton')
+const showMintButton = document.getElementById('showMintButton')
+const galleryRow = document.getElementById('galleryRow')
+const mintRow = document.getElementById('mintRow')
 
 var current_nft_text = "> Hello,      world!"
 var current_nft_price = 1;
@@ -17,9 +20,7 @@ function showConnect() {
     actionButton.innerHTML = "Connect wallet"
     actionButton.classList.remove("btn-mint");
     actionButton.classList.add("btn-connect");
-    connectButton.classList.remove("btn-mint");
-    connectButton.classList.add("btn-connect");
-    connectButton.style.display = "block";
+    showGalleryButton.style.display = "none";
 }
 
 function showMint(x) {
@@ -28,24 +29,10 @@ function showMint(x) {
     actionButton.innerHTML = "Mint"
     actionButton.classList.add("btn-mint");
     actionButton.classList.remove("btn-connect");
-    connectButton.classList.add("btn-mint");
-    connectButton.classList.remove("btn-connect");
-    connectButton.style.display = "none";
+    showGalleryButton.style.display = "block";
 }
 
 function initialize() {
-    connectButton.onclick = async() => {
-        connectWallet().then((x) => {
-            if (x != undefined && x != null) {
-                showMint(x);
-            } else {
-                showConnect();
-            }
-        }).catch(x => {
-            showConnect();
-        })
-    }
-
     actionButton.onclick = async() => {
         if (is_connected) {
             mintNft(amountPaid.value);
@@ -74,6 +61,16 @@ function initialize() {
             current_nft_price = current_nft_price - 1;
             customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
         }
+    }
+
+    galleryRow.onclick = async() => {
+        mintRow.style.display = "none";
+        galleryRow.style.display = "block";
+    }
+
+    mintRow.onclick = async() => {
+        mintRow.style.display = "block";
+        galleryRow.style.display = "none";
     }
 
     /* getTokenButton.onclick = async() => {
