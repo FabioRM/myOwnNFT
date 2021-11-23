@@ -8,9 +8,17 @@ body {
     border-radius: 2px;
 }
 
-.btn-mint {
+.btn-action {
     border: solid 2px black;
     background-color: aquamarine;
+}
+
+.btn-mint {
+    background-color: aquamarine;
+}
+
+.btn-connect {
+    background-color: coral;
 }
 
 .price-change {
