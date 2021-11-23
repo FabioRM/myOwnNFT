@@ -42,15 +42,6 @@ const getContract = async(web3) => {
         SMART_CONTRACT_ADDRESS
     );
     return contract;
-    /*
-        const deployedNetwork = TelegrafNFT.networks[netId];
-        console.log("deployedNetwork", deployedNetwork);
-        const greeting = new web3.eth.Contract(
-            TelegrafNFT.abi,
-            deployedNetwork && deployedNetwork.address
-        );
-        return greeting;
-        */
 };
 
 async function connectWallet() {

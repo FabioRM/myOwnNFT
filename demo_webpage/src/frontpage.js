@@ -10,11 +10,10 @@ var current_nft_text = "> Hello,      world!"
 var current_nft_price = 1;
 var current_nft_id = "???"
 var is_connected = false;
-var wallet_accounts = "";
 
 function showConnect() {
     is_connected = false;
-    wallet_accounts = "";
+    accounts = "";
     actionButton.innerHTML = "Connect wallet"
     actionButton.classList.remove("btn-mint");
     actionButton.classList.add("btn-connect");
@@ -25,7 +24,7 @@ function showConnect() {
 
 function showMint(x) {
     is_connected = true;
-    wallet_accounts = x;
+    accounts = x;
     actionButton.innerHTML = "Mint"
     actionButton.classList.add("btn-mint");
     actionButton.classList.remove("btn-connect");
