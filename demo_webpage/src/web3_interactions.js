@@ -49,7 +49,7 @@ async function connectWallet() {
         web3 = await getWeb3();
         //console.log("web3", web3);
         accounts = await web3.eth.getAccounts();
-        console.log("accounts", accounts);
+        //console.log("accounts", accounts);
         contract = await getContract(web3);
         //console.log("contract", contract);
         return accounts

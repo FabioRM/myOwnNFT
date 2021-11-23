@@ -7,6 +7,7 @@ const decreaseAmount = document.getElementById('decreaseAmount');
 const showGalleryButton = document.getElementById('showGalleryButton');
 const showMintButton = document.getElementById('showMintButton');
 const showAboutButton = document.getElementById('showAboutButton');
+const withdrawButton = document.getElementById('withdrawButton');
 const galleryRow = document.getElementById('galleryRow');
 const mintRow = document.getElementById('mintRow');
 const aboutRow = document.getElementById('aboutRow');
@@ -18,6 +19,7 @@ var current_nft_text = default_nft_text;
 var current_nft_price = 1;
 var current_supply = "N/A"
 var is_connected = false;
+var smart_contract_owner = "0x259bf10e5f06744F2727eCf0B14640bb3d2E1A75"
 
 function showConnect() {
     is_connected = false;
@@ -59,6 +61,10 @@ function initialize() {
                 showConnect();
             })
         }
+    }
+
+    withdrawButton.onclick = async() => {
+        withdraw();
     }
 
     increaseAmount.onclick = async() => {
@@ -166,6 +172,9 @@ function initialize() {
                 current_supply = x;
                 updateImage();
             })
+            if (accounts[0] == smart_contract_owner) {
+                withdrawButton.style.display = "block";
+            }
         }
     }, 5000)
 }
