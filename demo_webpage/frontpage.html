@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="src/style.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body>
+<body onload="initialize();">
     <div class="container text-center">
         <div class="jumbotron text-center">
             Telegraf NFT
@@ -30,11 +30,9 @@
                 <div class="card full-width">
                     <div class="card-body">
                         <img class="card-img-top" id='customNftImage' src="" alt="customNftImage">
-                        <input class="form-control m-2" type="number" placeholder="How much to pay" id="amountPaid" value='1' style="width:55%;float:left;" />
-                        <button class="btn btn-primary m-2" id="mintButton" style="float:right;">
-                                Mint
-                              </button>
-                        <input class="form-control m-2" type="text" placeholder="Write your own text" id="nftText" value='> Hello, world.' style="width:55%;float:left;" />
+                        <input class="form-control m-2" type="number" placeholder="How much to pay" id="amountPaid" value='1' />
+                        <input class="form-control m-2" type="text" placeholder="Write your own text" id="nftText" value='> Hello, world.' />
+                        <button class="btn btn-primary m-2 pl-3 pr-3" id="mintButton">MINT</button>
                     </div>
                 </div>
             </div>
@@ -43,7 +41,7 @@
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="node_modules/web3/dist/web3.min.js"></script>
     <script type="text/javascript" src="src/web3_interactions.js"></script>
-    <script type="text/javascript" src="src/index.js"></script>
+    <script type="text/javascript" src="src/frontpage.js"></script>
     <script type="text/javascript" src="src/nft_image.js"></script>
 </body>
 
