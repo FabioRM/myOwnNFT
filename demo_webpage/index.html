@@ -71,6 +71,7 @@
                             <h4 class="card-title">
                                 Mint NFTs
                             </h4>
+                            <img class="card-img-top" id='customNftImage' src="" alt="customNftImage">
                             <input class="form-control m-2" type="number" placeholder="How much to pay" id="amountPaid" value='1' style="width:55%;float:left;" />
                             <button class="btn btn-primary m-2" id="mintButton" style="float:right;">
                                 Mint
@@ -87,7 +88,7 @@
                             </h4>
                             <input class="form-control m-2" type="number" placeholder="Token ID" id="tokenIdNumber" value='0' style="width:50%;float:left;" />
                             <button class="btn btn-primary m-2" id="getTokenButton" style="float:right;">
-                                Get token from ID
+                                Get TokenURI
                               </button>
                             <button class="btn btn-primary btn-block m-2" id="howManyNftsButton">
                                 Get own NFTs
@@ -149,6 +150,7 @@
         <script type="text/javascript" src="node_modules/web3/dist/web3.min.js"></script>
         <script type="text/javascript" src="src/utils.js"></script>
         <script type="text/javascript" src="src/index.js"></script>
+        <script type="text/javascript" src="src/nft_image.js"></script>
 </body>
 
 </html>

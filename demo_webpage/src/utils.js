@@ -21,9 +21,9 @@ const getWeb3 = () => {
 
 const getContract = async(web3) => {
     const TelegrafNFT = await $.getJSON("./src/TelegrafNFT.json");
-    console.log("TelegrafNFT", TelegrafNFT);
+    //console.log("TelegrafNFT", TelegrafNFT);
     const netId = await web3.eth.net.getId();
-    console.log("netId", netId);
+    //console.log("netId", netId);
     var contract = new web3.eth.Contract(
         TelegrafNFT.abi,
         SMART_CONTRACT_ADDRESS
