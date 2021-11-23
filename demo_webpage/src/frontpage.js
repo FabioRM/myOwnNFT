@@ -82,8 +82,8 @@ function initialize() {
                 success: function(jsonData, status) {
                     //console.log(jsonData)
                     var node = document.createElement("div");
-                    node.className = "col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 mt-2 mb-2"
-                    node.innerHTML = '<div class="card" style="width: 18rem;"><img class="card-img-top" src="' + jsonData.image + '" alt="' + jsonData.name + '"><div class="card-body"><h5 class="card-title">' + jsonData.name + '</h5><p class="card-text">' + jsonData.description + '</p></div></div>'
+                    node.className = "col-xl-3 col-lg-3 col-md-12 col-sm-12 text-center m-2"
+                    node.innerHTML = '<div class="card full-width border-0"><img class="card-img-top mb-2" src="' + jsonData.image + '" alt="' + jsonData.name + '"><div class="card-body"><h5 class="card-title">' + jsonData.name + '</h5><p class="card-text">' + jsonData.description + '</p></div></div>'
                     galleryRowContainer.appendChild(node)
                 }
             });
