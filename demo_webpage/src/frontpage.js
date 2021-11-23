@@ -8,6 +8,8 @@ const showGalleryButton = document.getElementById('showGalleryButton');
 const showMintButton = document.getElementById('showMintButton');
 const galleryRow = document.getElementById('galleryRow');
 const mintRow = document.getElementById('mintRow');
+const galleryRowContainer = document.getElementById('galleryRowContainer');
+
 
 var current_nft_text = "Mint an NFT that is     really yours"
 var current_nft_price = 1;
@@ -66,6 +68,25 @@ function initialize() {
     showGalleryButton.onclick = async() => {
         mintRow.style.display = "none";
         galleryRow.style.display = "block";
+        var addrBalance = await getAddrBalance(accounts[0]);
+        console.log(addrBalance)
+        for (var i = 0; i < addrBalance; i++) {
+            var tokenId = await getTokenIdFromAddrPos(accounts[0], i);
+            var tokenUri = await getTokenUri(tokenId);
+            $.ajax({
+                url: tokenUri,
+                type: 'GET',
+                dataType: 'json',
+                async: false,
+                success: function(jsonData, status) {
+                    //console.log(jsonData)
+                    var node = document.createElement("div");
+                    node.className = "col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 mt-2 mb-2"
+                    node.innerHTML = '<div class="card" style="width: 18rem;"><img class="card-img-top" src="' + jsonData.image + '" alt="' + jsonData.name + '"><div class="card-body"><h5 class="card-title">' + jsonData.name + '</h5><p class="card-text">' + jsonData.description + '</p></div></div>'
+                    galleryRowContainer.appendChild(node)
+                }
+            });
+        }
     }
 
     showMintButton.onclick = async() => {

@@ -129,6 +129,21 @@ async function mintNft(paid) {
     $("#result").html(str)
 }
 
+async function getAddrBalance(addr) {
+    let addrBalance = await contract.methods.balanceOf(addr).call();
+    return addrBalance;
+}
+
+async function getTokenIdFromAddrPos(addr, pos) {
+    let tokenId = await contract.methods.tokenOfOwnerByIndex(addr, pos).call();
+    return tokenId;
+}
+
+async function getTokenUri(id) {
+    let tokenUri = await contract.methods.tokenURI(id).call();
+    return tokenUri;
+}
+
 async function getNfts() {
     var tokenIds = [];
     let totalSupply = await contract.methods.totalSupply().call();
