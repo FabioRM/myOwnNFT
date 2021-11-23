@@ -25,6 +25,10 @@ let web3;
 let accounts;
 let contract;
 
+var current_nft_text = "> Hello,      world!"
+var current_nft_price = 1;
+var current_nft_id = "???"
+
 async function connectWallet() {
     try {
         web3 = await getWeb3();
@@ -205,5 +209,25 @@ function initialize() {
         withdraw()
     }
 
-    customNftImage.src = data_to_img_src(2, "ciao", 234234234234234234234);
+    nftText.addEventListener("keyup", function(evt) {
+        current_nft_text = nftText.value
+        customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
+    }, false);
+
+    amountPaid.addEventListener("keyup", function(evt) {
+        current_nft_price = amountPaid.value
+        customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
+    }, false);
+
+    nftText.addEventListener("change", function(evt) {
+        current_nft_text = nftText.value
+        customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
+    }, false);
+
+    amountPaid.addEventListener("change", function(evt) {
+        current_nft_price = amountPaid.value
+        customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
+    }, false);
+
+    customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
 }

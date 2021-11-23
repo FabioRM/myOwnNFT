@@ -153,16 +153,13 @@ function data_to_svg(token_id, in_text, in_amount) {
     tempString = "NFT #" + token_id;
     svgString = svgString + drawString(tempString, cursor_x, cursor_y);
 
-    console.log(svgString)
-
     cursor_x = 16;
     cursor_y = 100;
     tempString = "";
-    var formatted_amount = parseInt(in_amount / 1000000000000000000, 10);
-    if (formatted_amount > 1000000) {
+    if (in_amount > 1000000) {
         tempString = "Over 1M $FTM";
     } else {
-        tempString = formatted_amount + " $FTM";
+        tempString = in_amount + " $FTM";
     }
     svgString = svgString + drawString(tempString, cursor_x, cursor_y);
 
