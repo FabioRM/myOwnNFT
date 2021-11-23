@@ -57,22 +57,22 @@ function initialize() {
     } */
 
     nftText.addEventListener("keyup", function(evt) {
-        current_nft_text = nftText.value
+        current_nft_text = nftText.value;
         customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
     }, false);
 
     amountPaid.addEventListener("keyup", function(evt) {
-        current_nft_price = amountPaid.value
+        current_nft_price = parseInt(amountPaid.value);
         customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
     }, false);
 
     nftText.addEventListener("change", function(evt) {
-        current_nft_text = nftText.value
+        current_nft_text = nftText.value;
         customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
     }, false);
 
     amountPaid.addEventListener("change", function(evt) {
-        current_nft_price = amountPaid.value
+        current_nft_price = parseInt(amountPaid.value);
         customNftImage.src = data_to_img_src(current_nft_id, current_nft_text, current_nft_price);
     }, false);
 
