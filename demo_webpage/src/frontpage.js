@@ -127,22 +127,6 @@ function initialize() {
         aboutRow.style.display = "block";
     }
 
-    /* getTokenButton.onclick = async() => {
-        getToken()
-    }
-
-    howManyNftsButton.onclick = async() => {
-        getHowManyNfts()
-    }
-
-    getNftsButton.onclick = async() => {
-        getNfts()
-    }
-
-    withdrawButton.onclick = async() => {
-        withdraw()
-    } */
-
     nftText.addEventListener("keyup", function(evt) {
         current_nft_text = nftText.value.replace(/[\u{0000}-\u{0020}]/gu, " ").replace(/[\u{007F}-\u{FFFF}]/gu, " ");
         nftText.value = current_nft_text;
