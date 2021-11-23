@@ -10,8 +10,8 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-    <!-- MDB 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />-->
+    <!-- MDB
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" /> -->
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"
     />
@@ -38,26 +38,6 @@
     </nav>
 
     <div class="container-fluid text-center">
-        <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top" id="navhome">
-            <a class="navbar-brand" href="#" style="font-size: 150%">Telegraf NFT</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navhome" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="nav navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#" id='connectButton'>Connect wallet <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#" id='myOwnNfts'>My own NFTs <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#" id='about'>About <span class="sr-only">(current)</span></a>
-                    </li>
-                </ul>
-            </div>
-        </nav> -->
         <div class="row">
             <h1>
                 Create your own <b>on-chain NFT</b>.
@@ -76,13 +56,13 @@
                         </h4>
                     </div>
                     <div class="div" style="display:inline-block">
-                        <span class="ml-3" style="font-size:200%" id="decreaseAmount"><</span>
+                        <span class="ml-3 price-change" style="font-size:200%" id="decreaseAmount"><</span>
                         <input class="form-control-lg m-3" type="number" placeholder="$FTM amount" id="amountPaid" value='1' min="1" />
-                        <span class="mr-3" style="font-size:200%" id="increaseAmount">></span>
+                        <span class="mr-3 price-change" style="font-size:200%" id="increaseAmount">></span>
                     </div>
 
                     <input class="form-control-lg m-3" type="text" placeholder="Your text (max 48 chars)" id="nftText" maxlength="48" value='> Hello, world.' />
-                    <button class="btn btn-white m-3" id="mintButton" style="font-size:150%">MINT</button>
+                    <button class="btn btn-mint btn-white m-3" id="mintButton" style="font-size:150%">MINT</button>
                 </div>
             </div>
         </div>
