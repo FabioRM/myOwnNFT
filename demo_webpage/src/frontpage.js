@@ -14,9 +14,13 @@ var current_nft_price = 1;
 var current_nft_id = "???"
 
 function initialize() {
-    /* connectButton.onclick = async() => {
-        connectWallet()
-    } */
+    connectButton.onclick = async() => {
+        connectWallet().then((x) => {
+            console.log(x)
+        }).catch(x => {
+            console.log(x)
+        })
+    }
 
     mintButton.onclick = async() => {
         mintNft(amountPaid.value)

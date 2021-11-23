@@ -16,9 +16,20 @@ var current_nft_text = "> Hello,      world!"
 var current_nft_price = 1;
 var current_nft_id = "???"
 
+async function populateItemsAfterConnection(accounts) {
+    $("#result").html("")
+    $("#smartContractInteractionSection").show()
+    accountsDiv.innerHTML = accounts;
+    getNetworkAndChainId();
+}
+
 function initialize() {
     connectButton.onclick = async() => {
-        connectWallet()
+        connectWallet().then((x) => {
+            populateItemsAfterConnection(x);
+        }).catch(x => {
+            console.log(x)
+        })
     }
 
     mintButton.onclick = async() => {

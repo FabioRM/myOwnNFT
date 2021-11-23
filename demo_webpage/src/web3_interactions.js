@@ -58,14 +58,10 @@ async function connectWallet() {
         web3 = await getWeb3();
         //console.log("web3", web3);
         accounts = await web3.eth.getAccounts();
-        //console.log("accounts", accounts);
+        console.log("accounts", accounts);
         contract = await getContract(web3);
-
         //console.log("contract", contract);
-        $("#result").html("")
-        $("#smartContractInteractionSection").show()
-        accountsDiv.innerHTML = accounts;
-        getNetworkAndChainId();
+        return accounts
     } catch (error) {
         console.log(error)
     }
