@@ -6,12 +6,14 @@ const increaseAmount = document.getElementById('increaseAmount');
 const decreaseAmount = document.getElementById('decreaseAmount');
 const showGalleryButton = document.getElementById('showGalleryButton');
 const showMintButton = document.getElementById('showMintButton');
+const showAboutButton = document.getElementById('showAboutButton');
 const galleryRow = document.getElementById('galleryRow');
 const mintRow = document.getElementById('mintRow');
+const aboutRow = document.getElementById('aboutRow');
 const galleryRowContainer = document.getElementById('galleryRowContainer');
 const galleryHeader = document.getElementById('galleryHeader');
 
-var current_nft_text = "Mint an NFT that is     really yours"
+var current_nft_text = "Create an   NFT that is really yours"
 var current_nft_price = 1;
 var current_nft_id = "???"
 var is_connected = false;
@@ -68,6 +70,7 @@ function initialize() {
     showGalleryButton.onclick = async() => {
         mintRow.style.display = "none";
         galleryRow.style.display = "block";
+        aboutRow.style.display = "none";
         galleryRowContainer.innerHTML = ""
         var addrBalance = await getAddrBalance(accounts[0]);
         if (addrBalance == 0) {
@@ -101,6 +104,13 @@ function initialize() {
     showMintButton.onclick = async() => {
         mintRow.style.display = "block";
         galleryRow.style.display = "none";
+        aboutRow.style.display = "none";
+    }
+
+    showAboutButton.onclick = async() => {
+        mintRow.style.display = "none";
+        galleryRow.style.display = "none";
+        aboutRow.style.display = "block";
     }
 
     /* getTokenButton.onclick = async() => {
@@ -109,10 +119,6 @@ function initialize() {
 
     howManyNftsButton.onclick = async() => {
         getHowManyNfts()
-    }
-
-    getNftsButton.onclick = async() => {
-        getNfts()
     }
 
     getNftsButton.onclick = async() => {
