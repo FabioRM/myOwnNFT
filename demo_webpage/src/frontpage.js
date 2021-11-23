@@ -1,5 +1,6 @@
 //const connectButton = document.getElementById('connectButton')
 const actionButton = document.getElementById('actionButton')
+const connectButton = document.getElementById('connectButton')
 const amountPaid = document.getElementById('amountPaid')
 const nftText = document.getElementById('nftText')
 const increaseAmount = document.getElementById('increaseAmount')
@@ -17,6 +18,7 @@ function showConnect() {
     actionButton.innerHTML = "Connect wallet"
     actionButton.classList.remove("btn-mint");
     actionButton.classList.add("btn-connect");
+    connectButton.style.display = "block";
 }
 
 function showMint(x) {
@@ -25,12 +27,12 @@ function showMint(x) {
     actionButton.innerHTML = "Mint"
     actionButton.classList.add("btn-mint");
     actionButton.classList.remove("btn-connect");
+    connectButton.style.display = "none";
 }
 
 function initialize() {
     connectButton.onclick = async() => {
         connectWallet().then((x) => {
-            console.log('connectButton.onclick ' + x)
             if (x != undefined && x != null) {
                 showMint(x);
             } else {
@@ -46,7 +48,6 @@ function initialize() {
             mintNft(amountPaid.value);
         } else {
             connectWallet().then((x) => {
-                console.log('actionButton.onclick ' + x)
                 if (x != undefined && x != null) {
                     showMint(x)
                 } else {
