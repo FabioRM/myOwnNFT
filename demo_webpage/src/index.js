@@ -13,6 +13,7 @@ const mintRow = document.getElementById('mintRow');
 const aboutRow = document.getElementById('aboutRow');
 const galleryRowContainer = document.getElementById('galleryRowContainer');
 const galleryHeader = document.getElementById('galleryHeader');
+const wrongBlockchainBanner = document.getElementById('wrongBlockchainBanner');
 
 var default_nft_text = "Create an   NFT that is really yours"
 var current_nft_text = default_nft_text;
@@ -22,17 +23,13 @@ var is_connected = false;
 var smart_contract_owner = "0x259bf10e5f06744F2727eCf0B14640bb3d2E1A75"
 
 function showConnect() {
-    is_connected = false;
-    accounts = "";
     actionButton.innerHTML = "Connect wallet"
     actionButton.classList.remove("btn-mint");
     actionButton.classList.add("btn-connect");
     showGalleryButton.style.display = "none";
 }
 
-function showMint(x) {
-    is_connected = true;
-    accounts = x;
+function showMint() {
     actionButton.innerHTML = "Mint"
     actionButton.classList.add("btn-mint");
     actionButton.classList.remove("btn-connect");
@@ -53,11 +50,25 @@ function initialize() {
         } else {
             connectWallet().then((x) => {
                 if (x != undefined && x != null) {
-                    showMint(x)
+                    getNetworkAndChainId().then((data) => {
+                        if ((data.chainId != FANTOM_TESTNET_CHAINID) || (data.networkId != FANTOM_TESTNET_NETWORK)) {
+                            console.log("wrong blockchain connected");
+                            wrongBlockchainBanner.style.display = "block";
+                        } else {
+                            wrongBlockchainBanner.style.display = "none";
+                            is_connected = true;
+                            accounts = x;
+                            showMint()
+                        }
+                    })
                 } else {
+                    is_connected = false;
+                    accounts = "";
                     showConnect();
                 }
             }).catch(x => {
+                is_connected = false;
+                accounts = "";
                 showConnect();
             })
         }
