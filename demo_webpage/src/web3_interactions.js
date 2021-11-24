@@ -1,4 +1,6 @@
 let SMART_CONTRACT_ADDRESS = "0x4d3FA589E4F02CB3222F6fbfC2Ab743eC619b721"
+let FANTOM_OPERA_NETWORK = "250"
+let FANTOM_OPERA_CHAINID = "0xfa"
 
 const isMetaMaskInstalled = () => {
     const {
@@ -60,16 +62,19 @@ async function connectWallet() {
 
 async function getNetworkAndChainId() {
     try {
+        var data = {}
+
         const chainId = await ethereum.request({
             method: 'eth_chainId',
         })
-        chainIdDiv.innerHTML = chainId
-
         const networkId = await ethereum.request({
             method: 'net_version',
         })
-        networkDiv.innerHTML = networkId
-        $("#connectButtonRow").hide()
+
+        data['chainId'] = chainId;
+        data['networkId'] = networkId;
+
+        return data
     } catch (err) {
         console.error(err)
     }

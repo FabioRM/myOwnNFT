@@ -20,7 +20,11 @@ async function populateItemsAfterConnection(accounts) {
     $("#result").html("")
     $("#smartContractInteractionSection").show()
     accountsDiv.innerHTML = accounts;
-    getNetworkAndChainId();
+    var data = {}
+    data = await getNetworkAndChainId();
+    chainIdDiv.innerHTML = data['chainId']
+    networkDiv.innerHTML = data['networkId']
+    $("#connectButtonRow").hide()
 }
 
 function initialize() {
