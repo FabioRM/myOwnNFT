@@ -5,19 +5,11 @@
     <title>Telegraf NFT</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-    <!-- MDB
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" /> -->
-    <!-- Font Awesome 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"
-    />-->
-
+    <link rel="stylesheet" href="src/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <script type="text/javascript" src="src/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="src/font/stylesheet.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="src/style.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
 <body onload="initialize();">
@@ -41,7 +33,6 @@
                 <h3>Telegraf NFTs are powered by the <b>FANTOM</b> blockchain. These on-chain NFTs live 100% within the blockchain itself and <b>do not rely</b> on any external service. Once minted, they will <b>last forever</b> and are <b>immutable.</b></h3>
             </div>
         </div>
-
         <div class="row mt-1 min-vh-80" id="mintRow">
             <h1>
                 Create your own <b>on-chain NFT</b>.
@@ -69,7 +60,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row mt-5 min-vh-100" id="galleryRow" style="display: none;">
             <div class="div" id="galleryHeader">
             </div>
@@ -77,7 +67,6 @@
             <div class="d-flex flex-wrap justify-content-center" id="galleryRowContainer">
             </div>
         </div>
-
         <div class="row mt-5 min-vh-100" id="aboutRow" style="display: none;">
             <h3>
                 <p>
@@ -89,43 +78,15 @@
                     Minting a Telegraf NFT is extremely <b>affordable</b>. The price starts at <b>1 $FTM</b> with very low fees (in the order of cents of $FTM). <b>Unleash your creativity</b> and make your own NFT to <b>collect</b> or <b>donate</b>!
                 </p>
             </h3>
-
-            <!-- <div class="div">
-                <h1>
-                    <b>on-chain</b> vs <b>off-chain</b>
-                </h1>
-            </div>
-            <div class="mt-2">
-                <h3>
-                    <p>
-                        Across many NFT communities you can hear conversations about what exactly does it mean when NFTs are referred to as being <b>on-chain</b> or <b>off-chain</b>. The distinction between these two concepts is of primary importance
-                        and it is <b>essential</b> to understand.
-                    </p>
-                    <p> Many people believe in a misconception that everything that uses the <b>blockchain technology</b> leaves the digital assets impervious to corruption, reliable and permanent. While this is true in terms of the <b>smart contracts</b>                        after their deployment, there is a potential vulnerability that exists intrinsically in the way that some projects store complex data (like digital artwork, images, videos, music, etc.). In the specific, if the data is stored <b>off-chain</b>,
-                        then there is a chance that you could be stuck with a smart contract that points to a broken link or a missing file. To become a more informed collector, it is of uttermost importance to understand which are the <b>on-chain</b>                        and <b>off-chain</b> components of the NFTs projects. These concepts are useful even to understand the quality of a project.
-                    </p>
-                    <p>Projects among NFT communities are often made by two distincted parts: the <b>smart contract</b> and the <b>complex data</b> that actually contains some sort of digital media and additional metadata. The smart contract lies on a blockchain
-                        and contains a set of instructions and functions. Often it stores also the metadata associated to an NFT. Whenever the complex data or the metadata are included in the form of a link that points to a location external from the
-                        blockchain, like a server, there is a non-zero probability to lose your precious NFT. In fact, if the digital media or the metadata do not live on a blockchain, they are stored <b>off-chain</b>.
-                    </p>
-                    <p>
-                        Storage solutions, external to the blockchain, include <b>centralized servers</b> and the <b>InterPlanetary File System (IPFS)</b>. The issue with centralized storage is that if the server goes down (or the company who runs it
-                        dissolves), then the digital media (and everything not stored within the smart-contract) would be lost. IPFS is a more secure method to store data as it utilizes a decentralized and distributed system. In the unfortunate case that
-                        a storage location goes down than the data can still be retrieve from another place but following <b>another URI</b>. The smart contracts are supposed to be immutable, and it is not possible then to modify them in order to store
-                        another URI. In this scenario, an NFT holder would be left with a smart contract that contains a broken link.
-                    </p>
-                </h3>
-            </div> -->
         </div>
-
     </div>
     <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-light text-black-50">
         <div class="container text-center" style="font-size: 130%;">
             Made with love by Fabio Angeletti - fabio.angeletti89 (at) gmail.com
         </div>
     </footer>
-    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="node_modules/web3/dist/web3.min.js"></script>
+    <script type="text/javascript" src="src/jquery.min.js"></script>
+    <script type="text/javascript" src="src/web3.min.js"></script>
     <script type="text/javascript" src="src/web3_interactions.js"></script>
     <script type="text/javascript" src="src/frontpage.js"></script>
     <script type="text/javascript" src="src/nft_image.js"></script>
