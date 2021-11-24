@@ -37,7 +37,7 @@ const getWeb3 = () => {
 
 
 const getContract = async(web3) => {
-    const TelegrafNFT = await $.getJSON("./src/TelegrafNFT.json");
+    const TelegrafNFT = await $.getJSON("src/TelegrafNFT.json");
     //console.log("TelegrafNFT", TelegrafNFT);
     const netId = await web3.eth.net.getId();
     //console.log("netId", netId);
