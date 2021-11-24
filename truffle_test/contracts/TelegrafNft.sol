@@ -302,7 +302,7 @@ contract TelegrafNFT is ERC721Enumerable {
                                 abi.encodePacked(
                                     '{"name": "Telegraf NFT #',
                                     toString(_tokenId),
-                                    '", "description": "Telegraf NFT is an on-chain NFT collection that users can customize while minting.", "image": "data:image/svg+xml;base64,',
+                                    '", "description": "Telegraf NFT is an on-chain NFT collection that users can customize on mint.", "image": "data:image/svg+xml;base64,',
                                     encode(bytes(tokenIdToSVG(_tokenId))),
                                     '","attributes":',
                                     tokenIdToMetadata(_tokenId),
