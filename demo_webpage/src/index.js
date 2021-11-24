@@ -14,6 +14,7 @@ const aboutRow = document.getElementById('aboutRow');
 const galleryRowContainer = document.getElementById('galleryRowContainer');
 const galleryHeader = document.getElementById('galleryHeader');
 const wrongBlockchainBanner = document.getElementById('wrongBlockchainBanner');
+const metamaskMissingBanner = document.getElementById('metamaskMissingBanner');
 
 var default_nft_text = "Create an   NFT that is really yours"
 var current_nft_text = default_nft_text;
@@ -54,7 +55,9 @@ function initialize() {
                         if ((data.chainId != FANTOM_TESTNET_CHAINID) || (data.networkId != FANTOM_TESTNET_NETWORK)) {
                             console.log("wrong blockchain connected");
                             wrongBlockchainBanner.style.display = "block";
+                            metamaskMissingBanner.style.display = "none";
                         } else {
+                            metamaskMissingBanner.style.display = "none";
                             wrongBlockchainBanner.style.display = "none";
                             is_connected = true;
                             accounts = x;
@@ -65,6 +68,8 @@ function initialize() {
                     is_connected = false;
                     accounts = "";
                     showConnect();
+                    metamaskMissingBanner.style.display = "block";
+                    wrongBlockchainBanner.style.display = "none";
                 }
             }).catch(x => {
                 is_connected = false;
