@@ -21,7 +21,7 @@ var current_nft_text = default_nft_text;
 var current_nft_price = 1;
 var current_supply = "N/A"
 var is_connected = false;
-var smart_contract_owner = "0x259bf10e5f06744F2727eCf0B14640bb3d2E1A75"
+var smart_contract_owner = "0xF6c682189A31BDfd0D5f13a4A163d9728c130471"
 
 function showConnect() {
     actionButton.innerHTML = "Connect wallet"
@@ -52,7 +52,7 @@ function initialize() {
             connectWallet().then((x) => {
                 if (x != undefined && x != null) {
                     getNetworkAndChainId().then((data) => {
-                        if ((data.chainId != FANTOM_TESTNET_CHAINID) || (data.networkId != FANTOM_TESTNET_NETWORK)) {
+                        if ((data.chainId != FANTOM_OPERA_CHAINID) || (data.networkId != FANTOM_OPERA_NETWORK)) {
                             console.log("wrong blockchain connected");
                             wrongBlockchainBanner.style.display = "block";
                             metamaskMissingBanner.style.display = "none";

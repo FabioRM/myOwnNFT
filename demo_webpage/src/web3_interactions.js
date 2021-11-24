@@ -1,4 +1,4 @@
-let SMART_CONTRACT_ADDRESS = "0x9C66604464730BDd819B138B715B03389BF40CfD"
+let SMART_CONTRACT_ADDRESS = "0xEDCdE49F5E0e2f2995f60Ab645Ea6a531798fe7F"
 let FANTOM_OPERA_NETWORK = "250"
 let FANTOM_OPERA_CHAINID = "0xfa"
 let FANTOM_TESTNET_NETWORK = "4002"
@@ -130,10 +130,10 @@ async function mintNft(paid) {
             value: (1000000000000000000) * paid
         })
         .on('receipt', function() {
-            console.log("receipt")
+            //console.log("receipt")
         });
-    var str = JSON.stringify(test, null, 2);
-    $("#result").html(str)
+    //var str = JSON.stringify(test, null, 2);
+    //$("#result").html(str)
 }
 
 async function getAddrBalance(addr) {
