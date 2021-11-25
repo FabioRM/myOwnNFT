@@ -120,6 +120,28 @@ function initialize() {
                                     break;
                                 }
 
+                            case FANTOM_TESTNET_CHAINID:
+                                {
+                                    blockchainDiv.innerHTML = "- FANTOM testnet"
+                                    metamaskMissingBanner.style.display = "none";
+                                    wrongBlockchainBanner.style.display = "none";
+                                    is_connected = true;
+                                    accounts = x;
+                                    showMint()
+                                    break;
+                                }
+
+                            case MATIC_CHAINID:
+                                {
+                                    blockchainDiv.innerHTML = "- POLYGON"
+                                    metamaskMissingBanner.style.display = "none";
+                                    wrongBlockchainBanner.style.display = "none";
+                                    is_connected = true;
+                                    accounts = x;
+                                    showMint()
+                                    break;
+                                }
+
                             case MATIC_TESTNET_CHAINID:
                                 {
                                     blockchainDiv.innerHTML = "- POLYGON testnet"

@@ -2,7 +2,7 @@ let SMART_CONTRACT_ADDRESS_FTM = "0xEDCdE49F5E0e2f2995f60Ab645Ea6a531798fe7F"
 let FANTOM_NETWORK = "250"
 let FANTOM_CHAINID = "0xfa"
 
-let SMART_CONTRACT_ADDRESS_FTM_TESTNET = ""
+let SMART_CONTRACT_ADDRESS_FTM_TESTNET = "0xE6C61EBa118F8c40bb5c560b609a26c309226D6a"
 let FANTOM_TESTNET_NETWORK = "4002"
 let FANTOM_TESTNET_CHAINID = "0xfa2"
 
@@ -78,6 +78,16 @@ async function connectWallet() {
                         getContract(web3, "src/TelegrafNFT_FTM.json", SMART_CONTRACT_ADDRESS_FTM).then((x) => {
                             contract = x;
                             current_sm_address = SMART_CONTRACT_ADDRESS_FTM;
+                            //console.log("contract", contract);
+                        })
+                        break;
+                    }
+
+                case FANTOM_TESTNET_CHAINID:
+                    {
+                        getContract(web3, "src/TelegrafNFT_FTM.json", SMART_CONTRACT_ADDRESS_FTM_TESTNET).then((x) => {
+                            contract = x;
+                            current_sm_address = SMART_CONTRACT_ADDRESS_FTM_TESTNET;
                             //console.log("contract", contract);
                         })
                         break;
