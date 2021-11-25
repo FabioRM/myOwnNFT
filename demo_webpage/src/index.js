@@ -46,6 +46,34 @@ function updateImage() {
     customNftImage.src = data_to_img_src(current_supply, current_nft_text, current_nft_price);
 }
 
+function showMintSection() {
+    mintRow.style.display = "block";
+    galleryRow.style.display = "none";
+    aboutRow.style.display = "none";
+    helpRow.style.display = "none";
+}
+
+function showGallerySection() {
+    mintRow.style.display = "none";
+    galleryRow.style.display = "block";
+    aboutRow.style.display = "none";
+    helpRow.style.display = "none";
+}
+
+function showAboutSection() {
+    mintRow.style.display = "none";
+    galleryRow.style.display = "none";
+    aboutRow.style.display = "block";
+    helpRow.style.display = "none";
+}
+
+function showHelpSection() {
+    mintRow.style.display = "none";
+    galleryRow.style.display = "none";
+    aboutRow.style.display = "none";
+    helpRow.style.display = "block";
+}
+
 function initialize() {
     actionButton.onclick = async() => {
         if (is_connected) {
@@ -68,7 +96,7 @@ function initialize() {
 
                             default:
                                 {
-                                    console.log("wrong blockchain connected");
+                                    console.log("Unsupported blockchain connected");
                                     blockchainDiv.innerHTML = "disconnected"
                                     wrongBlockchainBanner.style.display = "block";
                                     metamaskMissingBanner.style.display = "none";
@@ -110,9 +138,7 @@ function initialize() {
     }
 
     showGalleryButton.onclick = async() => {
-        mintRow.style.display = "none";
-        galleryRow.style.display = "block";
-        aboutRow.style.display = "none";
+        showGallerySection();
         galleryRowContainer.innerHTML = ""
         var addrBalance = await getAddrBalance(accounts[0]);
         if (addrBalance == 0) {
@@ -144,24 +170,15 @@ function initialize() {
     }
 
     showMintButton.onclick = async() => {
-        mintRow.style.display = "block";
-        galleryRow.style.display = "none";
-        aboutRow.style.display = "none";
-        helpRow.style.display = "none";
+        showMintSection();
     }
 
     showAboutButton.onclick = async() => {
-        mintRow.style.display = "none";
-        galleryRow.style.display = "none";
-        aboutRow.style.display = "block";
-        helpRow.style.display = "none";
+        showAboutSection();
     }
 
     showHelpButton.onclick = async() => {
-        mintRow.style.display = "none";
-        galleryRow.style.display = "none";
-        aboutRow.style.display = "none";
-        helpRow.style.display = "block";
+        showHelpSection();
     }
 
     nftText.addEventListener("keyup", function(evt) {
