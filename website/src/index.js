@@ -7,6 +7,7 @@ const decreaseAmount = document.getElementById('decreaseAmount');
 const showGalleryButton = document.getElementById('showGalleryButton');
 const showMintButton = document.getElementById('showMintButton');
 const showAboutButton = document.getElementById('showAboutButton');
+const showHelpButton = document.getElementById('showHelpButton');
 const withdrawButton = document.getElementById('withdrawButton');
 const galleryRow = document.getElementById('galleryRow');
 const mintRow = document.getElementById('mintRow');
@@ -15,16 +16,19 @@ const galleryRowContainer = document.getElementById('galleryRowContainer');
 const galleryHeader = document.getElementById('galleryHeader');
 const wrongBlockchainBanner = document.getElementById('wrongBlockchainBanner');
 const metamaskMissingBanner = document.getElementById('metamaskMissingBanner');
+const blockchainDiv = document.getElementById('blockchainDiv');
+const howMuchToPayDiv = document.getElementById('howMuchToPayDiv');
 
-var default_nft_text = "Create an   NFT that is really yours"
+var default_nft_text = "Create an   NFT that is really yours";
 var current_nft_text = default_nft_text;
 var current_nft_price = 1;
-var current_supply = "N/A"
+var current_supply = "N/A";
 var is_connected = false;
-var smart_contract_owner = "0xF6c682189A31BDfd0D5f13a4A163d9728c130471"
+var smart_contract_owner = "0xF6c682189A31BDfd0D5f13a4A163d9728c130471";
+var current_chain_id = "0";
 
 function showConnect() {
-    actionButton.innerHTML = "Connect wallet"
+    actionButton.innerHTML = "Connect MetaMask wallet"
     actionButton.classList.remove("btn-mint");
     actionButton.classList.add("btn-connect");
     showGalleryButton.style.display = "none";
@@ -41,33 +45,135 @@ function updateImage() {
     if (current_nft_text.length == 0) {
         current_nft_text = default_nft_text;
     }
-    customNftImage.src = data_to_img_src(current_supply, current_nft_text, current_nft_price);
+    switch (current_chain_id) {
+        case FANTOM_CHAINID:
+        case FANTOM_TESTNET_CHAINID:
+            {
+                customNftImage.src = data_to_img_src_ftm(current_supply, current_nft_text, current_nft_price);
+                break;
+            }
+        case MATIC_CHAINID:
+        case MATIC_TESTNET_CHAINID:
+            {
+                customNftImage.src = data_to_img_src_matic(current_supply, current_nft_text, current_nft_price);
+                break;
+            }
+        default:
+            {
+                customNftImage.src = default_img_gen();
+                withdrawButton.style.display = "none";
+                break;
+            }
+    }
+
+}
+
+function showMintSection() {
+    mintRow.style.display = "block";
+    galleryRow.style.display = "none";
+    aboutRow.style.display = "none";
+    helpRow.style.display = "none";
+}
+
+function showGallerySection() {
+    mintRow.style.display = "none";
+    galleryRow.style.display = "block";
+    aboutRow.style.display = "none";
+    helpRow.style.display = "none";
+}
+
+function showAboutSection() {
+    mintRow.style.display = "none";
+    galleryRow.style.display = "none";
+    aboutRow.style.display = "block";
+    helpRow.style.display = "none";
+}
+
+function showHelpSection() {
+    mintRow.style.display = "none";
+    galleryRow.style.display = "none";
+    aboutRow.style.display = "none";
+    helpRow.style.display = "block";
 }
 
 function initialize() {
     actionButton.onclick = async() => {
         if (is_connected) {
             mintNft(amountPaid.value);
+            nftText.value = "";
+            current_nft_text = "";
+            updateImage();
         } else {
             connectWallet().then((x) => {
                 if (x != undefined && x != null) {
                     getNetworkAndChainId().then((data) => {
-                        if ((data.chainId != FANTOM_OPERA_CHAINID) || (data.networkId != FANTOM_OPERA_NETWORK)) {
-                            console.log("wrong blockchain connected");
-                            wrongBlockchainBanner.style.display = "block";
-                            metamaskMissingBanner.style.display = "none";
-                        } else {
-                            metamaskMissingBanner.style.display = "none";
-                            wrongBlockchainBanner.style.display = "none";
-                            is_connected = true;
-                            accounts = x;
-                            showMint()
+                        current_chain_id = data.chainId;
+
+                        switch (data.chainId) {
+                            case FANTOM_CHAINID:
+                                {
+                                    blockchainDiv.innerHTML = "- FANTOM"
+                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $FTM</b>."
+                                    metamaskMissingBanner.style.display = "none";
+                                    wrongBlockchainBanner.style.display = "none";
+                                    is_connected = true;
+                                    accounts = x;
+                                    showMint()
+                                    break;
+                                }
+                                /*
+                                                            case FANTOM_TESTNET_CHAINID:
+                                                                {
+                                                                    blockchainDiv.innerHTML = "- FANTOM testnet"
+                                                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $FTM</b>."
+                                                                    metamaskMissingBanner.style.display = "none";
+                                                                    wrongBlockchainBanner.style.display = "none";
+                                                                    is_connected = true;
+                                                                    accounts = x;
+                                                                    showMint()
+                                                                    break;
+                                                                }
+                                */
+                            case MATIC_CHAINID:
+                                {
+                                    blockchainDiv.innerHTML = "- POLYGON"
+                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b>."
+                                    metamaskMissingBanner.style.display = "none";
+                                    wrongBlockchainBanner.style.display = "none";
+                                    is_connected = true;
+                                    accounts = x;
+                                    showMint()
+                                    break;
+                                }
+                                /*
+                                                            case MATIC_TESTNET_CHAINID:
+                                                                {
+                                                                    blockchainDiv.innerHTML = "- POLYGON testnet"
+                                                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b>."
+                                                                    metamaskMissingBanner.style.display = "none";
+                                                                    wrongBlockchainBanner.style.display = "none";
+                                                                    is_connected = true;
+                                                                    accounts = x;
+                                                                    showMint()
+                                                                    break;
+                                                                }
+                                */
+                            default:
+                                {
+                                    console.log("Unsupported blockchain connected");
+                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b> or <b>1 $FTM</b>."
+                                    blockchainDiv.innerHTML = "disconnected"
+                                    wrongBlockchainBanner.style.display = "block";
+                                    metamaskMissingBanner.style.display = "none";
+                                    break;
+                                }
                         }
                     })
                 } else {
                     is_connected = false;
                     accounts = "";
                     showConnect();
+                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b> or <b>1 $FTM</b>."
                     metamaskMissingBanner.style.display = "block";
                     wrongBlockchainBanner.style.display = "none";
                 }
@@ -86,25 +192,23 @@ function initialize() {
     increaseAmount.onclick = async() => {
         amountPaid.value = parseInt(amountPaid.value) + 1;
         current_nft_price = current_nft_price + 1;
-        customNftImage.src = data_to_img_src(current_supply, current_nft_text, current_nft_price);
+        updateImage();
     }
 
     decreaseAmount.onclick = async() => {
         if (amountPaid.value > 1) {
             amountPaid.value = parseInt(amountPaid.value) - 1;
             current_nft_price = current_nft_price - 1;
-            customNftImage.src = data_to_img_src(current_supply, current_nft_text, current_nft_price);
+            updateImage();
         }
     }
 
     showGalleryButton.onclick = async() => {
-        mintRow.style.display = "none";
-        galleryRow.style.display = "block";
-        aboutRow.style.display = "none";
+        showGallerySection();
         galleryRowContainer.innerHTML = ""
         var addrBalance = await getAddrBalance(accounts[0]);
         if (addrBalance == 0) {
-            galleryHeader.innerHTML = "<h1>You haven't mint any Telegraf NFT</h1>"
+            galleryHeader.innerHTML = "<h1>You didn't mint any Telegraf NFT</h1>"
         } else {
             if (addrBalance == 1) {
                 galleryHeader.innerHTML = "<h1>This is your <b>personal gallery</b>. You own <b>1 Telegraf NFT</b></h1>"
@@ -132,15 +236,15 @@ function initialize() {
     }
 
     showMintButton.onclick = async() => {
-        mintRow.style.display = "block";
-        galleryRow.style.display = "none";
-        aboutRow.style.display = "none";
+        showMintSection();
     }
 
     showAboutButton.onclick = async() => {
-        mintRow.style.display = "none";
-        galleryRow.style.display = "none";
-        aboutRow.style.display = "block";
+        showAboutSection();
+    }
+
+    showHelpButton.onclick = async() => {
+        showHelpSection();
     }
 
     nftText.addEventListener("keyup", function(evt) {
@@ -166,7 +270,6 @@ function initialize() {
     }, false);
 
     updateImage();
-    actionButton.innerHTML = "Connect wallet";
 
     var myfunc = setInterval(function() {
         if (is_connected) {
@@ -176,10 +279,29 @@ function initialize() {
             })
             if (accounts[0] == smart_contract_owner) {
                 getBalanceOfSmartContract().then((x) => {
-                    withdrawButton.innerHTML = "Withdraw " + x / 1000000000000000000 + " $FTM";
-                    withdrawButton.style.display = "block";
+                    switch (current_chain_id) {
+                        case FANTOM_CHAINID:
+                            //case FANTOM_TESTNET_CHAINID:
+                            {
+                                withdrawButton.innerHTML = "Withdraw " + x / 1000000000000000000 + " $FTM";
+                                withdrawButton.style.display = "block";
+                                break;
+                            }
+                        case MATIC_CHAINID:
+                            //case MATIC_TESTNET_CHAINID:
+                            {
+                                withdrawButton.innerHTML = "Withdraw " + x / 1000000000000000000 + " $MATIC";
+                                withdrawButton.style.display = "block";
+                                break;
+                            }
+                        default:
+                            {
+                                withdrawButton.style.display = "none";
+                                break;
+                            }
+                    }
                 })
             }
         }
-    }, 5000)
+    }, 5000);
 }

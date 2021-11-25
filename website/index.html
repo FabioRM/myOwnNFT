@@ -15,22 +15,24 @@
     <div class="container-fluid text-center">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#" style="font-size: 200%"><b>Telegraf NFT</b></a>
+                <a class="navbar-brand" href="#" style="font-size: 200%" onclick="showMintSection();"><b>Telegraf NFT</b></a>
+                <div class="mt-2" style="font-size: 120%" id="blockchainDiv"></div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav ms-auto" style="font-size:150%">
-                        <a class="nav-link text-danger" href="#" aria-current="page" id='withdrawButton' style="display:none;">Withdraw balance</a>
-                        <a class="nav-link" href="#" aria-current="page" id='showMintButton'>Mint </a>
-                        <a class="nav-link" href="#" aria-current="page" id='showGalleryButton' style="display: none;">Gallery </a>
-                        <a class="nav-link active" href="#" aria-current="page" id='showAboutButton'>About </a>
+                        <a class="nav-link text-danger" href="#" aria-current="page" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" id='withdrawButton' style="display:none;">Withdraw </a>
+                        <a class="nav-link" href="#" aria-current="page" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" id='showMintButton'>Mint </a>
+                        <a class="nav-link" href="#" aria-current="page" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" id='showGalleryButton' style="display: none;">Gallery </a>
+                        <a class="nav-link" href="#" aria-current="page" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" id='showHelpButton'>Help </a>
+                        <a class="nav-link active" href="#" aria-current="page" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" id='showAboutButton'>About </a>
                     </div>
                 </div>
             </div>
         </nav>
         <div class="row" id='wrongBlockchainBanner' style="display: none;">
             <div class="col mt-3 mb-3">
-                <div class="text-white" style="font-size: 200%; background-color:coral">
-                    You are connected to a wrong blockchain. To set up MetaMask for the FANTOM blockchain, check this <a href="https://docs.fantom.foundation/tutorials/set-up-metamask">LINK</a>
+                <div class="text-white" style="font-size: 200%; background-color:coral; cursor: pointer;" onclick="showHelpSection();">
+                    You are connected to an unsupported blockchain. Click on this banner to get help.
                 </div>
             </div>
         </div>
@@ -41,14 +43,16 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row ms-2 me-2">
             <div class="col mt-3 mb-3">
-                <h3>Telegraf NFTs are powered by the <b>FANTOM</b> blockchain technology. These on-chain NFTs live 100% within the blockchain itself and <b>do not rely</b> on any external service. Once minted, they will <b>last forever</b> and are <b>immutable.</b></h3>
+                <h3>
+                    The <b>Telegraf NFT</b> project is deployed on <b>multiple blockchains</b>. All the minted NFTs are <b>on-chain</b> and <b>do not rely</b> on any external service. Once minted, they will <b>last forever</b> and are <b>immutable.</b>
+                </h3>
             </div>
         </div>
         <div class="row mt-1 min-vh-80" id="mintRow">
             <h1>
-                Create your own <b>on-chain</b> NFT.
+                Mint your own <b>on-chain</b> NFT.
             </h1>
             <div class="d-flex justify-content-center">
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 text-center m-2">
@@ -56,9 +60,9 @@
                         <div class="card-body mb-0">
                             <img class="fancy-shadows mb-2" id='customNftImage' src="src/img_placeholder.svg" alt="customNftImage" style="text-shadow: 2px 2px;">
                         </div>
-                        <div class="m-2">
+                        <div class="m-2" id="howMuchToPayDiv">
                             <h4>
-                                You <b>decide</b> how much to pay, starting from only <b>1 $FTM</b>.
+                                You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b> or <b>1 $FTM</b>.
                             </h4>
                         </div>
                         <div class="div" style="display:inline-block">
@@ -68,7 +72,7 @@
                         </div>
 
                         <input class="form-control-lg m-3" type="text" placeholder="Your text (max 48 chars)" id="nftText" maxlength="48" value='' />
-                        <button class="btn btn-action btn-connect btn-white m-3" id="actionButton" style="font-size:150%">Connect wallet</button>
+                        <button class="btn btn-action btn-connect btn-white m-3" id="actionButton" style="font-size:150%">Connect MetaMask wallet</button>
                     </div>
                 </div>
             </div>
@@ -80,17 +84,47 @@
             <div class="d-flex flex-wrap justify-content-center" id="galleryRowContainer">
             </div>
         </div>
-        <div class="row mt-5 min-vh-100" id="aboutRow" style="display: none;">
+        <div class="row mt-5 min-vh-100 ms-2 me-2" id="aboutRow" style="display: none;">
             <h3>
                 <p>
-                    I care of small things with a strong meaning, and with this philosophy I made the <b>Telegraf NFT</b> project.</p>
-                <p>You all can participate in this NFT collection where <b>everyone is the artist</b> of its own unique pieces. The <b>Telegraf NFT</b> smart contract makes sure that every piece remains forever on the blockchain, <b>on-chain</b>. Be it a
-                    message to the love of your life, a memento from an important occasion, a sincere condolence, a greeting for an accomplishment or simply a joke, <b>your creativity is the only limit</b>.
+                    I do care about small things with strong meanings, and with this philosophy I made the <b>Telegraf NFT</b> project.</p>
+                <p>
+                    <b>You all</b> can participate in the project where <b>everyone is the artist</b> of its own unique pieces. The <b>Telegraf NFT</b> smart contract makes sure that every piece remains forever on the blockchain, <b>on-chain</b>. Be it
+                    a message to the love of your life, a memento from an important occasion, a sincere condolence, a greeting for an accomplishment or simply a joke, <b>your creativity is the only limit</b>.
                 </p>
                 <p>
-                    Minting a Telegraf NFT is extremely <b>affordable</b>. The price starts at <b>1 $FTM</b> with very low fees (in the order of cents of $FTM). <b>Unleash your creativity</b> and make your own NFT to <b>collect</b> or <b>donate</b>!
+                    Minting a Telegraf NFT is extremely <b>affordable</b>. With only <b>1 $MATIC</b> or <b>1 $FTM</b> plus very low gas fees (in the order of cents of USD) you can have your own NFT, on-chain.
+                </p>
+                <p>
+                    <b>Unleash your creativity</b> and make your own NFT to <b>collect</b> or <b>donate</b>!
                 </p>
             </h3>
+        </div>
+        <div class="row mt-5 min-vh-100 ms-2 me-2" id="helpRow" style="display: none;">
+            <h2>
+                Telegraf NFT is currently deployed on two blockchains: POLYGON and FANTOM
+            </h2>
+            <p>
+                <h3>
+                    To set up MetaMask for the POLYGON blockchain, check this <a href="https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/">LINK</a>
+                </h3>
+            </p>
+            <p>
+                <h3>
+                    To set up MetaMask for the FANTOM blockchain, check this <a href="https://docs.fantom.foundation/tutorials/set-up-metamask">LINK</a>
+                </h3>
+            </p>
+            <div class="mt-5">
+                <h2>
+                    We currently support the MetaMask wallet
+                </h2>
+                <p>
+                    <h3>
+                        To install MetaMask wallet, check this <a href="https://metamask.io/download.html">LINK</a>
+                    </h3>
+                </p>
+            </div>
+
         </div>
     </div>
     <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-light text-black-50">

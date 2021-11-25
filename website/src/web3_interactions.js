@@ -1,8 +1,26 @@
-let SMART_CONTRACT_ADDRESS = "0xEDCdE49F5E0e2f2995f60Ab645Ea6a531798fe7F"
-let FANTOM_OPERA_NETWORK = "250"
-let FANTOM_OPERA_CHAINID = "0xfa"
+let SMART_CONTRACT_ADDRESS_FTM = "0xEDCdE49F5E0e2f2995f60Ab645Ea6a531798fe7F"
+let FANTOM_NETWORK = "250"
+let FANTOM_CHAINID = "0xfa"
+
+let SMART_CONTRACT_ADDRESS_FTM_TESTNET = "0xE6C61EBa118F8c40bb5c560b609a26c309226D6a"
 let FANTOM_TESTNET_NETWORK = "4002"
 let FANTOM_TESTNET_CHAINID = "0xfa2"
+
+let SMART_CONTRACT_ADDRESS_MATIC = "0xE6C61EBa118F8c40bb5c560b609a26c309226D6a"
+let MATIC_NETWORK = "137"
+let MATIC_CHAINID = "0x89"
+
+let SMART_CONTRACT_ADDRESS_MATIC_TESTNET = "0xBbCFD988Fd71A8855167Dfb7EE5bD09B8d956Bb4"
+let MATIC_TESTNET_NETWORK = "80001"
+let MATIC_TESTNET_CHAINID = "0x13881"
+
+let SMART_CONTRACT_ADDRESS_BSC = ""
+let BSC_NETWORK = "56"
+let BSC_CHAINID = "0x38"
+
+let SMART_CONTRACT_ADDRESS_BSC_TESTNET = ""
+let BSC_TESTNET_NETWORK = "97"
+let BSC_TESTNET_CHAINID = "97"
 
 const isMetaMaskInstalled = () => {
     const {
@@ -16,6 +34,7 @@ const isMetaMaskConnected = () => accounts && accounts.length > 0
 let web3;
 let accounts;
 let contract;
+let current_sm_address = "";
 
 const getWeb3 = () => {
     return new Promise((resolve, reject) => {
@@ -36,14 +55,14 @@ const getWeb3 = () => {
 };
 
 
-const getContract = async(web3) => {
-    const TelegrafNFT = await $.getJSON("src/TelegrafNFT.json");
+const getContract = async(web3, json_file, sm_address) => {
+    const TelegrafNFT = await $.getJSON(json_file);
     //console.log("TelegrafNFT", TelegrafNFT);
-    const netId = await web3.eth.net.getId();
+    //const netId = await web3.eth.net.getId();
     //console.log("netId", netId);
     var contract = new web3.eth.Contract(
         TelegrafNFT.abi,
-        SMART_CONTRACT_ADDRESS
+        sm_address
     );
     return contract;
 };
@@ -52,10 +71,58 @@ async function connectWallet() {
     try {
         web3 = await getWeb3();
         //console.log("web3", web3);
+        getNetworkAndChainId().then((data) => {
+            switch (data['chainId']) {
+                case FANTOM_CHAINID:
+                    {
+                        getContract(web3, "src/TelegrafNFT_FTM.json", SMART_CONTRACT_ADDRESS_FTM).then((x) => {
+                            contract = x;
+                            current_sm_address = SMART_CONTRACT_ADDRESS_FTM;
+                            //console.log("contract", contract);
+                        })
+                        break;
+                    }
+
+                case FANTOM_TESTNET_CHAINID:
+                    {
+                        getContract(web3, "src/TelegrafNFT_FTM.json", SMART_CONTRACT_ADDRESS_FTM_TESTNET).then((x) => {
+                            contract = x;
+                            current_sm_address = SMART_CONTRACT_ADDRESS_FTM_TESTNET;
+                            //console.log("contract", contract);
+                        })
+                        break;
+                    }
+
+                case MATIC_CHAINID:
+                    {
+                        getContract(web3, "src/TelegrafNFT_MATIC.json", SMART_CONTRACT_ADDRESS_MATIC).then((x) => {
+                            contract = x;
+                            current_sm_address = SMART_CONTRACT_ADDRESS_MATIC;
+                            //console.log("contract", contract);
+                        })
+                        break;
+                    }
+
+                case MATIC_TESTNET_CHAINID:
+                    {
+                        getContract(web3, "src/TelegrafNFT_MATIC.json", SMART_CONTRACT_ADDRESS_MATIC_TESTNET).then((x) => {
+                            contract = x;
+                            current_sm_address = SMART_CONTRACT_ADDRESS_MATIC_TESTNET;
+                            //console.log("contract", contract);
+                        })
+                        break;
+                    }
+
+                default:
+                    {
+                        break;
+                    }
+            }
+        });
+
         accounts = await web3.eth.getAccounts();
         //console.log("accounts", accounts);
-        contract = await getContract(web3);
-        //console.log("contract", contract);
+
         return accounts
     } catch (error) {
         console.log(error)
@@ -152,8 +219,13 @@ async function getTokenUri(id) {
 }
 
 async function getBalanceOfSmartContract() {
-    let balance = await web3.eth.getBalance(SMART_CONTRACT_ADDRESS);
-    return balance;
+    if (current_sm_address != "") {
+        let balance = await web3.eth.getBalance(current_sm_address);
+        return balance;
+
+    } else {
+        return 0;
+    }
 }
 
 async function getTotalSupply() {
