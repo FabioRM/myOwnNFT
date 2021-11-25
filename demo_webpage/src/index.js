@@ -60,7 +60,7 @@ function updateImage() {
             }
         default:
             {
-                customNftImage.src = default_img_gen();
+                customNftImage.src = default_img_gen(current_nft_text);
                 withdrawButton.style.display = "none";
                 break;
             }
