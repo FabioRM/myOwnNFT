@@ -78,6 +78,9 @@ function initialize() {
     actionButton.onclick = async() => {
         if (is_connected) {
             mintNft(amountPaid.value);
+            nftText.value = "";
+            current_nft_text = "";
+            updateImage();
         } else {
             connectWallet().then((x) => {
                 if (x != undefined && x != null) {
