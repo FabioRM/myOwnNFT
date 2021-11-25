@@ -26,7 +26,7 @@ var is_connected = false;
 var smart_contract_owner = "0xF6c682189A31BDfd0D5f13a4A163d9728c130471"
 
 function showConnect() {
-    actionButton.innerHTML = "Connect wallet"
+    actionButton.innerHTML = "Connect MetaMask wallet"
     actionButton.classList.remove("btn-mint");
     actionButton.classList.add("btn-connect");
     showGalleryButton.style.display = "none";
@@ -204,7 +204,6 @@ function initialize() {
     }, false);
 
     updateImage();
-    actionButton.innerHTML = "Connect wallet";
 
     var myfunc = setInterval(function() {
         if (is_connected) {

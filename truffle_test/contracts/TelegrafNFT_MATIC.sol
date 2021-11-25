@@ -14,7 +14,7 @@ contract TelegrafNFT is ERC721Enumerable {
     mapping(uint256 => CustomNftContent) public customNftsContent;
 
     //uint256s
-    uint256 MAX_SUPPLY = 100000;
+    uint256 MAX_SUPPLY = 500000;
     uint256 MIN_PRICE = 1000000000000000000;
     uint256 MAX_STRING_LENGTH = 12 * 4 + 1; // takes into account string termination
 

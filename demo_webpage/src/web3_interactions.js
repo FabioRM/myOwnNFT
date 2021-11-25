@@ -48,14 +48,14 @@ const getWeb3 = () => {
 };
 
 
-const getContract = async(web3) => {
-    const TelegrafNFT = await $.getJSON("src/TelegrafNFT_FTM.json");
+const getContract = async(web3, json_file, sm_address) => {
+    const TelegrafNFT = await $.getJSON(json_file);
     //console.log("TelegrafNFT", TelegrafNFT);
-    const netId = await web3.eth.net.getId();
+    //const netId = await web3.eth.net.getId();
     //console.log("netId", netId);
     var contract = new web3.eth.Contract(
         TelegrafNFT.abi,
-        SMART_CONTRACT_ADDRESS_FTM
+        sm_address
     );
     return contract;
 };
@@ -64,10 +64,37 @@ async function connectWallet() {
     try {
         web3 = await getWeb3();
         //console.log("web3", web3);
+        getNetworkAndChainId().then((data) => {
+            switch (data['chainId']) {
+                case FANTOM_CHAINID:
+                    {
+                        getContract(web3, "src/TelegrafNFT_FTM.json", SMART_CONTRACT_ADDRESS_FTM).then((x) => {
+                            contract = x;
+                            //console.log("contract", contract);
+                        })
+                        break;
+                    }
+
+                case MATIC_CHAINID:
+                    {
+                        getContract(web3, "src/TelegrafNFT_MATIC.json", SMART_CONTRACT_ADDRESS_MATIC).then((x) => {
+                            contract = x;
+                            //console.log("contract", contract);
+                        })
+                        break;
+                    }
+
+                default:
+                    {
+
+                        break;
+                    }
+            }
+        });
+
         accounts = await web3.eth.getAccounts();
         //console.log("accounts", accounts);
-        contract = await getContract(web3);
-        //console.log("contract", contract);
+
         return accounts
     } catch (error) {
         console.log(error)
