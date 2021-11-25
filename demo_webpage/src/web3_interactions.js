@@ -34,6 +34,7 @@ const isMetaMaskConnected = () => accounts && accounts.length > 0
 let web3;
 let accounts;
 let contract;
+let current_sm_address = "";
 
 const getWeb3 = () => {
     return new Promise((resolve, reject) => {
@@ -76,6 +77,7 @@ async function connectWallet() {
                     {
                         getContract(web3, "src/TelegrafNFT_FTM.json", SMART_CONTRACT_ADDRESS_FTM).then((x) => {
                             contract = x;
+                            current_sm_address = SMART_CONTRACT_ADDRESS_FTM;
                             //console.log("contract", contract);
                         })
                         break;
@@ -85,6 +87,7 @@ async function connectWallet() {
                     {
                         getContract(web3, "src/TelegrafNFT_MATIC.json", SMART_CONTRACT_ADDRESS_MATIC).then((x) => {
                             contract = x;
+                            current_sm_address = SMART_CONTRACT_ADDRESS_MATIC;
                             //console.log("contract", contract);
                         })
                         break;
@@ -94,6 +97,7 @@ async function connectWallet() {
                     {
                         getContract(web3, "src/TelegrafNFT_MATIC.json", SMART_CONTRACT_ADDRESS_MATIC_TESTNET).then((x) => {
                             contract = x;
+                            current_sm_address = SMART_CONTRACT_ADDRESS_MATIC_TESTNET;
                             //console.log("contract", contract);
                         })
                         break;
@@ -206,8 +210,13 @@ async function getTokenUri(id) {
 }
 
 async function getBalanceOfSmartContract() {
-    let balance = await web3.eth.getBalance(SMART_CONTRACT_ADDRESS_FTM);
-    return balance;
+    if (current_sm_address != "") {
+        let balance = await web3.eth.getBalance(current_sm_address);
+        return balance;
+
+    } else {
+        return 0;
+    }
 }
 
 async function getTotalSupply() {
