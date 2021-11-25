@@ -113,7 +113,7 @@ function initialize() {
                             case FANTOM_CHAINID:
                                 {
                                     blockchainDiv.innerHTML = "- FANTOM"
-                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $FTM</b>."
+                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $FTM</b>."
                                     metamaskMissingBanner.style.display = "none";
                                     wrongBlockchainBanner.style.display = "none";
                                     is_connected = true;
@@ -125,7 +125,7 @@ function initialize() {
                                                             case FANTOM_TESTNET_CHAINID:
                                                                 {
                                                                     blockchainDiv.innerHTML = "- FANTOM testnet"
-                                                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $FTM</b>."
+                                                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $FTM</b>."
                                                                     metamaskMissingBanner.style.display = "none";
                                                                     wrongBlockchainBanner.style.display = "none";
                                                                     is_connected = true;
@@ -137,7 +137,7 @@ function initialize() {
                             case MATIC_CHAINID:
                                 {
                                     blockchainDiv.innerHTML = "- POLYGON"
-                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b>."
+                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $MATIC</b>."
                                     metamaskMissingBanner.style.display = "none";
                                     wrongBlockchainBanner.style.display = "none";
                                     is_connected = true;
@@ -149,7 +149,7 @@ function initialize() {
                                                             case MATIC_TESTNET_CHAINID:
                                                                 {
                                                                     blockchainDiv.innerHTML = "- POLYGON testnet"
-                                                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b>."
+                                                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $MATIC</b>."
                                                                     metamaskMissingBanner.style.display = "none";
                                                                     wrongBlockchainBanner.style.display = "none";
                                                                     is_connected = true;

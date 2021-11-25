@@ -156,8 +156,8 @@ function data_to_svg_ftm(token_id, in_text, in_amount) {
     cursor_x = 16;
     cursor_y = 100;
     tempString = "";
-    if (in_amount > 1000000) {
-        tempString = "Over 1M $FTM";
+    if (in_amount >= 10000000) {
+        tempString = "MANY $FTM";
     } else {
         tempString = in_amount + " $FTM";
     }
@@ -167,7 +167,7 @@ function data_to_svg_ftm(token_id, in_text, in_amount) {
     cursor_y = 36;
     svgString = svgString + drawString(in_text, cursor_x, cursor_y)
 
-    svgString = '<svg id="nft" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 128 128"> ' + svgString + "<style>rect{width:1px;height:1px;fill:#000000} #nft{shape-rendering: crispedges;} </style></svg>";
+    svgString = '<svg id="nft" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 128 128">' + svgString + "<style>rect{width:1px;height:1px;fill:#000000} #nft{shape-rendering:crispedges;background-color:white;}</style></svg>";
 
     return svgString;
 }
@@ -186,8 +186,8 @@ function data_to_svg_matic(token_id, in_text, in_amount) {
     cursor_x = 16;
     cursor_y = 100;
     tempString = "";
-    if (in_amount > 100000) {
-        tempString = ">100K $MATIC";
+    if (in_amount >= 100000) {
+        tempString = "MANY $MATIC";
     } else {
         tempString = in_amount + " $MATIC";
     }
@@ -197,7 +197,7 @@ function data_to_svg_matic(token_id, in_text, in_amount) {
     cursor_y = 36;
     svgString = svgString + drawString(in_text, cursor_x, cursor_y)
 
-    svgString = '<svg id="nft" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 128 128"> ' + svgString + "<style>rect{width:1px;height:1px;fill:#000000} #nft{shape-rendering: crispedges;} </style></svg>";
+    svgString = '<svg id="nft" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 128 128">' + svgString + "<style>rect{width:1px;height:1px;fill:#000000} #nft{shape-rendering:crispedges;background-color:white;}</style></svg>";
 
     return svgString;
 }
