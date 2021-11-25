@@ -20,7 +20,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav ms-auto" style="font-size:150%">
-                        <a class="nav-link text-danger" href="#" aria-current="page" id='withdrawButton' style="display:none;">Withdraw balance</a>
+                        <a class="nav-link text-danger" href="#" aria-current="page" id='withdrawButton' style="display:none;">Withdraw </a>
                         <a class="nav-link" href="#" aria-current="page" id='showMintButton'>Mint </a>
                         <a class="nav-link" href="#" aria-current="page" id='showGalleryButton' style="display: none;">Gallery </a>
                         <a class="nav-link" href="#" aria-current="page" id='showHelpButton'>Help </a>
@@ -31,8 +31,8 @@
         </nav>
         <div class="row" id='wrongBlockchainBanner' style="display: none;">
             <div class="col mt-3 mb-3">
-                <div class="text-white" style="font-size: 200%; background-color:coral">
-                    You are connected to a wrong blockchain. To set up MetaMask for the FANTOM blockchain, check this <a href="https://docs.fantom.foundation/tutorials/set-up-metamask">LINK</a>
+                <div class="text-white" style="font-size: 200%; background-color:coral; cursor: pointer;" onclick="showHelpSection();">
+                    You are connected to an unsupported blockchain. Click on this banner to get help.
                 </div>
             </div>
         </div>
@@ -96,7 +96,7 @@
         </div>
         <div class="row mt-5 min-vh-100" id="helpRow" style="display: none;">
             <h3>
-                help
+                To set up MetaMask for the FANTOM blockchain, check this <a href="https://docs.fantom.foundation/tutorials/set-up-metamask">LINK</a>
             </h3>
         </div>
     </div>
