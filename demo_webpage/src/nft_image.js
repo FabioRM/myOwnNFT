@@ -142,7 +142,7 @@ function drawString(_string, _x, _y) {
 /**
  * @dev Token ID to SVG function
  */
-function data_to_svg(token_id, in_text, in_amount) {
+function data_to_svg_ftm(token_id, in_text, in_amount) {
     var svgString = "";
     var tempString = "";
     var cursor_x;
@@ -172,10 +172,44 @@ function data_to_svg(token_id, in_text, in_amount) {
     return svgString;
 }
 
+function data_to_svg_matic(token_id, in_text, in_amount) {
+    var svgString = "";
+    var tempString = "";
+    var cursor_x;
+    var cursor_y;
+
+    cursor_x = 16;
+    cursor_y = 20;
+    tempString = "NFT #" + token_id;
+    svgString = svgString + drawString(tempString, cursor_x, cursor_y);
+
+    cursor_x = 16;
+    cursor_y = 100;
+    tempString = "";
+    if (in_amount > 100000) {
+        tempString = ">100K $MATIC";
+    } else {
+        tempString = in_amount + " $MATIC";
+    }
+    svgString = svgString + drawString(tempString, cursor_x, cursor_y);
+
+    cursor_x = 16;
+    cursor_y = 36;
+    svgString = svgString + drawString(in_text, cursor_x, cursor_y)
+
+    svgString = '<svg id="nft" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 128 128"> ' + svgString + "<style>rect{width:1px;height:1px;fill:#000000} #nft{shape-rendering: crispedges;} </style></svg>";
+
+    return svgString;
+}
+
 function subchar(str, index) {
     return str[index].charCodeAt(0) - 48;
 }
 
-function data_to_img_src(id, txt, paid) {
-    return 'data:image/svg+xml;base64,' + window.btoa(data_to_svg(id, txt, paid));
+function data_to_img_src_ftm(id, txt, paid) {
+    return 'data:image/svg+xml;base64,' + window.btoa(data_to_svg_ftm(id, txt, paid));
+}
+
+function data_to_img_src_matic(id, txt, paid) {
+    return 'data:image/svg+xml;base64,' + window.btoa(data_to_svg_matic(id, txt, paid));
 }

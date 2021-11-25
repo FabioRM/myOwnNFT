@@ -44,7 +44,7 @@ function updateImage() {
     if (current_nft_text.length == 0) {
         current_nft_text = default_nft_text;
     }
-    customNftImage.src = data_to_img_src(current_supply, current_nft_text, current_nft_price);
+    customNftImage.src = data_to_img_src_ftm(current_supply, current_nft_text, current_nft_price);
 }
 
 function showMintSection() {
@@ -102,7 +102,7 @@ function initialize() {
 
                             case MATIC_TESTNET_CHAINID:
                                 {
-                                    blockchainDiv.innerHTML = "- MATIC testnet"
+                                    blockchainDiv.innerHTML = "- POLYGON testnet"
                                     metamaskMissingBanner.style.display = "none";
                                     wrongBlockchainBanner.style.display = "none";
                                     is_connected = true;
@@ -143,14 +143,14 @@ function initialize() {
     increaseAmount.onclick = async() => {
         amountPaid.value = parseInt(amountPaid.value) + 1;
         current_nft_price = current_nft_price + 1;
-        customNftImage.src = data_to_img_src(current_supply, current_nft_text, current_nft_price);
+        customNftImage.src = data_to_img_src_ftm(current_supply, current_nft_text, current_nft_price);
     }
 
     decreaseAmount.onclick = async() => {
         if (amountPaid.value > 1) {
             amountPaid.value = parseInt(amountPaid.value) - 1;
             current_nft_price = current_nft_price - 1;
-            customNftImage.src = data_to_img_src(current_supply, current_nft_text, current_nft_price);
+            customNftImage.src = data_to_img_src_ftm(current_supply, current_nft_text, current_nft_price);
         }
     }
 
