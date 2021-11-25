@@ -54,18 +54,26 @@ function initialize() {
             connectWallet().then((x) => {
                 if (x != undefined && x != null) {
                     getNetworkAndChainId().then((data) => {
-                        if ((data.chainId != FANTOM_CHAINID) || (data.networkId != FANTOM_NETWORK)) {
-                            console.log("wrong blockchain connected");
-                            blockchainDiv.innerHTML = "disconnected"
-                            wrongBlockchainBanner.style.display = "block";
-                            metamaskMissingBanner.style.display = "none";
-                        } else {
-                            blockchainDiv.innerHTML = "- FANTOM"
-                            metamaskMissingBanner.style.display = "none";
-                            wrongBlockchainBanner.style.display = "none";
-                            is_connected = true;
-                            accounts = x;
-                            showMint()
+                        switch (data.chainId) {
+                            case FANTOM_CHAINID:
+                                {
+                                    blockchainDiv.innerHTML = "- FANTOM"
+                                    metamaskMissingBanner.style.display = "none";
+                                    wrongBlockchainBanner.style.display = "none";
+                                    is_connected = true;
+                                    accounts = x;
+                                    showMint()
+                                    break;
+                                }
+
+                            default:
+                                {
+                                    console.log("wrong blockchain connected");
+                                    blockchainDiv.innerHTML = "disconnected"
+                                    wrongBlockchainBanner.style.display = "block";
+                                    metamaskMissingBanner.style.display = "none";
+                                    break;
+                                }
                         }
                     })
                 } else {
