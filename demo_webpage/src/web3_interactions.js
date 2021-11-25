@@ -1,20 +1,26 @@
 let SMART_CONTRACT_ADDRESS_FTM = "0xEDCdE49F5E0e2f2995f60Ab645Ea6a531798fe7F"
 let FANTOM_NETWORK = "250"
 let FANTOM_CHAINID = "0xfa"
+
+let SMART_CONTRACT_ADDRESS_FTM_TESTNET = ""
 let FANTOM_TESTNET_NETWORK = "4002"
 let FANTOM_TESTNET_CHAINID = "0xfa2"
-
-let SMART_CONTRACT_ADDRESS_BSC = ""
-let BSC_NETWORK = "56"
-let BSC_CHAINID = "0x38"
-let BSC_TESTNET_NETWORK = "97"
-let BSC_TESTNET_CHAINID = "97"
 
 let SMART_CONTRACT_ADDRESS_MATIC = ""
 let MATIC_NETWORK = "137"
 let MATIC_CHAINID = "0x89"
+
+let SMART_CONTRACT_ADDRESS_MATIC_TESTNET = "0x163ae671C1A63734C8D8D864B4dCeC1E37011BD3"
 let MATIC_TESTNET_NETWORK = "80001"
 let MATIC_TESTNET_CHAINID = "0x13881"
+
+let SMART_CONTRACT_ADDRESS_BSC = ""
+let BSC_NETWORK = "56"
+let BSC_CHAINID = "0x38"
+
+let SMART_CONTRACT_ADDRESS_BSC_TESTNET = ""
+let BSC_TESTNET_NETWORK = "97"
+let BSC_TESTNET_CHAINID = "97"
 
 const isMetaMaskInstalled = () => {
     const {
@@ -78,6 +84,15 @@ async function connectWallet() {
                 case MATIC_CHAINID:
                     {
                         getContract(web3, "src/TelegrafNFT_MATIC.json", SMART_CONTRACT_ADDRESS_MATIC).then((x) => {
+                            contract = x;
+                            //console.log("contract", contract);
+                        })
+                        break;
+                    }
+
+                case MATIC_TESTNET_CHAINID:
+                    {
+                        getContract(web3, "src/TelegrafNFT_MATIC.json", SMART_CONTRACT_ADDRESS_MATIC_TESTNET).then((x) => {
                             contract = x;
                             //console.log("contract", contract);
                         })

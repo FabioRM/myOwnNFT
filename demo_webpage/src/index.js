@@ -94,6 +94,17 @@ function initialize() {
                                     break;
                                 }
 
+                            case MATIC_TESTNET_CHAINID:
+                                {
+                                    blockchainDiv.innerHTML = "- MATIC testnet"
+                                    metamaskMissingBanner.style.display = "none";
+                                    wrongBlockchainBanner.style.display = "none";
+                                    is_connected = true;
+                                    accounts = x;
+                                    showMint()
+                                    break;
+                                }
+
                             default:
                                 {
                                     console.log("Unsupported blockchain connected");
@@ -142,7 +153,7 @@ function initialize() {
         galleryRowContainer.innerHTML = ""
         var addrBalance = await getAddrBalance(accounts[0]);
         if (addrBalance == 0) {
-            galleryHeader.innerHTML = "<h1>You haven't mint any Telegraf NFT</h1>"
+            galleryHeader.innerHTML = "<h1>You didn't mint any Telegraf NFT</h1>"
         } else {
             if (addrBalance == 1) {
                 galleryHeader.innerHTML = "<h1>This is your <b>personal gallery</b>. You own <b>1 Telegraf NFT</b></h1>"
