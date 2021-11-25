@@ -44,7 +44,27 @@ function updateImage() {
     if (current_nft_text.length == 0) {
         current_nft_text = default_nft_text;
     }
-    customNftImage.src = data_to_img_src_ftm(current_supply, current_nft_text, current_nft_price);
+    switch (current_chain_id) {
+        case FANTOM_CHAINID:
+        case FANTOM_TESTNET_CHAINID:
+            {
+                customNftImage.src = data_to_img_src_ftm(current_supply, current_nft_text, current_nft_price);
+                break;
+            }
+        case MATIC_CHAINID:
+        case MATIC_TESTNET_CHAINID:
+            {
+                customNftImage.src = data_to_img_src_matic(current_supply, current_nft_text, current_nft_price);
+                break;
+            }
+        default:
+            {
+                customNftImage.src = default_img_gen();
+                withdrawButton.style.display = "none";
+                break;
+            }
+    }
+
 }
 
 function showMintSection() {
@@ -143,14 +163,14 @@ function initialize() {
     increaseAmount.onclick = async() => {
         amountPaid.value = parseInt(amountPaid.value) + 1;
         current_nft_price = current_nft_price + 1;
-        customNftImage.src = data_to_img_src_ftm(current_supply, current_nft_text, current_nft_price);
+        updateImage();
     }
 
     decreaseAmount.onclick = async() => {
         if (amountPaid.value > 1) {
             amountPaid.value = parseInt(amountPaid.value) - 1;
             current_nft_price = current_nft_price - 1;
-            customNftImage.src = data_to_img_src_ftm(current_supply, current_nft_text, current_nft_price);
+            updateImage();
         }
     }
 
