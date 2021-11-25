@@ -115,7 +115,6 @@ async function connectWallet() {
 
                 default:
                     {
-
                         break;
                     }
             }
