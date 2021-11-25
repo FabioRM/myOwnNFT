@@ -27,11 +27,6 @@ var is_connected = false;
 var smart_contract_owner = "0xF6c682189A31BDfd0D5f13a4A163d9728c130471";
 var current_chain_id = "0";
 
-// auto collapse navbar on click
-const menuToggle = document.getElementById('navbarNavAltMarkup')
-const bsCollapse = new bootstrap.Collapse(menuToggle)
-
-
 function showConnect() {
     actionButton.innerHTML = "Connect MetaMask wallet"
     actionButton.classList.remove("btn-mint");
@@ -210,7 +205,6 @@ function initialize() {
 
     showGalleryButton.onclick = async() => {
         showGallerySection();
-        bsCollapse.hide();
         galleryRowContainer.innerHTML = ""
         var addrBalance = await getAddrBalance(accounts[0]);
         if (addrBalance == 0) {
@@ -243,17 +237,14 @@ function initialize() {
 
     showMintButton.onclick = async() => {
         showMintSection();
-        bsCollapse.hide();
     }
 
     showAboutButton.onclick = async() => {
         showAboutSection();
-        bsCollapse.hide();
     }
 
     showHelpButton.onclick = async() => {
         showHelpSection();
-        bsCollapse.hide();
     }
 
     nftText.addEventListener("keyup", function(evt) {
@@ -279,7 +270,6 @@ function initialize() {
     }, false);
 
     updateImage();
-    bsCollapse.hide();
 
     var myfunc = setInterval(function() {
         if (is_connected) {
@@ -313,5 +303,5 @@ function initialize() {
                 })
             }
         }
-    }, 5000)
+    }, 5000);
 }
