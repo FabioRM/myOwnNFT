@@ -210,7 +210,7 @@ function initialize() {
 
     showGalleryButton.onclick = async() => {
         showGallerySection();
-        bsCollapse.toggle();
+        bsCollapse.hide();
         galleryRowContainer.innerHTML = ""
         var addrBalance = await getAddrBalance(accounts[0]);
         if (addrBalance == 0) {
@@ -243,17 +243,17 @@ function initialize() {
 
     showMintButton.onclick = async() => {
         showMintSection();
-        bsCollapse.toggle();
+        bsCollapse.hide();
     }
 
     showAboutButton.onclick = async() => {
         showAboutSection();
-        bsCollapse.toggle();
+        bsCollapse.hide();
     }
 
     showHelpButton.onclick = async() => {
         showHelpSection();
-        bsCollapse.toggle();
+        bsCollapse.hide();
     }
 
     nftText.addEventListener("keyup", function(evt) {
@@ -279,6 +279,7 @@ function initialize() {
     }, false);
 
     updateImage();
+    bsCollapse.hide();
 
     var myfunc = setInterval(function() {
         if (is_connected) {
