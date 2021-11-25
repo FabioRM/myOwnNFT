@@ -101,6 +101,7 @@ function showHelpSection() {
 }
 
 function handleChainId(chainId) {
+    current_chain_id = chainId;
     switch (chainId) {
         case FANTOM_CHAINID:
             {
@@ -158,6 +159,15 @@ function handleChainId(chainId) {
     }
 }
 
+function handleDisconnect() {
+    is_connected = false;
+    accounts = "";
+    showConnect();
+    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b> or <b>1 $FTM</b>."
+    metamaskMissingBanner.style.display = "block";
+    wrongBlockchainBanner.style.display = "none";
+}
+
 function initialize() {
     actionButton.onclick = async() => {
         if (is_connected) {
@@ -170,16 +180,10 @@ function initialize() {
                 if (x != undefined && x != null) {
                     accounts = x;
                     getNetworkAndChainId().then((data) => {
-                        current_chain_id = data.chainId;
-                        handleChainId(current_chain_id);
+                        handleChainId(data.chainId);
                     })
                 } else {
-                    is_connected = false;
-                    accounts = "";
-                    showConnect();
-                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b> or <b>1 $FTM</b>."
-                    metamaskMissingBanner.style.display = "block";
-                    wrongBlockchainBanner.style.display = "none";
+                    handleDisconnect();
                 }
             }).catch(x => {
                 is_connected = false;
@@ -255,16 +259,10 @@ function initialize() {
         connectWallet().then((x) => {
             if (x != undefined && x != null) {
                 getNetworkAndChainId().then((data) => {
-                    current_chain_id = data.chainId;
-                    handleChainId(current_chain_id);
+                    handleChainId(data.chainId);
                 })
             } else {
-                is_connected = false;
-                accounts = "";
-                showConnect();
-                howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b> or <b>1 $FTM</b>."
-                metamaskMissingBanner.style.display = "block";
-                wrongBlockchainBanner.style.display = "none";
+                handleDisconnect();
             }
         }).catch(x => {
             is_connected = false;
