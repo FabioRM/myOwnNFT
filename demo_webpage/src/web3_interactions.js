@@ -1,8 +1,20 @@
-let SMART_CONTRACT_ADDRESS = "0xEDCdE49F5E0e2f2995f60Ab645Ea6a531798fe7F"
-let FANTOM_OPERA_NETWORK = "250"
-let FANTOM_OPERA_CHAINID = "0xfa"
+let SMART_CONTRACT_ADDRESS_FTM = "0xEDCdE49F5E0e2f2995f60Ab645Ea6a531798fe7F"
+let FANTOM_NETWORK = "250"
+let FANTOM_CHAINID = "0xfa"
 let FANTOM_TESTNET_NETWORK = "4002"
 let FANTOM_TESTNET_CHAINID = "0xfa2"
+
+let SMART_CONTRACT_ADDRESS_BSC = ""
+let BSC_NETWORK = "56"
+let BSC_CHAINID = "0x38"
+let BSC_TESTNET_NETWORK = "97"
+let BSC_TESTNET_CHAINID = "97"
+
+let SMART_CONTRACT_ADDRESS_MATIC = ""
+let MATIC_NETWORK = "137"
+let MATIC_CHAINID = "0x89"
+let MATIC_TESTNET_NETWORK = "80001"
+let MATIC_TESTNET_CHAINID = "0x13881"
 
 const isMetaMaskInstalled = () => {
     const {
@@ -43,7 +55,7 @@ const getContract = async(web3) => {
     //console.log("netId", netId);
     var contract = new web3.eth.Contract(
         TelegrafNFT.abi,
-        SMART_CONTRACT_ADDRESS
+        SMART_CONTRACT_ADDRESS_FTM
     );
     return contract;
 };
@@ -152,7 +164,7 @@ async function getTokenUri(id) {
 }
 
 async function getBalanceOfSmartContract() {
-    let balance = await web3.eth.getBalance(SMART_CONTRACT_ADDRESS);
+    let balance = await web3.eth.getBalance(SMART_CONTRACT_ADDRESS_FTM);
     return balance;
 }
 

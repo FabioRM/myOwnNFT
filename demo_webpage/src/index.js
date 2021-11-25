@@ -7,6 +7,7 @@ const decreaseAmount = document.getElementById('decreaseAmount');
 const showGalleryButton = document.getElementById('showGalleryButton');
 const showMintButton = document.getElementById('showMintButton');
 const showAboutButton = document.getElementById('showAboutButton');
+const showHelpButton = document.getElementById('showHelpButton');
 const withdrawButton = document.getElementById('withdrawButton');
 const galleryRow = document.getElementById('galleryRow');
 const mintRow = document.getElementById('mintRow');
@@ -15,6 +16,7 @@ const galleryRowContainer = document.getElementById('galleryRowContainer');
 const galleryHeader = document.getElementById('galleryHeader');
 const wrongBlockchainBanner = document.getElementById('wrongBlockchainBanner');
 const metamaskMissingBanner = document.getElementById('metamaskMissingBanner');
+const blockchainDiv = document.getElementById('blockchainDiv');
 
 var default_nft_text = "Create an   NFT that is really yours"
 var current_nft_text = default_nft_text;
@@ -52,11 +54,13 @@ function initialize() {
             connectWallet().then((x) => {
                 if (x != undefined && x != null) {
                     getNetworkAndChainId().then((data) => {
-                        if ((data.chainId != FANTOM_OPERA_CHAINID) || (data.networkId != FANTOM_OPERA_NETWORK)) {
+                        if ((data.chainId != FANTOM_CHAINID) || (data.networkId != FANTOM_NETWORK)) {
                             console.log("wrong blockchain connected");
+                            blockchainDiv.innerHTML = "disconnected"
                             wrongBlockchainBanner.style.display = "block";
                             metamaskMissingBanner.style.display = "none";
                         } else {
+                            blockchainDiv.innerHTML = "- FANTOM"
                             metamaskMissingBanner.style.display = "none";
                             wrongBlockchainBanner.style.display = "none";
                             is_connected = true;
@@ -135,12 +139,21 @@ function initialize() {
         mintRow.style.display = "block";
         galleryRow.style.display = "none";
         aboutRow.style.display = "none";
+        helpRow.style.display = "none";
     }
 
     showAboutButton.onclick = async() => {
         mintRow.style.display = "none";
         galleryRow.style.display = "none";
         aboutRow.style.display = "block";
+        helpRow.style.display = "none";
+    }
+
+    showHelpButton.onclick = async() => {
+        mintRow.style.display = "none";
+        galleryRow.style.display = "none";
+        aboutRow.style.display = "none";
+        helpRow.style.display = "block";
     }
 
     nftText.addEventListener("keyup", function(evt) {

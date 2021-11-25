@@ -16,13 +16,14 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#" style="font-size: 200%"><b>Telegraf NFT</b></a>
-                <div class="mt-2" style="font-size: 120%">- FANTOM</div>
+                <div class="mt-2" style="font-size: 120%" id="blockchainDiv"></div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav ms-auto" style="font-size:150%">
                         <a class="nav-link text-danger" href="#" aria-current="page" id='withdrawButton' style="display:none;">Withdraw balance</a>
                         <a class="nav-link" href="#" aria-current="page" id='showMintButton'>Mint </a>
                         <a class="nav-link" href="#" aria-current="page" id='showGalleryButton' style="display: none;">Gallery </a>
+                        <a class="nav-link" href="#" aria-current="page" id='showHelpButton'>Help </a>
                         <a class="nav-link active" href="#" aria-current="page" id='showAboutButton'>About </a>
                     </div>
                 </div>
@@ -49,7 +50,7 @@
         </div>
         <div class="row mt-1 min-vh-80" id="mintRow">
             <h1>
-                Create your own <b>on-chain</b> NFT.
+                Mint your own <b>on-chain</b> NFT.
             </h1>
             <div class="d-flex justify-content-center">
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 text-center m-2">
@@ -91,6 +92,11 @@
                 <p>
                     Minting a Telegraf NFT is extremely <b>affordable</b>. The price starts at <b>1 $FTM</b> with very low fees (in the order of cents of $FTM). <b>Unleash your creativity</b> and make your own NFT to <b>collect</b> or <b>donate</b>!
                 </p>
+            </h3>
+        </div>
+        <div class="row mt-5 min-vh-100" id="helpRow" style="display: none;">
+            <h3>
+                help
             </h3>
         </div>
     </div>
