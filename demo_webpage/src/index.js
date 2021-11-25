@@ -18,12 +18,13 @@ const wrongBlockchainBanner = document.getElementById('wrongBlockchainBanner');
 const metamaskMissingBanner = document.getElementById('metamaskMissingBanner');
 const blockchainDiv = document.getElementById('blockchainDiv');
 
-var default_nft_text = "Create an   NFT that is really yours"
+var default_nft_text = "Create an   NFT that is really yours";
 var current_nft_text = default_nft_text;
 var current_nft_price = 1;
-var current_supply = "N/A"
+var current_supply = "N/A";
 var is_connected = false;
-var smart_contract_owner = "0xF6c682189A31BDfd0D5f13a4A163d9728c130471"
+var smart_contract_owner = "0xF6c682189A31BDfd0D5f13a4A163d9728c130471";
+var current_chain_id = "0";
 
 function showConnect() {
     actionButton.innerHTML = "Connect MetaMask wallet"
@@ -85,6 +86,8 @@ function initialize() {
             connectWallet().then((x) => {
                 if (x != undefined && x != null) {
                     getNetworkAndChainId().then((data) => {
+                        current_chain_id = data.chainId;
+
                         switch (data.chainId) {
                             case FANTOM_CHAINID:
                                 {
@@ -227,8 +230,27 @@ function initialize() {
             })
             if (accounts[0] == smart_contract_owner) {
                 getBalanceOfSmartContract().then((x) => {
-                    withdrawButton.innerHTML = "Withdraw " + x / 1000000000000000000 + " $FTM";
-                    withdrawButton.style.display = "block";
+                    switch (current_chain_id) {
+                        case FANTOM_CHAINID:
+                        case FANTOM_TESTNET_CHAINID:
+                            {
+                                withdrawButton.innerHTML = "Withdraw " + x / 1000000000000000000 + " $FTM";
+                                withdrawButton.style.display = "block";
+                                break;
+                            }
+                        case MATIC_CHAINID:
+                        case MATIC_TESTNET_CHAINID:
+                            {
+                                withdrawButton.innerHTML = "Withdraw " + x / 1000000000000000000 + " $MATIC";
+                                withdrawButton.style.display = "block";
+                                break;
+                            }
+                        default:
+                            {
+                                withdrawButton.style.display = "none";
+                                break;
+                            }
+                    }
                 })
             }
         }
