@@ -200,9 +200,9 @@ contract TelegrafNFT is ERC721Enumerable {
         cursor_y = 100;
         tempString = "";
         uint256 formatted_amount = customNftsContent[token_id].amount_paid /
-            1000000000000000000;
-        if (formatted_amount > 1000000) {
-            tempString = string(abi.encodePacked(tempString, "Over 1M $FTM"));
+            1000000000000000000; // this are units of FTM
+        if (formatted_amount >= 10000000) {
+            tempString = string(abi.encodePacked(tempString, "MANY $FTM"));
         } else {
             tempString = string(
                 abi.encodePacked(
@@ -234,9 +234,9 @@ contract TelegrafNFT is ERC721Enumerable {
 
         svgString = string(
             abi.encodePacked(
-                '<svg id="nft" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 128 128"> ',
+                '<svg id="nft" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 128 128">',
                 svgString,
-                "<style>rect{width:1px;height:1px;fill:#000000} #nft{shape-rendering: crispedges;} </style></svg>"
+                "<style>rect{width:1px;height:1px;fill:#000000} #nft{shape-rendering:crispedges;background-color:white;}</style></svg>"
             )
         );
 
