@@ -17,6 +17,7 @@ const galleryHeader = document.getElementById('galleryHeader');
 const wrongBlockchainBanner = document.getElementById('wrongBlockchainBanner');
 const metamaskMissingBanner = document.getElementById('metamaskMissingBanner');
 const blockchainDiv = document.getElementById('blockchainDiv');
+const howMuchToPayDiv = document.getElementById('howMuchToPayDiv');
 
 var default_nft_text = "Create an   NFT that is really yours";
 var current_nft_text = default_nft_text;
@@ -25,6 +26,11 @@ var current_supply = "N/A";
 var is_connected = false;
 var smart_contract_owner = "0xF6c682189A31BDfd0D5f13a4A163d9728c130471";
 var current_chain_id = "0";
+
+// auto collapse navbar on click
+const menuToggle = document.getElementById('navbarNavAltMarkup')
+const bsCollapse = new bootstrap.Collapse(menuToggle)
+
 
 function showConnect() {
     actionButton.innerHTML = "Connect MetaMask wallet"
@@ -112,6 +118,7 @@ function initialize() {
                             case FANTOM_CHAINID:
                                 {
                                     blockchainDiv.innerHTML = "- FANTOM"
+                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $FTM</b>."
                                     metamaskMissingBanner.style.display = "none";
                                     wrongBlockchainBanner.style.display = "none";
                                     is_connected = true;
@@ -123,6 +130,7 @@ function initialize() {
                             case FANTOM_TESTNET_CHAINID:
                                 {
                                     blockchainDiv.innerHTML = "- FANTOM testnet"
+                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $FTM</b>."
                                     metamaskMissingBanner.style.display = "none";
                                     wrongBlockchainBanner.style.display = "none";
                                     is_connected = true;
@@ -134,6 +142,7 @@ function initialize() {
                             case MATIC_CHAINID:
                                 {
                                     blockchainDiv.innerHTML = "- POLYGON"
+                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b>."
                                     metamaskMissingBanner.style.display = "none";
                                     wrongBlockchainBanner.style.display = "none";
                                     is_connected = true;
@@ -145,6 +154,7 @@ function initialize() {
                             case MATIC_TESTNET_CHAINID:
                                 {
                                     blockchainDiv.innerHTML = "- POLYGON testnet"
+                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b>."
                                     metamaskMissingBanner.style.display = "none";
                                     wrongBlockchainBanner.style.display = "none";
                                     is_connected = true;
@@ -156,6 +166,7 @@ function initialize() {
                             default:
                                 {
                                     console.log("Unsupported blockchain connected");
+                                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b> or <b>1 $FTM</b>."
                                     blockchainDiv.innerHTML = "disconnected"
                                     wrongBlockchainBanner.style.display = "block";
                                     metamaskMissingBanner.style.display = "none";
@@ -167,6 +178,7 @@ function initialize() {
                     is_connected = false;
                     accounts = "";
                     showConnect();
+                    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b> or <b>1 $FTM</b>."
                     metamaskMissingBanner.style.display = "block";
                     wrongBlockchainBanner.style.display = "none";
                 }
@@ -198,6 +210,7 @@ function initialize() {
 
     showGalleryButton.onclick = async() => {
         showGallerySection();
+        bsCollapse.toggle();
         galleryRowContainer.innerHTML = ""
         var addrBalance = await getAddrBalance(accounts[0]);
         if (addrBalance == 0) {
@@ -230,14 +243,17 @@ function initialize() {
 
     showMintButton.onclick = async() => {
         showMintSection();
+        bsCollapse.toggle();
     }
 
     showAboutButton.onclick = async() => {
         showAboutSection();
+        bsCollapse.toggle();
     }
 
     showHelpButton.onclick = async() => {
         showHelpSection();
+        bsCollapse.toggle();
     }
 
     nftText.addEventListener("keyup", function(evt) {
