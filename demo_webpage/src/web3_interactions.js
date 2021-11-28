@@ -149,6 +149,16 @@ async function connectWallet() {
                         break;
                     }
 
+                case CRO_CHAINID:
+                    {
+                        getContract(web3, "src/TelegrafNFT_CRO.json", SMART_CONTRACT_ADDRESS_CRO).then((x) => {
+                            contract = x;
+                            current_sm_address = SMART_CONTRACT_ADDRESS_CRO;
+                            //console.log("contract", contract);
+                        })
+                        break;
+                    }
+
                 default:
                     {
                         break;
