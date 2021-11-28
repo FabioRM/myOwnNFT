@@ -62,6 +62,17 @@ function updateImage() {
                 customNftImage.src = data_to_img_src_matic(current_supply, current_nft_text, current_nft_price);
                 break;
             }
+        case ONE_CHAINID:
+        case ONE_TESTNET_CHAINID:
+            {
+                customNftImage.src = data_to_img_src_one(current_supply, current_nft_text, current_nft_price);
+                break;
+            }
+        case CRO_CHAINID:
+            {
+                customNftImage.src = data_to_img_src_cro(current_supply, current_nft_text, current_nft_price);
+                break;
+            }
         default:
             {
                 customNftImage.src = default_img_gen(current_nft_text);
@@ -145,12 +156,44 @@ function handleChainId(chainId) {
                             is_connected = true;
                             showMint()
                             break;
+            */
+        case ONE_CHAINID:
+            {
+                blockchainDiv.innerHTML = "- HARMONY"
+                howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $ONE</b>."
+                metamaskMissingBanner.style.display = "none";
+                wrongBlockchainBanner.style.display = "none";
+                is_connected = true;
+                showMint()
+                break;
+            }
+            /*
+                    case ONE_TESTNET_CHAINID:
+                        {
+                            blockchainDiv.innerHTML = "- HARMONY testnet"
+                            howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $ONE</b>."
+                            metamaskMissingBanner.style.display = "none";
+                            wrongBlockchainBanner.style.display = "none";
+                            is_connected = true;
+                            showMint()
+                            break;
                         }
             */
+        case CRO_CHAINID:
+            {
+                blockchainDiv.innerHTML = "- CRONOS"
+                howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $CRO</b>."
+                metamaskMissingBanner.style.display = "none";
+                wrongBlockchainBanner.style.display = "none";
+                is_connected = true;
+                showMint()
+                break;
+            }
+
         default:
             {
-                console.log("Unsupported blockchain connected");
-                howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b> or <b>1 $FTM</b>."
+                console.log("Unsupported blockchain connected:", chainId);
+                howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b>, <b>1 $FTM</b>, <b>1 $ONE</b> or <b>1 $CRO</b>."
                 blockchainDiv.innerHTML = "disconnected"
                 wrongBlockchainBanner.style.display = "block";
                 metamaskMissingBanner.style.display = "none";
@@ -163,7 +206,7 @@ function handleDisconnect() {
     is_connected = false;
     accounts = "";
     showConnect();
-    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b> or <b>1 $FTM</b>."
+    howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b>, <b>1 $FTM</b>, <b>1 $ONE</b> or <b>1 $CRO</b>."
     metamaskMissingBanner.style.display = "block";
     wrongBlockchainBanner.style.display = "none";
 }
@@ -315,6 +358,19 @@ function initialize() {
                             //case MATIC_TESTNET_CHAINID:
                             {
                                 withdrawButton.innerHTML = "Withdraw " + x / 1000000000000000000 + " $MATIC";
+                                withdrawButton.style.display = "block";
+                                break;
+                            }
+                        case ONE_CHAINID:
+                            //case ONE_TESTNET_CHAINID:
+                            {
+                                withdrawButton.innerHTML = "Withdraw " + x / 1000000000000000000 + " $ONE";
+                                withdrawButton.style.display = "block";
+                                break;
+                            }
+                        case CRO_CHAINID:
+                            {
+                                withdrawButton.innerHTML = "Withdraw " + x / 1000000000000000000 + " $CRO";
                                 withdrawButton.style.display = "block";
                                 break;
                             }
