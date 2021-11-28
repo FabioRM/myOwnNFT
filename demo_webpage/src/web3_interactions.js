@@ -22,6 +22,22 @@ let SMART_CONTRACT_ADDRESS_BSC_TESTNET = ""
 let BSC_TESTNET_NETWORK = "97"
 let BSC_TESTNET_CHAINID = "97"
 
+let SMART_CONTRACT_ADDRESS_ONE = ""
+let ONE_NETWORK = "1666600000"
+let ONE_CHAINID = "1666600000"
+
+let SMART_CONTRACT_ADDRESS_ONE_TESTNET = "0xE6C61EBa118F8c40bb5c560b609a26c309226D6a"
+let ONE_TESTNET_NETWORK = "0x6357d2e0"
+let ONE_TESTNET_CHAINID = "0x6357d2e0"
+
+let SMART_CONTRACT_ADDRESS_CRO = ""
+let CRO_NETWORK = "25"
+let CRO_CHAINID = "25"
+
+let SMART_CONTRACT_ADDRESS_CRO_TESTNET = ""
+let CRO_TESTNET_NETWORK = "97"
+let CRO_TESTNET_CHAINID = "97"
+
 const isMetaMaskInstalled = () => {
     const {
         ethereum
@@ -108,6 +124,26 @@ async function connectWallet() {
                         getContract(web3, "src/TelegrafNFT_MATIC.json", SMART_CONTRACT_ADDRESS_MATIC_TESTNET).then((x) => {
                             contract = x;
                             current_sm_address = SMART_CONTRACT_ADDRESS_MATIC_TESTNET;
+                            //console.log("contract", contract);
+                        })
+                        break;
+                    }
+
+                case ONE_CHAINID:
+                    {
+                        getContract(web3, "src/TelegrafNFT_ONE.json", SMART_CONTRACT_ADDRESS_ONE).then((x) => {
+                            contract = x;
+                            current_sm_address = SMART_CONTRACT_ADDRESS_ONE;
+                            //console.log("contract", contract);
+                        })
+                        break;
+                    }
+
+                case ONE_TESTNET_CHAINID:
+                    {
+                        getContract(web3, "src/TelegrafNFT_ONE.json", SMART_CONTRACT_ADDRESS_ONE_TESTNET).then((x) => {
+                            contract = x;
+                            current_sm_address = SMART_CONTRACT_ADDRESS_ONE_TESTNET;
                             //console.log("contract", contract);
                         })
                         break;

@@ -172,6 +172,36 @@ function data_to_svg_ftm(token_id, in_text, in_amount) {
     return svgString;
 }
 
+function data_to_svg_one(token_id, in_text, in_amount) {
+    var svgString = "";
+    var tempString = "";
+    var cursor_x;
+    var cursor_y;
+
+    cursor_x = 16;
+    cursor_y = 20;
+    tempString = "NFT #" + token_id;
+    svgString = svgString + drawString(tempString, cursor_x, cursor_y);
+
+    cursor_x = 16;
+    cursor_y = 100;
+    tempString = "";
+    if (in_amount >= 10000000) {
+        tempString = "MANY $ONE";
+    } else {
+        tempString = in_amount + " $ONE";
+    }
+    svgString = svgString + drawString(tempString, cursor_x, cursor_y);
+
+    cursor_x = 16;
+    cursor_y = 36;
+    svgString = svgString + drawString(in_text, cursor_x, cursor_y)
+
+    svgString = '<svg id="nft" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 128 128">' + svgString + "<style>rect{width:1px;height:1px;fill:#000000} #nft{shape-rendering:crispedges;background-color:white;}</style></svg>";
+
+    return svgString;
+}
+
 function data_to_svg_matic(token_id, in_text, in_amount) {
     var svgString = "";
     var tempString = "";
@@ -237,6 +267,10 @@ function data_to_img_src_ftm(id, txt, paid) {
 
 function data_to_img_src_matic(id, txt, paid) {
     return 'data:image/svg+xml;base64,' + window.btoa(data_to_svg_matic(id, txt, paid));
+}
+
+function data_to_img_src_one(id, txt, paid) {
+    return 'data:image/svg+xml;base64,' + window.btoa(data_to_svg_one(id, txt, paid));
 }
 
 function default_img_gen(in_text) {
