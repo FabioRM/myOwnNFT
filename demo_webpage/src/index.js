@@ -62,11 +62,15 @@ function updateImage() {
                 customNftImage.src = data_to_img_src_matic(current_supply, current_nft_text, current_nft_price);
                 break;
             }
-
         case ONE_CHAINID:
         case ONE_TESTNET_CHAINID:
             {
                 customNftImage.src = data_to_img_src_one(current_supply, current_nft_text, current_nft_price);
+                break;
+            }
+        case CRO_CHAINID:
+            {
+                customNftImage.src = data_to_img_src_cro(current_supply, current_nft_text, current_nft_price);
                 break;
             }
         default:
