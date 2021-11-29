@@ -20,6 +20,8 @@ const blockchainDiv = document.getElementById('blockchainDiv');
 const howMuchToPayDiv = document.getElementById('howMuchToPayDiv');
 const actionNavBar = document.getElementById('actionNavBar');
 const mintHeaderDiv = document.getElementById('mintHeaderDiv');
+const altBcDiv = document.getElementById('altBcDiv');
+
 
 var default_nft_text = "Create an   NFT that is really yours";
 var current_nft_text = default_nft_text;
@@ -121,6 +123,7 @@ function handleChainId(chainId) {
                 mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>FANTOM</b>"
                 metamaskMissingBanner.style.display = "none";
                 wrongBlockchainBanner.style.display = "none";
+                altBcDiv.style.display = "block";
                 is_connected = true;
                 showMint()
                 break;
@@ -133,6 +136,7 @@ function handleChainId(chainId) {
                 mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>FANTOM testnet</b>"
                 metamaskMissingBanner.style.display = "none";
                 wrongBlockchainBanner.style.display = "none";
+                altBcDiv.style.display = "block";
                 is_connected = true;
                 showMint()
                 break;
@@ -145,6 +149,7 @@ function handleChainId(chainId) {
                 mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>POLYGON</b>"
                 metamaskMissingBanner.style.display = "none";
                 wrongBlockchainBanner.style.display = "none";
+                altBcDiv.style.display = "block";
                 is_connected = true;
                 showMint()
                 break;
@@ -157,6 +162,7 @@ function handleChainId(chainId) {
                 mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>POLYGON testnet</b>"
                 metamaskMissingBanner.style.display = "none";
                 wrongBlockchainBanner.style.display = "none";
+                altBcDiv.style.display = "block";
                 is_connected = true;
                 showMint()
                 break;
@@ -169,6 +175,7 @@ function handleChainId(chainId) {
                 mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>HARMONY</b>"
                 metamaskMissingBanner.style.display = "none";
                 wrongBlockchainBanner.style.display = "none";
+                altBcDiv.style.display = "block";
                 is_connected = true;
                 showMint()
                 break;
@@ -181,6 +188,7 @@ function handleChainId(chainId) {
                 mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>HARMONY testnet</b>"
                 metamaskMissingBanner.style.display = "none";
                 wrongBlockchainBanner.style.display = "none";
+                altBcDiv.style.display = "block";
                 is_connected = true;
                 showMint()
                 break;
@@ -193,6 +201,7 @@ function handleChainId(chainId) {
                 mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>CRONOS</b>"
                 metamaskMissingBanner.style.display = "none";
                 wrongBlockchainBanner.style.display = "none";
+                altBcDiv.style.display = "block";
                 is_connected = true;
                 showMint()
                 break;
@@ -201,8 +210,9 @@ function handleChainId(chainId) {
         default:
             {
                 console.log("Unsupported blockchain connected:", chainId);
-                howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b>, <b>1 $FTM</b>, <b>1 $ONE</b> or <b>1 $CRO</b>."
-                blockchainDiv.innerHTML = "disconnected"
+                howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b>, <b>1 $FTM</b>, <b>1 $ONE</b> or <b>1 $CRO</b>.";
+                blockchainDiv.innerHTML = "disconnected";
+                altBcDiv.style.display = "none";
                 wrongBlockchainBanner.style.display = "block";
                 metamaskMissingBanner.style.display = "none";
                 break;
