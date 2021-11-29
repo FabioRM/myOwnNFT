@@ -231,12 +231,13 @@ function handleDisconnect() {
 
 function transferNft(tokenId) {
     var destAddr = document.getElementById("tokenAddr" + tokenId).value;
-    console.log("transferNft", tokenId, "to", destAddr);
+    //console.log("transferNft", tokenId, "to", destAddr);
     transfer(destAddr, tokenId);
 }
 
 function burnNft(tokenId) {
-    console.log("burnNft", tokenId);
+    //console.log("burnNft", tokenId);
+    burn(tokenId);
 }
 
 function initialize() {

@@ -227,13 +227,29 @@ async function getToken() {
 }
 
 async function transfer(address, tokenId) {
-    let test = await contract.methods.withdraw().send({
+    if (web3.utils.isAddress(address)) {
+        let test = await contract.methods.safeTransferFrom(accounts[0], address, tokenId).send({
+                from: accounts[0],
+                to: address,
+                tokenId: tokenId
+            })
+            .on('receipt', function() {
+                console.log("transfer receipt")
+            })
+    } else {
+        console.log("transfer failed cause invalid address inserted")
+    }
+}
+
+async function burn(tokenId) {
+    console.log(web3.utils.isAddress('0x0000000000000000000000000000000000000000'));
+    let test = await contract.methods.transferFrom(accounts[0], '0x0000000000000000000000000000000000000000', tokenId).send({
             from: accounts[0],
-            to: address,
+            to: '0x0000000000000000000000000000000000000000',
             tokenId: tokenId
         })
         .on('receipt', function() {
-            console.log("receipt")
+            console.log("burn receipt")
         })
 }
 
