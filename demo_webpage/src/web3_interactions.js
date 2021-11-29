@@ -237,15 +237,14 @@ async function transfer(address, tokenId) {
                 console.log("transfer receipt")
             })
     } else {
-        console.log("transfer failed cause invalid address inserted")
+        console.log("transfer failed cause invalid address inserted");
     }
 }
 
 async function burn(tokenId) {
-    console.log(web3.utils.isAddress('0x0000000000000000000000000000000000000000'));
-    let test = await contract.methods.transferFrom(accounts[0], '0x0000000000000000000000000000000000000000', tokenId).send({
+    let test = await contract.methods.transferFrom(accounts[0], '0x000000000000000000000000000000000000dEaD', tokenId).send({
             from: accounts[0],
-            to: '0x0000000000000000000000000000000000000000',
+            to: '0x000000000000000000000000000000000000dEaD',
             tokenId: tokenId
         })
         .on('receipt', function() {
