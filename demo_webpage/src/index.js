@@ -229,6 +229,15 @@ function handleDisconnect() {
     wrongBlockchainBanner.style.display = "none";
 }
 
+function transferNft(tokenId) {
+    var destAddr = document.getElementById("tokenAddr" + tokenId).value;
+    console.log("transferNft", tokenId, "to", destAddr);
+}
+
+function burnNft(tokenId) {
+    console.log("burnNft", tokenId);
+}
+
 function initialize() {
     actionButton.onclick = async() => {
         if (is_connected) {
@@ -296,7 +305,9 @@ function initialize() {
                         //console.log(jsonData)
                         var node = document.createElement("div");
                         node.className = "col-xl-3 col-lg-3 col-md-12 col-sm-12 m-3"
-                        node.innerHTML = '<div class="card full-width fancy-shadows"><img src="' + jsonData.image + '" alt="' + jsonData.name + '"><div class="card-body"><h5 class="card-title">' + jsonData.name + '</h5><p class="card-text">' + jsonData.description + '</p></div></div>'
+                            //node.innerHTML = '<div class="card full-width fancy-shadows"><img src="' + jsonData.image + '" alt="' + jsonData.name + '"><div class="card-body"><h5 class="card-title">' + jsonData.name + '</h5><p class="card-text">' + jsonData.description + '</p></div></div>'
+                        node.innerHTML = '<div class="card full-width fancy-shadows"><img src="' + jsonData.image + '" alt="' + jsonData.name + '"/><div class="card-body">' +
+                            '<div class="div" style="display:inline-block"><input class="form-control-lg text-center" type="text" placeholder = "Insert valid address" id="tokenAddr' + tokenId + '"/></div></br><div class="div" style="display:inline-block"><button class="btn btn-action btn-white btn-transfer m-3" id="transferButton' + tokenId + '" style="font-size:150%" onclick="transferNft(' + tokenId + ');">Transfer</button><button class="btn btn-action btn-white btn-burn m-3" id="burnButton' + tokenId + '" style="font-size:150%" onclick="burnNft(' + tokenId + ');">Burn</button></div>' + '</div></div>'
                         galleryRowContainer.appendChild(node)
                     }
                 });

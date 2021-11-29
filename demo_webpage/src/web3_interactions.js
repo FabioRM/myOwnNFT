@@ -226,15 +226,24 @@ async function getToken() {
     $("#result").html(JSON.stringify(data))
 }
 
+async function transfer(address, tokenId) {
+    let test = await contract.methods.withdraw().send({
+            from: accounts[0],
+            to: address,
+            tokenId: tokenId
+        })
+        .on('receipt', function() {
+            console.log("receipt")
+        })
+}
+
 async function withdraw() {
     let test = await contract.methods.withdraw().send({
             from: accounts[0]
         })
         .on('receipt', function() {
-            console.log("receipt")
+            console.log("withdraw receipt")
         })
-    var str = JSON.stringify(test, null, 2);
-    $("#result").html(str)
 }
 
 async function mintNft(paid) {
@@ -243,10 +252,8 @@ async function mintNft(paid) {
             value: (1000000000000000000) * paid
         })
         .on('receipt', function() {
-            //console.log("receipt")
+            console.log("mintNft receipt")
         });
-    //var str = JSON.stringify(test, null, 2);
-    //$("#result").html(str)
 }
 
 async function getAddrBalance(addr) {
@@ -297,13 +304,11 @@ async function getNfts() {
                 success: function(jsonData, status) {
                     //console.log(jsonData)
                     var node = document.createElement("div");
-                    node.className = "col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 mt-2 mb-2"
-                    node.innerHTML = '<div class="card" style="width: 18rem;"><img class="card-img-top" src="' + jsonData.image + '" alt="' + jsonData.name + '"><div class="card-body"><h5 class="card-title">' + jsonData.name + '</h5><p class="card-text">' + jsonData.description + '</p></div></div>'
-                    document.getElementById("cards-row").appendChild(node)
+                    node.className = "col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 mt-2 mb-2";
+                    node.innerHTML = '<div class="card" style="width: 18rem;"><img class="card-img-top" src="' + jsonData.image + '" alt="' + jsonData.name + '"><div class="card-body"><h5 class="card-title">' + jsonData.name + '</h5><p class="card-text">' + jsonData.description + '</p></div></div>';
+                    document.getElementById("cards-row").appendChild(node);
                 }
             });
         }
     }
-    //console.log(tokenIds);
-    //$("#result").html(tokenIds.toString())
 }
