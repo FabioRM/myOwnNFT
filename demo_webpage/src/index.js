@@ -232,6 +232,7 @@ function handleDisconnect() {
 function transferNft(tokenId) {
     var destAddr = document.getElementById("tokenAddr" + tokenId).value;
     console.log("transferNft", tokenId, "to", destAddr);
+    transfer(destAddr, tokenId);
 }
 
 function burnNft(tokenId) {
