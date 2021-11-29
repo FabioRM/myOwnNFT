@@ -130,7 +130,7 @@ function handleChainId(chainId) {
             {
                 blockchainDiv.innerHTML = "- FANTOM testnet"
                 howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $FTM</b>."
-                mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>FANTOM</b>"
+                mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>FANTOM testnet</b>"
                 metamaskMissingBanner.style.display = "none";
                 wrongBlockchainBanner.style.display = "none";
                 is_connected = true;
@@ -154,7 +154,7 @@ function handleChainId(chainId) {
             {
                 blockchainDiv.innerHTML = "- POLYGON testnet"
                 howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $MATIC</b>."
-                mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>POLYGON</b>"
+                mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>POLYGON testnet</b>"
                 metamaskMissingBanner.style.display = "none";
                 wrongBlockchainBanner.style.display = "none";
                 is_connected = true;
@@ -178,7 +178,7 @@ function handleChainId(chainId) {
             {
                 blockchainDiv.innerHTML = "- HARMONY testnet"
                 howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $ONE</b>."
-                mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>HARMONY</b>"
+                mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>HARMONY testnet</b>"
                 metamaskMissingBanner.style.display = "none";
                 wrongBlockchainBanner.style.display = "none";
                 is_connected = true;
