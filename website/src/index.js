@@ -19,6 +19,8 @@ const metamaskMissingBanner = document.getElementById('metamaskMissingBanner');
 const blockchainDiv = document.getElementById('blockchainDiv');
 const howMuchToPayDiv = document.getElementById('howMuchToPayDiv');
 const actionNavBar = document.getElementById('actionNavBar');
+const mintHeaderDiv = document.getElementById('mintHeaderDiv');
+const altBcDiv = document.getElementById('altBcDiv');
 
 
 var default_nft_text = "Create an   NFT that is really yours";
@@ -118,73 +120,88 @@ function handleChainId(chainId) {
             {
                 blockchainDiv.innerHTML = "- FANTOM"
                 howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $FTM</b>."
+                mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>FANTOM</b>"
                 metamaskMissingBanner.style.display = "none";
                 wrongBlockchainBanner.style.display = "none";
+                altBcDiv.style.display = "block";
                 is_connected = true;
                 showMint()
                 break;
             }
-            /*
+            /* 
                     case FANTOM_TESTNET_CHAINID:
                         {
                             blockchainDiv.innerHTML = "- FANTOM testnet"
                             howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $FTM</b>."
+                            mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>FANTOM testnet</b>"
                             metamaskMissingBanner.style.display = "none";
                             wrongBlockchainBanner.style.display = "none";
+                            altBcDiv.style.display = "block";
                             is_connected = true;
                             showMint()
                             break;
                         }
-            */
+             */
         case MATIC_CHAINID:
             {
                 blockchainDiv.innerHTML = "- POLYGON"
                 howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $MATIC</b>."
+                mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>POLYGON</b>"
                 metamaskMissingBanner.style.display = "none";
                 wrongBlockchainBanner.style.display = "none";
+                altBcDiv.style.display = "block";
                 is_connected = true;
                 showMint()
                 break;
             }
-            /*
+            /* 
                     case MATIC_TESTNET_CHAINID:
                         {
                             blockchainDiv.innerHTML = "- POLYGON testnet"
                             howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $MATIC</b>."
+                            mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>POLYGON testnet</b>"
                             metamaskMissingBanner.style.display = "none";
                             wrongBlockchainBanner.style.display = "none";
-                            is_connected = true;
-                            showMint()
-                            break;
-            */
-        case ONE_CHAINID:
-            {
-                blockchainDiv.innerHTML = "- HARMONY"
-                howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $ONE</b>."
-                metamaskMissingBanner.style.display = "none";
-                wrongBlockchainBanner.style.display = "none";
-                is_connected = true;
-                showMint()
-                break;
-            }
-            /*
-                    case ONE_TESTNET_CHAINID:
-                        {
-                            blockchainDiv.innerHTML = "- HARMONY testnet"
-                            howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $ONE</b>."
-                            metamaskMissingBanner.style.display = "none";
-                            wrongBlockchainBanner.style.display = "none";
+                            altBcDiv.style.display = "block";
                             is_connected = true;
                             showMint()
                             break;
                         }
-            */
+             */
+        case ONE_CHAINID:
+            {
+                blockchainDiv.innerHTML = "- HARMONY"
+                howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $ONE</b>."
+                mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>HARMONY</b>"
+                metamaskMissingBanner.style.display = "none";
+                wrongBlockchainBanner.style.display = "none";
+                altBcDiv.style.display = "block";
+                is_connected = true;
+                showMint()
+                break;
+            }
+            /* 
+                    case ONE_TESTNET_CHAINID:
+                        {
+                            blockchainDiv.innerHTML = "- HARMONY testnet"
+                            howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $ONE</b>."
+                            mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>HARMONY testnet</b>"
+                            metamaskMissingBanner.style.display = "none";
+                            wrongBlockchainBanner.style.display = "none";
+                            altBcDiv.style.display = "block";
+                            is_connected = true;
+                            showMint()
+                            break;
+                        }
+             */
         case CRO_CHAINID:
             {
                 blockchainDiv.innerHTML = "- CRONOS"
                 howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to spend for your NFT, from only <b>1 $CRO</b>."
+                mintHeaderDiv.innerHTML = "Mint your own <b>on-chain</b> NFT on <b>CRONOS</b>"
                 metamaskMissingBanner.style.display = "none";
                 wrongBlockchainBanner.style.display = "none";
+                altBcDiv.style.display = "block";
                 is_connected = true;
                 showMint()
                 break;
@@ -193,8 +210,9 @@ function handleChainId(chainId) {
         default:
             {
                 console.log("Unsupported blockchain connected:", chainId);
-                howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b>, <b>1 $FTM</b>, <b>1 $ONE</b> or <b>1 $CRO</b>."
-                blockchainDiv.innerHTML = "disconnected"
+                howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b>, <b>1 $FTM</b>, <b>1 $ONE</b> or <b>1 $CRO</b>.";
+                blockchainDiv.innerHTML = "disconnected";
+                altBcDiv.style.display = "none";
                 wrongBlockchainBanner.style.display = "block";
                 metamaskMissingBanner.style.display = "none";
                 break;
@@ -209,6 +227,23 @@ function handleDisconnect() {
     howMuchToPayDiv.innerHTML = "You <b>decide</b> how much to pay, starting from only <b>1 $MATIC</b>, <b>1 $FTM</b>, <b>1 $ONE</b> or <b>1 $CRO</b>."
     metamaskMissingBanner.style.display = "block";
     wrongBlockchainBanner.style.display = "none";
+}
+
+function transferNft(tokenId) {
+    var destAddr = document.getElementById("tokenAddr" + tokenId).value;
+    if (destAddr == "") {
+        alert("The recipient address cannot be empty");
+        return;
+    }
+    if (!web3.utils.isAddress(destAddr)) {
+        alert("The recipient address is incorrect");
+        return;
+    }
+    transfer(destAddr, tokenId);
+}
+
+function burnNft(tokenId) {
+    burn(tokenId);
 }
 
 function initialize() {
@@ -277,9 +312,10 @@ function initialize() {
                     success: function(jsonData, status) {
                         //console.log(jsonData)
                         var node = document.createElement("div");
-                        node.className = "col-xl-3 col-lg-3 col-md-12 col-sm-12 m-3"
-                        node.innerHTML = '<div class="card full-width fancy-shadows"><img src="' + jsonData.image + '" alt="' + jsonData.name + '"><div class="card-body"><h5 class="card-title">' + jsonData.name + '</h5><p class="card-text">' + jsonData.description + '</p></div></div>'
-                        galleryRowContainer.appendChild(node)
+                        node.className = "col-xl-3 col-lg-3 col-md-12 col-sm-12 m-3";
+                        node.innerHTML = '<div class="card full-width fancy-shadows"><img src="' + jsonData.image + '" alt="' + jsonData.name + '"/><div class="card-body">' +
+                            '<div>To transfer this NFT, fill-in the recipient address below and click on <b>Transfer</b>. To destroy this NFT <b>forever</b>, click on <b>Burn</b>.</div><br/><div class="div" style="display:inline-block"><input class="form-control-lg text-center" type="text" placeholder = "Insert a valid address" id="tokenAddr' + tokenId + '"/></div></br><div class="div" style="display:inline-block"><button class="btn btn-action btn-white btn-transfer m-3" id="transferButton' + tokenId + '" style="font-size:150%" onclick="transferNft(' + tokenId + ');">Transfer</button><button class="btn btn-action btn-white btn-burn m-3" id="burnButton' + tokenId + '" style="font-size:150%" onclick="burnNft(' + tokenId + ');">Burn</button></div>' + '</div></div>';
+                        galleryRowContainer.appendChild(node);
                     }
                 });
             }
